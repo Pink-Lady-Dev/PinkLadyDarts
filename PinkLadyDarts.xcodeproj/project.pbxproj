@@ -13,8 +13,9 @@
 		0171D14323E727C20057705D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171D14223E727C20057705D /* Assets.xcassets */; };
 		0171D14623E727C20057705D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171D14523E727C20057705D /* Preview Assets.xcassets */; };
 		0171D14923E727C20057705D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0171D14723E727C20057705D /* LaunchScreen.storyboard */; };
-		0171D15123E72C5D0057705D /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171D15023E72C5D0057705D /* CustomButton.swift */; };
 		01C63F3523EE595C00E078B8 /* icons8-goal-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C63F3423EE595C00E078B8 /* icons8-goal-64.png */; };
+		01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEC23EF3BB9007D8111 /* ButtonView.swift */; };
+		01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +27,9 @@
 		0171D14523E727C20057705D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0171D14823E727C20057705D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0171D14A23E727C20057705D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0171D15023E72C5D0057705D /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		01C63F3423EE595C00E078B8 /* icons8-goal-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-goal-64.png"; sourceTree = "<group>"; };
+		01C67BEC23EF3BB9007D8111 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +70,8 @@
 				0171D14A23E727C20057705D /* Info.plist */,
 				01C63F3423EE595C00E078B8 /* icons8-goal-64.png */,
 				0171D14423E727C20057705D /* Preview Content */,
-				0171D15023E72C5D0057705D /* CustomButton.swift */,
+				01C67BEC23EF3BB9007D8111 /* ButtonView.swift */,
+				01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */,
 			);
 			path = PinkLadyDarts;
 			sourceTree = "<group>";
@@ -157,8 +160,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0171D15123E72C5D0057705D /* CustomButton.swift in Sources */,
+				01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */,
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
+				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,
 				0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */,
 				0171D14123E727C00057705D /* ContentView.swift in Sources */,
 			);
