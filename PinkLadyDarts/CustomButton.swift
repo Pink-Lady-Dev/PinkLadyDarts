@@ -16,7 +16,7 @@ struct CustomButton: View {
     @State private var triplePointVal: Int = 0
     @State private var pointVal: Int = 0
     
-    
+    let generator = UIImpactFeedbackGenerator(style: .medium)
     
     var body: some View {
         ZStack {
@@ -24,6 +24,7 @@ struct CustomButton: View {
             Rectangle()
                 .fill(Color.red)
                 .border(Color.black, width: 1)
+            
             Text(btnText).multilineTextAlignment(.center)
             
         }
@@ -32,11 +33,10 @@ struct CustomButton: View {
                 // Regular tap:
                 //
                 // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
-                
+                self.generator.impactOccurred()
                 print(self.pointVal)
         }
         .clipped()
-            
         .contextMenu()
             {
                 
@@ -69,11 +69,7 @@ struct CustomButton: View {
         }.onAppear { self.calculatePointValues() }
     }
     
-    
-    
-    
-    
-    
+
     // Getter for btnText
     func getBtnText()->String
     {
