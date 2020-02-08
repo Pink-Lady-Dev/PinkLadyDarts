@@ -16,6 +16,8 @@
 		01C63F3523EE595C00E078B8 /* icons8-goal-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C63F3423EE595C00E078B8 /* icons8-goal-64.png */; };
 		01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEC23EF3BB9007D8111 /* ButtonView.swift */; };
 		01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */; };
+		01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */; };
+		01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BF223EF66BA007D8111 /* GameScoreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		01C63F3423EE595C00E078B8 /* icons8-goal-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-goal-64.png"; sourceTree = "<group>"; };
 		01C67BEC23EF3BB9007D8111 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
+		01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
+		01C67BF223EF66BA007D8111 /* GameScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				0171D14423E727C20057705D /* Preview Content */,
 				01C67BEC23EF3BB9007D8111 /* ButtonView.swift */,
 				01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */,
+				01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */,
+				01C67BF223EF66BA007D8111 /* GameScoreView.swift */,
 			);
 			path = PinkLadyDarts;
 			sourceTree = "<group>";
@@ -161,7 +167,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */,
+				01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */,
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
+				01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */,
 				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,
 				0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */,
 				0171D14123E727C00057705D /* ContentView.swift in Sources */,

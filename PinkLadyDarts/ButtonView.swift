@@ -32,10 +32,8 @@ struct ButtonView: View {
                 // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
                 
                 
-                self.generator.impactOccurred()
-                print("Clicked")
-                
-                
+                self.generator.impactOccurred() // make phone go bzzzzz
+
                 print(self.pointVal)
                 
                 
@@ -78,11 +76,11 @@ struct ButtonView: View {
     // converts point strings from button Text() to Integer
     func calculatePointValues()
     {
-        if (btnText == "Bull\n25")
+        if (btnText == "Bull\n(25)")
         {
             pointVal = 25
         }
-        else if (btnText == "Bull\n50")
+        else if (btnText == "Bull\n(50)")
         {
             pointVal = 50
         }

@@ -9,13 +9,15 @@
 import SwiftUI
 
 struct ButtonGrid: View {
+    
+//    var x: ButtonView = ButtonView(btnText: "Miss", hasContextMenu: false)
+    
     var body: some View {
         HStack(spacing: 0) {
-            
             VStack(spacing: 0) {
-                ButtonView(btnText: "Miss", hasContextMenu: false)
-                ButtonView(btnText: "Bull\n25", hasContextMenu: false)
-                ButtonView(btnText: "Bull\n50", hasContextMenu: false)
+                ButtonView(btnText: "Miss", hasContextMenu: false).frame(height: 80)
+                ButtonView(btnText: "Bull\n(25)", hasContextMenu: false)
+                ButtonView(btnText: "Bull\n(50)", hasContextMenu: false)
             }
             VStack(spacing: 0) {
                 ButtonView(btnText: "20")
@@ -47,11 +49,12 @@ struct ButtonGrid: View {
             }
             
         }.frame(height: 400)
+        
     }
 }
 
-struct ButtonGrid_Previews: PreviewProvider {
-    static var previews: some View {
-        ButtonGrid()
-    }
+    struct ButtonGrid_Previews: PreviewProvider {
+        static var previews: some View {
+            ButtonGrid()
+        }
 }
