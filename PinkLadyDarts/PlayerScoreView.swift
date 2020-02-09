@@ -19,24 +19,25 @@ struct PlayerScoreView: View {
     var currentRoundPoints: Int = 0
     var playerName: String
     var id: playerID
+    var turnHighlightColor: Color = Color.gray
     
     var body: some View {
         
         ZStack {
-            Rectangle().fill(Color.gray)
+            Rectangle().fill(turnHighlightColor)
             
             // layout for player 1 score view (left side of screen)
             if id == .player1 {
                 HStack {
-                    VStack{
+                    VStack(alignment: .leading){
                         HStack {
-                            Text(String(prevRoundScore))
-                            Text(String(currentRoundPoints))
+                            Text(String(prevRoundScore)).strikethrough()
+                            Text(String(currentRoundPoints)).frame(width: 50).border(Color.black, width: 1)
                         }
-                        Text(playerName)
-                    }
+                        Text(playerName).font(.title).fontWeight(.medium)
+                    }.frame(maxWidth: .infinity)
                     HStack {
-                        Text(String(pointsLeft))
+                        Text(String(pointsLeft)).font(.title).padding()
                     }
                 }
             }
@@ -44,15 +45,15 @@ struct PlayerScoreView: View {
             else {
                 HStack {
                     HStack {
-                        Text(String(pointsLeft))
+                        Text(String(pointsLeft)).font(.title).padding()
                     }
-                    VStack{
+                    VStack(alignment: .trailing){
                         HStack {
-                            Text(String(currentRoundPoints))
-                            Text(String(prevRoundScore))
+                            Text(String(currentRoundPoints)).frame(width: 50).border(Color.black, width: 1)
+                            Text(String(prevRoundScore)).strikethrough()
                         }
-                        Text(playerName)
-                    }
+                        Text(playerName).font(.title).fontWeight(.medium)
+                    }.frame(maxWidth: .infinity)
                     
                 }
             }

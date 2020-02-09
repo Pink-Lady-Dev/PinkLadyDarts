@@ -18,6 +18,9 @@
 		01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */; };
 		01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */; };
 		01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BF223EF66BA007D8111 /* GameScoreView.swift */; };
+		01D007FB23EF7B0F000B6F4D /* GeneralButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */; };
+		01D007FF23EF8191000B6F4D /* GameSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D007FE23EF8191000B6F4D /* GameSelectionView.swift */; };
+		01D0080123EF87B8000B6F4D /* X01GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0080023EF87B8000B6F4D /* X01GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
 		01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		01C67BF223EF66BA007D8111 /* GameScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreView.swift; sourceTree = "<group>"; };
+		01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralButtonView.swift; sourceTree = "<group>"; };
+		01D007FE23EF8191000B6F4D /* GameSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectionView.swift; sourceTree = "<group>"; };
+		01D0080023EF87B8000B6F4D /* X01GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X01GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,9 @@
 				01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */,
 				01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */,
 				01C67BF223EF66BA007D8111 /* GameScoreView.swift */,
+				01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */,
+				01D007FE23EF8191000B6F4D /* GameSelectionView.swift */,
+				01D0080023EF87B8000B6F4D /* X01GameView.swift */,
 			);
 			path = PinkLadyDarts;
 			sourceTree = "<group>";
@@ -166,13 +175,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01D0080123EF87B8000B6F4D /* X01GameView.swift in Sources */,
 				01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */,
 				01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */,
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
+				01D007FF23EF8191000B6F4D /* GameSelectionView.swift in Sources */,
 				01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */,
 				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,
 				0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */,
 				0171D14123E727C00057705D /* ContentView.swift in Sources */,
+				01D007FB23EF7B0F000B6F4D /* GeneralButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

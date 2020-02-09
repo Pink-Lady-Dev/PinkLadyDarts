@@ -16,7 +16,7 @@ struct GameScoreView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            PlayerScoreView(pointsLeft: 301, playerName: player1Name, id: .player1)
+            PlayerScoreView(pointsLeft: 301, playerName: player1Name, id: .player1, turnHighlightColor: Color.red)
             PlayerScoreView(pointsLeft: 301, playerName: player2Name, id: .player2)
         }.frame(height: 120)
     }
