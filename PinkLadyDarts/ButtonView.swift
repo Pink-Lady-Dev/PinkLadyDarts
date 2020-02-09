@@ -8,11 +8,40 @@
 
 import SwiftUI
 
+
+class ButtonViewModel: ObservableObject {
+    
+    @Published var pointVal: Int?
+    @Published var doublePointVal: Int?
+    @Published var triplePointVal: Int?
+    
+    func setPointVals(val: Int) {
+        self.pointVal = val
+        self.doublePointVal = val * 2
+        self.triplePointVal = val * 3
+    }
+    
+    func getSingle() -> Int {
+        return self.pointVal!
+    }
+    
+    func getDouble() -> Int {
+        return self.doublePointVal!
+    }
+    
+    func getTriple() -> Int {
+        return self.triplePointVal!
+    }
+    
+}
+
 struct ButtonView: View {
     
     @State private var doublePointVal: Int = 0
     @State private var triplePointVal: Int = 0
     @State private var pointVal: Int = 0
+    
+    @ObservedObject var buttonVM = ButtonViewModel()
     
     var btnText: String // text displayed in button
     var hasContextMenu: Bool = true // true for buttons that have multipliers
@@ -20,23 +49,26 @@ struct ButtonView: View {
     
     var body: some View {
         
+        
         ZStack {
-            Rectangle().fill(Color.gray) // button background color
+            Rectangle().fill(Color(.darkGray)) // button background color
             Text(btnText).multilineTextAlignment(.center) // text written to button
         }
-        .onAppear { self.calculatePointValues() }
-        .onTapGesture()
-            {
-                // Regular tap:
-                //
-                // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
-                
-                
-                self.generator.impactOccurred() // make phone go bzzzzz
-
-                print(self.pointVal)
-                
-                
+        .onAppear {
+            self.calculatePointValues()
+            self.buttonVM.setPointVals(val: self.pointVal) }
+            .onTapGesture()
+                {
+                    // Regular tap:
+                    //
+                    // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
+                    
+                    
+                    self.generator.impactOccurred() // make phone go bzzzzz
+                    
+                    print(self.buttonVM.getSingle())
+                    
+                    
         }
             .border(Color.black, width: 1) // border color
             .foregroundColor(.black) // text color
@@ -48,8 +80,8 @@ struct ButtonView: View {
                             // Long Press tap -> Double
                             //
                             // TODO:This is where the logic for what to do after the double points option is selected
-                            print(self.doublePointVal)
                             
+                            print(self.buttonVM.getDouble())
                             
                     }
                         )
@@ -62,8 +94,8 @@ struct ButtonView: View {
                             // Long Press tap -> Triple
                             //
                             // TODO:This is where the logic for what to do after the triple points option is selected
-                            print(self.triplePointVal)
-
+                            
+                            print(self.buttonVM.getTriple())
                     }
                         )
                     {
@@ -73,7 +105,18 @@ struct ButtonView: View {
         
     }
     
-    // converts point strings from button Text() to Integer
+    func getDoublePoints()
+    {
+        doublePointVal = pointVal * 2
+    }
+    
+    func getTriplePoints()
+    {
+        triplePointVal = pointVal * 3
+    }
+    
+    
+    
     func calculatePointValues()
     {
         if (btnText == "Bull\n(25)")
@@ -90,20 +133,14 @@ struct ButtonView: View {
             getDoublePoints()
             getTriplePoints()
         }
+        
+        
     }
     
-    func getDoublePoints()
-    {
-        doublePointVal = pointVal * 2
-    }
     
-    func getTriplePoints()
-    {
-        triplePointVal = pointVal * 3
-    }
+    
     
 }
-
 
 
 struct ButtonView_Previews: PreviewProvider {

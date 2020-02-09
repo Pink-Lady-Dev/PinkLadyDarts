@@ -14,14 +14,21 @@ struct X01GameView: View {
     var X01Game: Int = 301
     
     var body: some View {
-        VStack(spacing: 0) {
-            GameScoreView(player1Name: self.player1Name, player2Name: self.player2Name, gamePoints: self.X01Game)
-            ButtonGrid()
-            HStack(spacing: 0) {
-                GeneralButtonView(btnText: "<--")
-                GeneralButtonView(btnText: "Next Player")
-            }.frame(height: 120)
+        
+        ZStack {
+            
+            Color(.systemPink).edgesIgnoringSafeArea(.all)
+            
+            VStack(spacing: 0) {
+                GameScoreView(player1Name: self.player1Name, player2Name: self.player2Name, gamePoints: self.X01Game)
+                ButtonGrid()
+                HStack(spacing: 0) {
+                    GeneralButtonView(btnText: "<--")
+                    GeneralButtonView(btnText: "Next Player")
+                }.frame(height: 120)
+            }
         }
+        
     }
 }
 

@@ -15,7 +15,7 @@ struct GeneralButtonView: View {
     var body: some View {
         
         ZStack {
-            Rectangle().fill(Color.gray) // button background color
+            Rectangle().fill(Color(.darkGray)) // button background color
             Text(btnText).multilineTextAlignment(.center) // text written to button
         }
         .onTapGesture()

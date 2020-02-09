@@ -20,7 +20,7 @@ struct GameSelectionView: View {
         VStack {
             NavigationView {
                 VStack {
-                    NavigationLink(destination: inGameXO1View()) {
+                    NavigationLink(destination: X01GameView()) {
                         Text("X01")
                     }
                 }
