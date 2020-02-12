@@ -26,8 +26,8 @@ struct X01GameView: View {
                 ButtonGrid(myGame: self.myGame)
                 
                 HStack(spacing: 0) {
-                    GeneralButtonView(btnText: "<--", myGame: self.myGame)
-                    GeneralButtonView(btnText: "Next Player", myGame: self.myGame)
+                    BackButtonView(btnText: "<--", myGame: self.myGame)
+                    NextPlayerButtonView(btnText: "Next Player", myGame: self.myGame)
                 }.frame(height: 120)
             }
         }

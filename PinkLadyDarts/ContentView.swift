@@ -9,14 +9,16 @@
 import SwiftUI
 
 struct ContentView : View {
+    @ObservedObject var myGame = X01Game(targetPoints: 301)
+    
     var body: some View {
-        X01GameView(player1Name: "Nick", player2Name: "Jake")
-//        GameSelectionView()
+        //X01GameView(player1Name: "Nick", player2Name: "Jake")
+        GameSelectionView(myGame: self.myGame)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

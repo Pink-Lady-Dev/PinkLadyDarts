@@ -31,9 +31,9 @@ struct PlayerScoreView: View {
             {
                 Rectangle().fill(turnHighlightColor)
             }
-            else{
-                
-            }
+//            else{
+//
+//            }
             // layout for player 1 score view (left side of screen)
             if id == .player1 {
                 if (self.myGame.getIsP1Turn())
@@ -53,7 +53,10 @@ struct PlayerScoreView: View {
                         Text(self.myGame.getPlayer1Name()).font(.title).fontWeight(.medium)
                     }.frame(maxWidth: .infinity)
                     HStack {
-                        Text(String(self.myGame.getP1PointsLeft())).font(.title).padding()
+                        VStack {
+                            Text(String(self.myGame.getP1PointsLeft())).font(.title).padding()
+                            Text(String(self.myGame.getP1DartsLeft()))
+                        }
                     }
                 }
             }
@@ -71,7 +74,10 @@ struct PlayerScoreView: View {
                 
                 HStack {
                     HStack {
-                        Text(String(self.myGame.getP2PointsLeft())).font(.title).padding()
+                        VStack{
+                            Text(String(self.myGame.getP2PointsLeft())).font(.title).padding()
+                            Text(String(self.myGame.getP2DartsLeft()))
+                        }
                     }
                     VStack(alignment: .trailing){
                         HStack {

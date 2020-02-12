@@ -1,15 +1,14 @@
 //
-//  GeneralButtonView.swift
+//  BackButtonView.swift
 //  PinkLadyDarts
 //
-//  Created by Nick Clason on 2/8/20.
+//  Created by Nick Clason on 2/12/20.
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
 
 import SwiftUI
 
-struct GeneralButtonView: View {
-   
+struct BackButtonView: View {
     var btnText: String // text displayed in button
     let generator = UIImpactFeedbackGenerator(style: .medium) // haptic feedback on regular tap
 
@@ -39,5 +38,11 @@ struct GeneralButtonView: View {
             .foregroundColor(.black) // text color
             .clipped()
 
+    }
+}
+
+struct BackButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        BackButtonView(btnText: "<--", myGame: X01Game(targetPoints: 301))
     }
 }

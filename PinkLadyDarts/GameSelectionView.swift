@@ -10,24 +10,23 @@ import SwiftUI
 
 struct GameSelectionView: View {
     
-
+    @ObservedObject var myGame: X01Game
     
     var body: some View {
-        VStack {
-            NavigationView {
-                VStack {
-                    NavigationLink(destination: X01GameView()) {
-                        Text("X01")
-                    }
-                }
+        NavigationView {
+            
+            NavigationLink(destination: X01GameView(player1Name: "Nick", player2Name: "Jake", myGame:self.myGame)) {
+                Text("X01").fontWeight(.heavy)
+                
             }
+            
             
         }
     }
 }
 
-struct GameSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        GameSelectionView()
-    }
-}
+//struct GameSelectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GameSelectionView()
+//    }
+//}

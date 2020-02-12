@@ -1,15 +1,14 @@
 //
-//  GeneralButtonView.swift
+//  NextPlayerButtonView.swift
 //  PinkLadyDarts
 //
-//  Created by Nick Clason on 2/8/20.
+//  Created by Nick Clason on 2/12/20.
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
 
 import SwiftUI
 
-struct GeneralButtonView: View {
-   
+struct NextPlayerButtonView: View {
     var btnText: String // text displayed in button
     let generator = UIImpactFeedbackGenerator(style: .medium) // haptic feedback on regular tap
 
@@ -31,7 +30,7 @@ struct GeneralButtonView: View {
                 
                 
                 self.generator.impactOccurred() // make phone go bzzzzz
-                
+                self.myGame.nextTurn()
                 
                 
         }
@@ -39,5 +38,11 @@ struct GeneralButtonView: View {
             .foregroundColor(.black) // text color
             .clipped()
 
+    }
+}
+
+struct NextPlayerButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        NextPlayerButtonView(btnText: "Next Player", myGame: X01Game(targetPoints: 301))
     }
 }

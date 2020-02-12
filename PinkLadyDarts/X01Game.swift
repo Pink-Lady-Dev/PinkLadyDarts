@@ -13,7 +13,7 @@ import Foundation
 // 2. Use a stack or queue for the back button, store last 3 throws so you can always undo the entire turn
 
 
-class X01Game: ObservableObject
+class X01Game: Game
 {
     // This is the target score (e.g. 301, 501, etc.)
     private var X01Mode: Int
@@ -29,6 +29,7 @@ class X01Game: ObservableObject
     // Initializer, set all points to starting values
     init(targetPoints: Int)
     {
+        
         X01Mode = targetPoints
         
         p1PointsLeft = X01Mode
@@ -38,27 +39,28 @@ class X01Game: ObservableObject
         p2prevRoundScore = X01Mode
     }
     
-    
-    
-    @Published private var player1Name: String = "Player 1"
     @Published private var p1CurrentRoundScore: Int = 0
-    
-    @Published private var player2Name: String = "Player 2"
     @Published private var p2CurrentRoundScore: Int = 0
     
-    // boolean for tracking which players turn it is
-    @Published private var isP1Turn: Bool = true
+//    @Published private var player1Name: String = "Player 1"
+//    @Published private var p1CurrentRoundScore: Int = 0
+//
+//    @Published private var player2Name: String = "Player 2"
+//    @Published private var p2CurrentRoundScore: Int = 0
+//
+//    // boolean for tracking which players turn it is
+//    @Published private var isP1Turn: Bool = true
+//
+//    @Published private var dartsLeft: Int = 3
     
-    
-    @Published private var dartsLeft: Int = 3
     
     // little bit of logic for ya
     func dartThrow(val: Int)
     {
-        if (isP1Turn)
+        if (getIsP1Turn())
         {
             
-            if (dartsLeft > 0)
+            if (getP1DartsLeft() > 0)
             {
                 if ((getP1PointsLeft() - val) < 0)
                 {
@@ -68,14 +70,14 @@ class X01Game: ObservableObject
                 {
                     setP1CurrentRoundScore(points: val)
                     setP1PointsLeft(points: val)
-                    decreaseDartsLeft()
+                    decreaseP1DartsLeft()
                 }
             }
             
         }
         else
         {
-            if (dartsLeft > 0)
+            if (getP2DartsLeft() > 0)
             {
                 if ((getP2PointsLeft() - val) < 0)
                 {
@@ -85,7 +87,7 @@ class X01Game: ObservableObject
                 {
                     setP2CurrentRoundScore(points: val)
                     setP2PointsLeft(points: val)
-                    decreaseDartsLeft()
+                    decreaseP2DartsLeft()
                 }
 
             }
@@ -93,7 +95,7 @@ class X01Game: ObservableObject
     }
     
     // updates things on switching BACK to player
-    func switchPlayers()
+    func nextTurn()
     {
         if (getIsP1Turn())
         {
@@ -107,15 +109,26 @@ class X01Game: ObservableObject
             setP1prevRoundScore(points: getP1PointsLeft())
         }
         
+        
+        if (getIsP1Turn())
+        {
+            resetP1DartsLeft()
+        }
+        else
+        {
+            resetP2DartsLeft()
+        }
         toggleIsP1Turn()
-        resetDartsLeft()
+        
+        
     }
     
-    func resetDartsLeft()
+    func backButtonClick()
     {
-        dartsLeft = 3
+        
     }
     
+
     func resetP1CurrentRoundScore()
     {
         p1CurrentRoundScore = 0
@@ -126,30 +139,9 @@ class X01Game: ObservableObject
         p2CurrentRoundScore = 0
     }
     
-    
     func getX01_mode() -> Int
     {
         return X01Mode
-    }
-    
-    func getPlayer1Name() -> String
-    {
-        return player1Name
-    }
-    
-    func getPlayer2Name() -> String
-    {
-        return player2Name
-    }
-    
-    func setPlayer1Name(name: String)
-    {
-        player1Name = name
-    }
-    
-    func setPlayer2Name(name: String)
-    {
-        player2Name = name
     }
     
     func getP1PointsLeft() -> Int
@@ -211,27 +203,6 @@ class X01Game: ObservableObject
     {
         p2prevRoundScore = points
     }
-    
-    func getIsP1Turn() -> Bool
-    {
-        return isP1Turn
-    }
-    
-    func toggleIsP1Turn()
-    {
-        isP1Turn.toggle()
-    }
-    
-    func getDartsLeft() -> Int
-    {
-        return dartsLeft
-    }
-    
-    func decreaseDartsLeft()
-    {
-        dartsLeft -= 1
-    }
-    
     
 }
 
