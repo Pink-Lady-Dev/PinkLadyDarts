@@ -19,7 +19,7 @@ struct PlayerScoreView: View {
     //var currentRoundPoints: Int = 0
     //var playerName: String
     var id: playerID
-    var turnHighlightColor: Color = Color.red
+    var turnHighlightColor: Color = (Color.red)
     
     @ObservedObject var myGame: X01Game
     

@@ -60,9 +60,16 @@ class X01Game: ObservableObject
             
             if (dartsLeft > 0)
             {
-                setP1CurrentRoundScore(points: val)
-                setP1PointsLeft(points: val)
-                decreaseDartsLeft()
+                if ((getP1PointsLeft() - val) < 0)
+                {
+                    toggleIsP1Turn()
+                }
+                else
+                {
+                    setP1CurrentRoundScore(points: val)
+                    setP1PointsLeft(points: val)
+                    decreaseDartsLeft()
+                }
             }
             
         }
@@ -70,9 +77,17 @@ class X01Game: ObservableObject
         {
             if (dartsLeft > 0)
             {
-                setP2CurrentRoundScore(points: val)
-                setP2PointsLeft(points: val)
-                decreaseDartsLeft()
+                if ((getP2PointsLeft() - val) < 0)
+                {
+                    toggleIsP1Turn()
+                }
+                else
+                {
+                    setP2CurrentRoundScore(points: val)
+                    setP2PointsLeft(points: val)
+                    decreaseDartsLeft()
+                }
+
             }
         }
     }
