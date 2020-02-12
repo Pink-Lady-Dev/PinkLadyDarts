@@ -10,11 +10,7 @@ import SwiftUI
 
 struct GameSelectionView: View {
     
-    //    enum menuItems {
-    //        case X01, Settings
-    //    }
-    //
-    //    var item: menuItems
+
     
     var body: some View {
         VStack {

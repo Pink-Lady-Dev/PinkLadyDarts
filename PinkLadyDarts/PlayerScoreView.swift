@@ -14,12 +14,15 @@ struct PlayerScoreView: View {
         case player1, player2
     }
     
-    var pointsLeft: Int
-    var prevRoundScore: Int = 301
-    var currentRoundPoints: Int = 0
-    var playerName: String
+    //var pointsLeft: Int
+    //var prevRoundScore: Int = 301
+    //var currentRoundPoints: Int = 0
+    //var playerName: String
     var id: playerID
     var turnHighlightColor: Color = Color.gray
+    
+    @ObservedObject var myGame: X01Game
+    
     
     var body: some View {
         
@@ -31,13 +34,13 @@ struct PlayerScoreView: View {
                 HStack {
                     VStack(alignment: .leading){
                         HStack {
-                            Text(String(prevRoundScore)).strikethrough()
-                            Text(String(currentRoundPoints)).frame(width: 50).border(Color.black, width: 1)
+                            Text(String(self.myGame.getP1prevRoundScore())).strikethrough()
+                            Text(String(self.myGame.getP1CurrentRoundScore())).frame(width: 50).border(Color.black, width: 1) // box = points score that round
                         }
-                        Text(playerName).font(.title).fontWeight(.medium)
+                        Text(self.myGame.getPlayer1Name()).font(.title).fontWeight(.medium)
                     }.frame(maxWidth: .infinity)
                     HStack {
-                        Text(String(pointsLeft)).font(.title).padding()
+                        Text(String(self.myGame.getP1PointsLeft())).font(.title).padding()
                     }
                 }
             }
@@ -45,14 +48,14 @@ struct PlayerScoreView: View {
             else {
                 HStack {
                     HStack {
-                        Text(String(pointsLeft)).font(.title).padding()
+                        Text(String(self.myGame.getP2PointsLeft())).font(.title).padding()
                     }
                     VStack(alignment: .trailing){
                         HStack {
-                            Text(String(currentRoundPoints)).frame(width: 50).border(Color.black, width: 1)
-                            Text(String(prevRoundScore)).strikethrough()
+                            Text(String(self.myGame.getP2CurrentRoundScore())).frame(width: 50).border(Color.black, width: 1)
+                            Text(String(self.myGame.getP2prevRoundScore())).strikethrough()
                         }
-                        Text(playerName).font(.title).fontWeight(.medium)
+                        Text(self.myGame.getPlayer2Name()).font(.title).fontWeight(.medium)
                     }.frame(maxWidth: .infinity)
                     
                 }
@@ -66,6 +69,6 @@ struct PlayerScoreView: View {
 
 struct PlayerScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerScoreView(pointsLeft: 301, playerName: "Nick", id: .player1)
+        PlayerScoreView(id: .player1, myGame: X01Game(targetPoints: 301))
     }
 }

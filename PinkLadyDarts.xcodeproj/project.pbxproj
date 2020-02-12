@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0151298423F3678C0094CFCE /* X01Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0151298323F3678C0094CFCE /* X01Game.swift */; };
 		0171D13D23E727C00057705D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171D13C23E727C00057705D /* AppDelegate.swift */; };
 		0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171D13E23E727C00057705D /* SceneDelegate.swift */; };
 		0171D14123E727C00057705D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171D14023E727C00057705D /* ContentView.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0151298323F3678C0094CFCE /* X01Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X01Game.swift; sourceTree = "<group>"; };
 		0171D13923E727C00057705D /* PinkLadyDarts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinkLadyDarts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0171D13C23E727C00057705D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0171D13E23E727C00057705D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */,
 				01D007FE23EF8191000B6F4D /* GameSelectionView.swift */,
 				01D0080023EF87B8000B6F4D /* X01GameView.swift */,
+				0151298323F3678C0094CFCE /* X01Game.swift */,
 			);
 			path = PinkLadyDarts;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			files = (
 				01D0080123EF87B8000B6F4D /* X01GameView.swift in Sources */,
 				01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */,
+				0151298423F3678C0094CFCE /* X01Game.swift in Sources */,
 				01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */,
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
 				01D007FF23EF8191000B6F4D /* GameSelectionView.swift in Sources */,

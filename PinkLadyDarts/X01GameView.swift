@@ -11,7 +11,8 @@ import SwiftUI
 struct X01GameView: View {
     var player1Name: String = "Player 1"
     var player2Name: String = "Player 2"
-    var X01Game: Int = 301
+    
+    @ObservedObject var myGame = X01Game(targetPoints: 301)
     
     var body: some View {
         
@@ -20,8 +21,10 @@ struct X01GameView: View {
             Color(.systemPink).edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
-                GameScoreView(player1Name: self.player1Name, player2Name: self.player2Name, gamePoints: self.X01Game)
-                ButtonGrid()
+                
+                GameScoreView(myGame: self.myGame)
+                ButtonGrid(myGame: self.myGame)
+                
                 HStack(spacing: 0) {
                     GeneralButtonView(btnText: "<--")
                     GeneralButtonView(btnText: "Next Player")
