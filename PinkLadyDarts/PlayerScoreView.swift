@@ -19,7 +19,7 @@ struct PlayerScoreView: View {
     //var currentRoundPoints: Int = 0
     //var playerName: String
     var id: playerID
-    var turnHighlightColor: Color = Color.gray
+    var turnHighlightColor: Color = Color.red
     
     @ObservedObject var myGame: X01Game
     
@@ -27,10 +27,23 @@ struct PlayerScoreView: View {
     var body: some View {
         
         ZStack {
-            Rectangle().fill(turnHighlightColor)
-            
+            if (self.myGame.getIsP1Turn())
+            {
+                Rectangle().fill(turnHighlightColor)
+            }
+            else{
+                
+            }
             // layout for player 1 score view (left side of screen)
             if id == .player1 {
+                if (self.myGame.getIsP1Turn())
+                {
+                    Rectangle().fill(turnHighlightColor)
+                }
+                else{
+                    Rectangle().fill(Color.gray)
+                }
+
                 HStack {
                     VStack(alignment: .leading){
                         HStack {
@@ -46,6 +59,16 @@ struct PlayerScoreView: View {
             }
             // layout for player 1 score view (left side of screen)
             else {
+                
+                if (!self.myGame.getIsP1Turn())
+                {
+                    Rectangle().fill(turnHighlightColor)
+                }
+                else{
+                    Rectangle().fill(Color.gray)
+                }
+                
+                
                 HStack {
                     HStack {
                         Text(String(self.myGame.getP2PointsLeft())).font(.title).padding()

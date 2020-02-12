@@ -49,8 +49,8 @@ class X01Game: ObservableObject
     // boolean for tracking which players turn it is
     @Published private var isP1Turn: Bool = true
     
-    @Published private var dartsLeft: Int = 3
     
+    @Published private var dartsLeft: Int = 3
     
     // little bit of logic for ya
     func dartThrow(val: Int)
@@ -77,15 +77,19 @@ class X01Game: ObservableObject
         }
     }
     
+    // updates things on switching BACK to player
     func switchPlayers()
     {
         if (getIsP1Turn())
         {
+            
             resetP2CurrentRoundScore()
+            setP2prevRoundScore(points: getP2PointsLeft())
         }
         else
         {
             resetP1CurrentRoundScore()
+            setP1prevRoundScore(points: getP1PointsLeft())
         }
         
         toggleIsP1Turn()
@@ -185,12 +189,12 @@ class X01Game: ObservableObject
     
     func setP1prevRoundScore(points: Int)
     {
-        p1prevRoundScore -= points
+        p1prevRoundScore = points
     }
     
     func setP2prevRoundScore(points: Int)
     {
-        p2prevRoundScore -= points
+        p2prevRoundScore = points
     }
     
     func getIsP1Turn() -> Bool

@@ -80,6 +80,19 @@ struct ButtonView: View {
                 ContextMenu {
                     Button(action:
                         {
+                            // Long Press tap -> Single
+                            //
+                            // TODO:This is where the logic for what to do after the singe points option is selected
+                            
+                            self.myGame.dartThrow(val: self.pointVal)
+                    }
+                        )
+                    {
+                        Text("Single")
+                    }
+                    
+                    Button(action:
+                        {
                             // Long Press tap -> Double
                             //
                             // TODO:This is where the logic for what to do after the double points option is selected
