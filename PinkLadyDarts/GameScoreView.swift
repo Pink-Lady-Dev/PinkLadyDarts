@@ -10,20 +10,18 @@ import SwiftUI
 
 struct GameScoreView: View {
     
-    var player1Name: String
-    var player2Name: String
-    var gamePoints: Int
+    @ObservedObject var myGame: X01Game
     
     var body: some View {
         HStack(spacing: 0) {
-            PlayerScoreView(pointsLeft: 301, playerName: player1Name, id: .player1, turnHighlightColor: Color.red)
-            PlayerScoreView(pointsLeft: 301, playerName: player2Name, id: .player2)
+            PlayerScoreView(id: .player1, myGame: self.myGame)
+            PlayerScoreView(id: .player2, myGame: self.myGame)
         }.frame(height: 120)
     }
 }
 
 struct GameScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        GameScoreView(player1Name: "Nick", player2Name: "Jake", gamePoints: 301)
+        GameScoreView(myGame: X01Game(targetPoints: 301))
     }
 }

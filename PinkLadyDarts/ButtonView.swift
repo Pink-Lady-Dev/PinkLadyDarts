@@ -43,7 +43,11 @@ struct ButtonView: View {
     
     @ObservedObject var buttonVM = ButtonViewModel()
     
+    
     var btnText: String // text displayed in button
+    
+    @ObservedObject var myGame: X01Game
+    
     var hasContextMenu: Bool = true // true for buttons that have multipliers
     let generator = UIImpactFeedbackGenerator(style: .medium) // haptic feedback on regular tap
     
@@ -63,10 +67,12 @@ struct ButtonView: View {
                     //
                     // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
                     
-                    
                     self.generator.impactOccurred() // make phone go bzzzzz
                     
-                    print(self.buttonVM.getSingle())
+                    // some basic logic shit (not even)
+                    // gonna need to make this situational (i.e. which players turn it is)
+                    self.myGame.setP1CurrentRoundScore(points: self.pointVal)
+                    self.myGame.setP1PointsLeft(points: self.pointVal)
                     
                     
         }
@@ -81,8 +87,8 @@ struct ButtonView: View {
                             //
                             // TODO:This is where the logic for what to do after the double points option is selected
                             
-                            print(self.buttonVM.getDouble())
-                            
+                            self.myGame.setP1CurrentRoundScore(points: self.doublePointVal)
+                            self.myGame.setP1PointsLeft(points: self.doublePointVal)
                     }
                         )
                     {
@@ -95,7 +101,8 @@ struct ButtonView: View {
                             //
                             // TODO:This is where the logic for what to do after the triple points option is selected
                             
-                            print(self.buttonVM.getTriple())
+                            self.myGame.setP1CurrentRoundScore(points: self.triplePointVal)
+                            self.myGame.setP1PointsLeft(points: self.triplePointVal)
                     }
                         )
                     {
@@ -137,14 +144,13 @@ struct ButtonView: View {
         
     }
     
-    
-    
+
     
 }
 
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(btnText: "Click Me")
+        ButtonView(btnText: "Click Me", myGame: X01Game(targetPoints: 301))
     }
 }
