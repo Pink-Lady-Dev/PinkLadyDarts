@@ -42,17 +42,15 @@ struct ButtonView: View {
     @State private var pointVal: Int = 0
     
     @ObservedObject var buttonVM = ButtonViewModel()
-    
-    
+
     var btnText: String // text displayed in button
     
-    @ObservedObject var myGame: X01Game
+    @ObservedObject var myGame: X01Game // Game Object
     
     var hasContextMenu: Bool = true // true for buttons that have multipliers
     let generator = UIImpactFeedbackGenerator(style: .medium) // haptic feedback on regular tap
     
     var body: some View {
-        
         
         ZStack {
             Rectangle().fill(Color(.darkGray)) // button background color
@@ -71,8 +69,7 @@ struct ButtonView: View {
                     
                     // some basic logic shit (not even)
                     // gonna need to make this situational (i.e. which players turn it is)
-                    self.myGame.setP1CurrentRoundScore(points: self.pointVal)
-                    self.myGame.setP1PointsLeft(points: self.pointVal)
+                    self.myGame.dartThrow(val: self.pointVal)
                     
                     
         }
@@ -87,8 +84,7 @@ struct ButtonView: View {
                             //
                             // TODO:This is where the logic for what to do after the double points option is selected
                             
-                            self.myGame.setP1CurrentRoundScore(points: self.doublePointVal)
-                            self.myGame.setP1PointsLeft(points: self.doublePointVal)
+                            self.myGame.dartThrow(val: self.doublePointVal)
                     }
                         )
                     {
@@ -101,8 +97,7 @@ struct ButtonView: View {
                             //
                             // TODO:This is where the logic for what to do after the triple points option is selected
                             
-                            self.myGame.setP1CurrentRoundScore(points: self.triplePointVal)
-                            self.myGame.setP1PointsLeft(points: self.triplePointVal)
+                            self.myGame.dartThrow(val: self.triplePointVal)
                     }
                         )
                     {

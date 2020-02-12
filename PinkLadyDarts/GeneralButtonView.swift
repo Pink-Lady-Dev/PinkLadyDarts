@@ -9,8 +9,12 @@
 import SwiftUI
 
 struct GeneralButtonView: View {
+   
     var btnText: String // text displayed in button
     let generator = UIImpactFeedbackGenerator(style: .medium) // haptic feedback on regular tap
+
+    @ObservedObject var myGame: X01Game
+    
     
     var body: some View {
         
@@ -22,11 +26,12 @@ struct GeneralButtonView: View {
             {
                 // Regular tap:
                 //
-                // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
+                // TODO: This is where the logic for what to do after a button is pressed normally (back/next player mostly???)
+                // i should really make this button take a closure? or something as an input
                 
                 
                 self.generator.impactOccurred() // make phone go bzzzzz
-
+                self.myGame.switchPlayers()
                 
                 
         }
@@ -34,11 +39,5 @@ struct GeneralButtonView: View {
             .foregroundColor(.black) // text color
             .clipped()
 
-    }
-}
-
-struct GeneralButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        GeneralButtonView(btnText: "Click Me")
     }
 }
