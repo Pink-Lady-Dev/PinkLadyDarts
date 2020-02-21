@@ -61,6 +61,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		013CA0A923FF61A5007B3F6F /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				01C67BEC23EF3BB9007D8111 /* ButtonView.swift */,
+				01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */,
+				01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */,
+				01FA967D23F4B317008533E3 /* BackButtonView.swift */,
+				01FA967F23F4B439008533E3 /* NextPlayerButtonView.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		0171D13023E727C00057705D = {
 			isa = PBXGroup;
 			children = (
@@ -88,17 +100,13 @@
 				0171D14A23E727C20057705D /* Info.plist */,
 				01C63F3423EE595C00E078B8 /* icons8-goal-64.png */,
 				0171D14423E727C20057705D /* Preview Content */,
-				01C67BEC23EF3BB9007D8111 /* ButtonView.swift */,
-				01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */,
+				013CA0A923FF61A5007B3F6F /* Buttons */,
 				01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */,
 				01C67BF223EF66BA007D8111 /* GameScoreView.swift */,
-				01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */,
 				01D007FE23EF8191000B6F4D /* GameSelectionView.swift */,
 				01D0080023EF87B8000B6F4D /* X01GameView.swift */,
 				01FA968123F4B6A8008533E3 /* Game.swift */,
 				0151298323F3678C0094CFCE /* X01Game.swift */,
-				01FA967D23F4B317008533E3 /* BackButtonView.swift */,
-				01FA967F23F4B439008533E3 /* NextPlayerButtonView.swift */,
 			);
 			path = PinkLadyDarts;
 			sourceTree = "<group>";

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // Things to do: not needed but good to have
 // 1. Randomize p1/p2 order at start of game
@@ -26,10 +27,12 @@ class X01Game: Game
     @Published private var p1prevRoundScore: Int
     @Published private var p2prevRoundScore: Int
     
+    @Published private var p1Won: Bool
+    @Published private var p2Won: Bool
+    
     // Initializer, set all points to starting values
     init(targetPoints: Int)
     {
-        
         X01Mode = targetPoints
         
         p1PointsLeft = X01Mode
@@ -37,22 +40,16 @@ class X01Game: Game
         
         p1prevRoundScore = X01Mode
         p2prevRoundScore = X01Mode
+        
+        p1Won = false
+        p2Won = false
+        
     }
     
     @Published private var p1CurrentRoundScore: Int = 0
     @Published private var p2CurrentRoundScore: Int = 0
     
-//    @Published private var player1Name: String = "Player 1"
-//    @Published private var p1CurrentRoundScore: Int = 0
-//
-//    @Published private var player2Name: String = "Player 2"
-//    @Published private var p2CurrentRoundScore: Int = 0
-//
-//    // boolean for tracking which players turn it is
-//    @Published private var isP1Turn: Bool = true
-//
-//    @Published private var dartsLeft: Int = 3
-    
+    @Published var showingAlert = false
     
     // little bit of logic for ya
     func dartThrow(val: Int)
@@ -65,6 +62,15 @@ class X01Game: Game
                 if ((getP1PointsLeft() - val) < 0)
                 {
                     toggleIsP1Turn()
+                }
+                else if ((getP1PointsLeft() - val) == 0)
+                {
+                    setP1CurrentRoundScore(points: val)
+                    setP1PointsLeft(points: val)
+                    decreaseP1DartsLeft()
+                    
+                    showingAlert = true
+                    setP1Won()
                 }
                 else
                 {
@@ -83,16 +89,49 @@ class X01Game: Game
                 {
                     toggleIsP1Turn()
                 }
+                else if ((getP2PointsLeft() - val) == 0)
+                {
+                    setP2CurrentRoundScore(points: val)
+                    setP2PointsLeft(points: val)
+                    decreaseP2DartsLeft()
+                    
+                    showingAlert = true
+                    setP2Won()
+                }
                 else
                 {
                     setP2CurrentRoundScore(points: val)
                     setP2PointsLeft(points: val)
                     decreaseP2DartsLeft()
                 }
-
+                
             }
         }
     }
+    
+    func getShowingAlert() -> Bool
+    {
+        return showingAlert
+    }
+    
+    func setP1Won() {
+        showingAlert = true
+        self.p1Won = true
+    }
+    
+    func getP1Won() -> Bool{
+        return self.p1Won
+    }
+    
+    func setP2Won() {
+        showingAlert = true
+        self.p2Won = true
+    }
+    
+    func getP2Won() -> Bool {
+        return self.p2Won
+    }
+    
     
     // updates things on switching BACK to player
     func nextTurn()
@@ -128,7 +167,7 @@ class X01Game: Game
         
     }
     
-
+    
     func resetP1CurrentRoundScore()
     {
         p1CurrentRoundScore = 0

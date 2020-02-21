@@ -15,7 +15,7 @@ struct GameSelectionView: View {
     var body: some View {
         NavigationView {
             
-            NavigationLink(destination: X01GameView(player1Name: "Nick", player2Name: "Jake", myGame:self.myGame)) {
+            NavigationLink(destination: X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: self.myGame)) {
                 Text("X01").fontWeight(.heavy)
                 
             }

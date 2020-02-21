@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct ContentView : View {
+    
     @ObservedObject var myGame = X01Game(targetPoints: 301)
     
     var body: some View {
-        //X01GameView(player1Name: "Nick", player2Name: "Jake")
+//        X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: self.myGame)
+        //GameScoreView(myGame: self.myGame)
         GameSelectionView(myGame: self.myGame)
     }
 }

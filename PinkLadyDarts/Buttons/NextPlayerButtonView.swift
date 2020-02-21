@@ -28,7 +28,6 @@ struct NextPlayerButtonView: View {
                 // TODO: This is where the logic for what to do after a button is pressed normally (back/next player mostly???)
                 // i should really make this button take a closure? or something as an input
                 
-                
                 self.generator.impactOccurred() // make phone go bzzzzz
                 self.myGame.nextTurn()
                 
