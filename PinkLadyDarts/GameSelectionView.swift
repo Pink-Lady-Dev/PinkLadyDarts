@@ -10,7 +10,8 @@ import SwiftUI
 
 struct GameSelectionView: View {
     
-    @ObservedObject var myGame: X01Game
+    @ObservedObject var myGame = X01Game(targetPoints: 301)
+    
     
     var body: some View {
         NavigationView {

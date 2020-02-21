@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013CA0AD23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013CA0AC23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift */; };
 		0151298423F3678C0094CFCE /* X01Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0151298323F3678C0094CFCE /* X01Game.swift */; };
 		0171D13D23E727C00057705D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171D13C23E727C00057705D /* AppDelegate.swift */; };
 		0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171D13E23E727C00057705D /* SceneDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		013CA0AC23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X01GameTypeSelectionView.swift; sourceTree = "<group>"; };
 		0151298323F3678C0094CFCE /* X01Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X01Game.swift; sourceTree = "<group>"; };
 		0171D13923E727C00057705D /* PinkLadyDarts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinkLadyDarts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0171D13C23E727C00057705D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				0171D13C23E727C00057705D /* AppDelegate.swift */,
 				0171D13E23E727C00057705D /* SceneDelegate.swift */,
 				0171D14023E727C00057705D /* ContentView.swift */,
+				013CA0AC23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift */,
 				0171D14223E727C20057705D /* Assets.xcassets */,
 				0171D14723E727C20057705D /* LaunchScreen.storyboard */,
 				0171D14A23E727C20057705D /* Info.plist */,
@@ -202,6 +205,7 @@
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
 				01D007FF23EF8191000B6F4D /* GameSelectionView.swift in Sources */,
 				01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */,
+				013CA0AD23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift in Sources */,
 				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,
 				01FA968023F4B439008533E3 /* NextPlayerButtonView.swift in Sources */,
 				01FA968223F4B6A8008533E3 /* Game.swift in Sources */,
