@@ -8,28 +8,42 @@
 
 import SwiftUI
 
+class AppViewState: ObservableObject {
+    enum ViewName {
+        case contentView
+        case X01SelectionView
+        case X01GameView
+    }
+
+    @Published var currentView: ViewName = .contentView
+    
+}
+
+
+
+
 struct ContentView : View {
     
     @State var showX01GameSelectionView: Bool = false
-    
-    //@ObservedObject var myGame = X01Game(targetPoints: 301)
-    
+        
     var body: some View {
-        //        X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: self.myGame)
-        //        GameScoreView(myGame: self.myGame)
-        //        GameSelectionView(myGame: self.myGame)
+        
         ZStack {
-//            Color(.blue).edgesIgnoringSafeArea(.all)
+
             LinearGradient(gradient: Gradient(colors: [.blue, .purple, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
-            VStack{
+            VStack(spacing: 50) {
+                
                 if showX01GameSelectionView {
                     X01GameTypeSelectionView()
                 }
-                else{
-                    
+
+
+                else {
                     Button(action: {
                         print("X01 Selected")
                         self.showX01GameSelectionView = true
+
+                        
                     }) {
                         HStack {
                             Text("X01")
@@ -40,13 +54,11 @@ struct ContentView : View {
                         .foregroundColor(.white)
                         .background(Color.red)
                         .cornerRadius(40)
+                        
                     }
                 }
                 
-                
-                
-                
-            }}
+            }}.animation(.easeInOut)
         
     }
     

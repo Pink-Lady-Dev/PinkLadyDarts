@@ -11,18 +11,38 @@ import SwiftUI
 struct X01GameView: View {
     var player1Name: String = "Player 1"
     var player2Name: String = "Player 2"
-     @State var showContentView: Bool = false
+    
+    @State var showContentView: Bool = false
     @ObservedObject var myGame: X01Game;
-//    @Environment(\.presentationMode) var presentationMode
+    
     
     var body: some View {
+        
+        
+        
         ZStack {
-            if self.showContentView
-            {
+            
+            if showContentView {
                 ContentView()
             }
             
             VStack(spacing: 0) {
+                
+                Button(action: {
+                    print("Main Menu Selected")
+                    self.showContentView = true
+                    
+                }) {
+                    HStack {
+                        Text("Main Menu")
+                            .fontWeight(.semibold)
+                            .font(.title)
+                    }
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.red)
+                    .cornerRadius(40)
+                }.padding()
                 
                 GameScoreView(myGame: self.myGame)
                 ButtonGrid(myGame: self.myGame)
@@ -32,20 +52,17 @@ struct X01GameView: View {
                     NextPlayerButtonView(btnText: "Next Player", myGame: self.myGame)
                 }.frame(height: 120)
             }
-        }.alert(isPresented: $myGame.showingAlert, content: {
+        }
+        .alert(isPresented: $myGame.showingAlert, content: {
             Alert(title: Text("Game Over"),
                   message: Text(self.myGame.getP1Won() ? "P1 Won" : "P2 Won"),
-                  dismissButton: .default(Text("OK"))
-                  {
-                    // TODO: Go back to menu after game ends
-                    //self.showContentView = true
-                    print("do something")
-                    
-                })
+                  dismissButton: .cancel())
+            
         })
         
         
     }
+    
 }
 
 //struct X01GameView_Previews: PreviewProvider {

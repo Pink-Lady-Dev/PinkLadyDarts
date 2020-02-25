@@ -21,7 +21,6 @@
 		01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */; };
 		01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BF223EF66BA007D8111 /* GameScoreView.swift */; };
 		01D007FB23EF7B0F000B6F4D /* GeneralButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */; };
-		01D007FF23EF8191000B6F4D /* GameSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D007FE23EF8191000B6F4D /* GameSelectionView.swift */; };
 		01D0080123EF87B8000B6F4D /* X01GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0080023EF87B8000B6F4D /* X01GameView.swift */; };
 		01FA967E23F4B317008533E3 /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA967D23F4B317008533E3 /* BackButtonView.swift */; };
 		01FA968023F4B439008533E3 /* NextPlayerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA967F23F4B439008533E3 /* NextPlayerButtonView.swift */; };
@@ -45,7 +44,6 @@
 		01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		01C67BF223EF66BA007D8111 /* GameScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreView.swift; sourceTree = "<group>"; };
 		01D007FA23EF7B0F000B6F4D /* GeneralButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralButtonView.swift; sourceTree = "<group>"; };
-		01D007FE23EF8191000B6F4D /* GameSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectionView.swift; sourceTree = "<group>"; };
 		01D0080023EF87B8000B6F4D /* X01GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X01GameView.swift; sourceTree = "<group>"; };
 		01FA967D23F4B317008533E3 /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		01FA967F23F4B439008533E3 /* NextPlayerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPlayerButtonView.swift; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				013CA0A923FF61A5007B3F6F /* Buttons */,
 				01C67BF023EF61F0007D8111 /* PlayerScoreView.swift */,
 				01C67BF223EF66BA007D8111 /* GameScoreView.swift */,
-				01D007FE23EF8191000B6F4D /* GameSelectionView.swift */,
 				01D0080023EF87B8000B6F4D /* X01GameView.swift */,
 				01FA968123F4B6A8008533E3 /* Game.swift */,
 				0151298323F3678C0094CFCE /* X01Game.swift */,
@@ -203,7 +200,6 @@
 				0151298423F3678C0094CFCE /* X01Game.swift in Sources */,
 				01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */,
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
-				01D007FF23EF8191000B6F4D /* GameSelectionView.swift in Sources */,
 				01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */,
 				013CA0AD23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift in Sources */,
 				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,

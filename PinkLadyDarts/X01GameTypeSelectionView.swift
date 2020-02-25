@@ -13,6 +13,7 @@ struct X01GameTypeSelectionView: View {
     @State var show301GameSelectionView: Bool = false
     @State var show501GameSelectionView: Bool = false
     @State var show701GameSelectionView: Bool = false
+    @State var showContentView: Bool = false
     
     var body: some View {
         ZStack{
@@ -67,6 +68,21 @@ struct X01GameTypeSelectionView: View {
                         .background(Color.red)
                         .cornerRadius(40)
                     }
+                    
+                    Button(action: {
+                        print("Main Menu Selected")
+                        self.showContentView = true
+                    }) {
+                        HStack {
+                            Text("Main Menu")
+                                .fontWeight(.semibold)
+                                .font(.title)
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.red)
+                        .cornerRadius(40)
+                    }
                 }
                 
                 if show301GameSelectionView
@@ -80,6 +96,10 @@ struct X01GameTypeSelectionView: View {
                 else if show701GameSelectionView
                 {
                     X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: X01Game(targetPoints: 701))
+                }
+                else if showContentView
+                {
+                    ContentView()
                 }
                 
             }
