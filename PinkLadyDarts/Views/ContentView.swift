@@ -14,16 +14,12 @@ struct ContentView : View {
     
     var body: some View {
         
-        
-        
         ZStack {
             
             LinearGradient(gradient: Gradient(colors: [.blue, .purple, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
             VStack(spacing: 50) {
                 
-                
-                
-                Button(action: {self.viewRouter.currentPage = "page2"})
+                Button(action: {self.viewRouter.currentPage = "X01PointSelection"})
                 {
                     HStack {
                         Text("X01")
@@ -36,7 +32,6 @@ struct ContentView : View {
                     .cornerRadius(40)
                     
                 }
-                
                 
             }}
         

@@ -30,7 +30,7 @@ struct BackButtonView: View {
                 
                 
                 self.generator.impactOccurred() // make phone go bzzzzz
-                
+                self.myGame.backButtonClick()
                 
                 
         }

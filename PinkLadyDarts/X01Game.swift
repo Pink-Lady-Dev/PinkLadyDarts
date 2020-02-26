@@ -48,8 +48,33 @@ class X01Game: Game
     
     @Published private var p1CurrentRoundScore: Int = 0
     @Published private var p2CurrentRoundScore: Int = 0
+    @Published private var prevTurns = Stack()
     
     @Published var showingAlert = false
+    @Published var showNameInputAlert = false
+    
+    struct Stack {
+        private var items: [[String: Int]] = []
+        
+        func printStack() {
+            for item in items {
+                print(item)
+            }
+        }
+        
+        func peek() -> [String: Int] {
+            guard let topElement = items.first else { fatalError("This stack is empty.") }
+            return topElement
+        }
+        
+        mutating func pop() -> [String: Int] {
+            return items.removeFirst()
+        }
+      
+        mutating func push(_ element: [String: Int]) {
+            items.insert(element, at: 0)
+        }
+    }
     
     // little bit of logic for ya
     func dartThrow(val: Int)
@@ -77,6 +102,7 @@ class X01Game: Game
                     setP1CurrentRoundScore(points: val)
                     setP1PointsLeft(points: val)
                     decreaseP1DartsLeft()
+                    prevTurns.push(["P1": val])
                 }
             }
             
@@ -103,15 +129,11 @@ class X01Game: Game
                     setP2CurrentRoundScore(points: val)
                     setP2PointsLeft(points: val)
                     decreaseP2DartsLeft()
+                    prevTurns.push(["P2": val])
                 }
                 
             }
         }
-    }
-    
-    func getShowingAlert() -> Bool
-    {
-        return showingAlert
     }
     
     func setP1Won() {
@@ -132,6 +154,25 @@ class X01Game: Game
         return self.p2Won
     }
     
+    func backButtonClick()
+    {
+        let dart = prevTurns.pop()
+        
+        if dart.first?.key == "P1" {
+            let lastDartVal = dart["P1"]!
+            
+            undoP1Throw(updatedPoints: lastDartVal)
+
+            
+        }
+            
+//        prevTurns.printStack()
+        
+    }
+    
+    func undoP1Throw(updatedPoints: Int) {
+        p1PointsLeft += updatedPoints
+    }
     
     // updates things on switching BACK to player
     func nextTurn()
@@ -161,12 +202,6 @@ class X01Game: Game
         
         
     }
-    
-    func backButtonClick()
-    {
-        
-    }
-    
     
     func resetP1CurrentRoundScore()
     {

@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct X01GameView: View {
-    var player1Name: String = "Player 1"
-    var player2Name: String = "Player 2"
     
     @ObservedObject var viewRouter: ViewRouter
     @ObservedObject var myGame: X01Game;
@@ -23,7 +21,7 @@ struct X01GameView: View {
             
             VStack(spacing: 0) {
                 
-                Button(action: {self.viewRouter.currentPage = "page1"}) {
+                Button(action: {self.viewRouter.currentPage = "mainMenu"}) {
                     HStack {
                         Text("Main Menu")
                             .fontWeight(.semibold)
@@ -45,11 +43,13 @@ struct X01GameView: View {
             }
             
 
-        }
+        } // something like this should be done when the game ends in order to send the game to the website
         .alert(isPresented: $myGame.showingAlert, content: {
             Alert(title: Text("Game Over"),
                   message: Text(self.myGame.getP1Won() ? "P1 Won" : "P2 Won"),
-                  dismissButton: .cancel())
+                  dismissButton: Alert.Button.default(Text("OK"), action: {
+                    self.viewRouter.currentPage = "mainMenu"
+                  }))
             
         })
         

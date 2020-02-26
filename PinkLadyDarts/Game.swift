@@ -17,8 +17,6 @@ class Game: ObservableObject
     }
     
     @Published private var player1Name: String = "Player 1"
-    
-    
     @Published private var player2Name: String = "Player 2"
     
     

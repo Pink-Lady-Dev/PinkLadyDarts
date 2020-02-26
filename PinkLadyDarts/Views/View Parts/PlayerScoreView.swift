@@ -14,10 +14,6 @@ struct PlayerScoreView: View {
         case player1, player2
     }
     
-    //var pointsLeft: Int
-    //var prevRoundScore: Int = 301
-    //var currentRoundPoints: Int = 0
-    //var playerName: String
     var id: playerID
     var turnHighlightColor: Color = (Color.red)
     
@@ -31,9 +27,7 @@ struct PlayerScoreView: View {
             {
                 Rectangle().fill(turnHighlightColor)
             }
-//            else{
-//
-//            }
+
             // layout for player 1 score view (left side of screen)
             if id == .player1 {
                 if (self.myGame.getIsP1Turn())
