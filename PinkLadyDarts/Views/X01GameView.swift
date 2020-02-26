@@ -12,27 +12,18 @@ struct X01GameView: View {
     var player1Name: String = "Player 1"
     var player2Name: String = "Player 2"
     
-    @State var showContentView: Bool = false
+    @ObservedObject var viewRouter: ViewRouter
     @ObservedObject var myGame: X01Game;
-    
     
     var body: some View {
         
-        
-        
         ZStack {
             
-            if showContentView {
-                ContentView()
-            }
+            LinearGradient(gradient: Gradient(colors: [.blue, .purple, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
                 
-                Button(action: {
-                    print("Main Menu Selected")
-                    self.showContentView = true
-                    
-                }) {
+                Button(action: {self.viewRouter.currentPage = "page1"}) {
                     HStack {
                         Text("Main Menu")
                             .fontWeight(.semibold)
@@ -52,6 +43,8 @@ struct X01GameView: View {
                     NextPlayerButtonView(btnText: "Next Player", myGame: self.myGame)
                 }.frame(height: 120)
             }
+            
+
         }
         .alert(isPresented: $myGame.showingAlert, content: {
             Alert(title: Text("Game Over"),
@@ -61,12 +54,13 @@ struct X01GameView: View {
         })
         
         
+        
     }
     
 }
 
-//struct X01GameView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        X01GameView()
-//    }
-//}
+struct X01GameView_Previews: PreviewProvider {
+    static var previews: some View {
+        X01GameView(viewRouter: ViewRouter(), myGame: X01Game(targetPoints: 301))
+    }
+}

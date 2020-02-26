@@ -9,23 +9,19 @@
 import SwiftUI
 
 struct X01GameTypeSelectionView: View {
-    @State var showView = false
-    @State var show301GameSelectionView: Bool = false
-    @State var show501GameSelectionView: Bool = false
-    @State var show701GameSelectionView: Bool = false
-    @State var showContentView: Bool = false
+
+    @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {
+        
         ZStack{
+            
             LinearGradient(gradient: Gradient(colors: [.blue, .purple, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
             
             ZStack {
                 VStack(spacing: 50) {
                     // Select 301
-                    Button(action: {
-                        print("301 Selected")
-                        self.show301GameSelectionView = true
-                    }) {
+                    Button(action: {self.viewRouter.currentPage = "301Game"}) {
                         HStack {
                             Text("301")
                                 .fontWeight(.semibold)
@@ -38,10 +34,7 @@ struct X01GameTypeSelectionView: View {
                     }
                     
                     // Select 501
-                    Button(action: {
-                        print("501 Selected")
-                        self.show501GameSelectionView = true
-                    }) {
+                    Button(action: {self.viewRouter.currentPage = "501Game"}) {
                         HStack {
                             Text("501")
                                 .fontWeight(.semibold)
@@ -54,10 +47,7 @@ struct X01GameTypeSelectionView: View {
                     }
                     
                     // Select 701
-                    Button(action: {
-                        print("701 Selected")
-                        self.show701GameSelectionView = true
-                    }) {
+                    Button(action: {self.viewRouter.currentPage = "701Game"}) {
                         HStack {
                             Text("701")
                                 .fontWeight(.semibold)
@@ -69,10 +59,7 @@ struct X01GameTypeSelectionView: View {
                         .cornerRadius(40)
                     }
                     
-                    Button(action: {
-                        print("Main Menu Selected")
-                        self.showContentView = true
-                    }) {
+                    Button(action: {self.viewRouter.currentPage = "page1"}) {
                         HStack {
                             Text("Main Menu")
                                 .fontWeight(.semibold)
@@ -85,23 +72,6 @@ struct X01GameTypeSelectionView: View {
                     }
                 }
                 
-                if show301GameSelectionView
-                {
-                    X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: X01Game(targetPoints: 301))
-                }
-                else if show501GameSelectionView
-                {
-                    X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: X01Game(targetPoints: 501))
-                }
-                else if show701GameSelectionView
-                {
-                    X01GameView(player1Name: "Nick", player2Name: "Jake", myGame: X01Game(targetPoints: 701))
-                }
-                else if showContentView
-                {
-                    ContentView()
-                }
-                
             }
         }
         
@@ -110,8 +80,8 @@ struct X01GameTypeSelectionView: View {
 
 
 
-//struct X01GameTypeSelectionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        X01GameTypeSelectionView()
-//    }
-//}
+struct X01GameTypeSelectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        X01GameTypeSelectionView(viewRouter: ViewRouter())
+    }
+}
