@@ -17,21 +17,17 @@ struct X01GameView: View {
         
         ZStack {
             
-            LinearGradient(gradient: Gradient(colors: [.blue, .purple, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
+            LinearGradient(Color.darkStart, Color.darkEnd)
             
             VStack(spacing: 0) {
                 
-                Button(action: {self.viewRouter.currentPage = "mainMenu"}) {
-                    HStack {
-                        Text("Main Menu")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.red)
-                    .cornerRadius(40)
-                }.padding()
+                Button(action: {
+                    self.viewRouter.currentPage = "mainMenu"
+                }) {
+                    Image(systemName: "house.fill")
+                        .foregroundColor(.white)
+                }
+                .buttonStyle(ColorfulButtonStyle())
                 
                 GameScoreView(myGame: self.myGame)
                 ButtonGrid(myGame: self.myGame)
@@ -42,16 +38,18 @@ struct X01GameView: View {
                 }.frame(height: 120)
             }
             
-
-        } // something like this should be done when the game ends in order to send the game to the website
-        .alert(isPresented: $myGame.showingAlert, content: {
-            Alert(title: Text("Game Over"),
-                  message: Text(self.myGame.getP1Won() ? "P1 Won" : "P2 Won"),
-                  dismissButton: Alert.Button.default(Text("OK"), action: {
-                    self.viewRouter.currentPage = "mainMenu"
-                  }))
             
-        })
+        }
+        .edgesIgnoringSafeArea(.all)
+            // something like this should be done when the game ends in order to send the game to the website
+            .alert(isPresented: $myGame.showingAlert, content: {
+                Alert(title: Text("Game Over"),
+                      message: Text(self.myGame.getP1Won() ? "P1 Won" : "P2 Won"),
+                      dismissButton: Alert.Button.default(Text("OK"), action: {
+                        self.viewRouter.currentPage = "mainMenu"
+                      }))
+                
+            })
         
         
         

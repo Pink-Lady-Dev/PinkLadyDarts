@@ -42,7 +42,7 @@ struct ButtonView: View {
     @State private var pointVal: Int = 0
     
     @ObservedObject var buttonVM = ButtonViewModel()
-
+    
     var btnText: String // text displayed in button
     
     @ObservedObject var myGame: X01Game // Game Object
@@ -55,6 +55,7 @@ struct ButtonView: View {
         ZStack {
             Rectangle().fill(Color(.darkGray)) // button background color
             Text(btnText).multilineTextAlignment(.center) // text written to button
+            
         }
         .onAppear {
             self.calculatePointValues()
@@ -130,8 +131,6 @@ struct ButtonView: View {
         triplePointVal = pointVal * 3
     }
     
-    
-    
     func calculatePointValues()
     {
         if (btnText == "Bull\n(25)")
@@ -152,7 +151,7 @@ struct ButtonView: View {
         
     }
     
-
+    
     
 }
 

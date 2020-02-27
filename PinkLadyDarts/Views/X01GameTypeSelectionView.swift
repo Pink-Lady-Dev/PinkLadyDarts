@@ -15,68 +15,46 @@ struct X01GameTypeSelectionView: View {
     
     var body: some View {
         
-        ZStack{
+        ZStack {
+            LinearGradient(Color.darkStart, Color.darkEnd)
             
-            LinearGradient(gradient: Gradient(colors: [.blue, .purple, .pink]), startPoint: .topLeading, endPoint: .bottomTrailing).edgesIgnoringSafeArea(.all)
-
-            VStack(spacing: 50) {
-                
-                // Select 301
-                Button(action: { self.viewRouter.currentPage = "301Game" } ) {
-                    HStack {
-                        Text("301")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.red)
-                    .cornerRadius(40)
+            VStack(spacing: 40) {
+                Button(action: {
+                    self.viewRouter.currentPage = "301Game"
+                }) {
+                    Text("301")
+                        .foregroundColor(.white)
                 }
+                .buttonStyle(ColorfulButtonStyle())
                 
-                // Select 501
-                Button(action: { self.viewRouter.currentPage = "501Game" } ) {
-                    HStack {
-                        Text("501")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.red)
-                    .cornerRadius(40)
+                Button(action: {
+                    self.viewRouter.currentPage = "501Game"
+                }) {
+                    Text("501")
+                        .foregroundColor(.white)
                 }
+                .buttonStyle(ColorfulButtonStyle())
                 
-                // Select 701
-                Button(action: { self.viewRouter.currentPage = "701Game" } ) {
-                    HStack {
-                        Text("701")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.red)
-                    .cornerRadius(40)
+                Button(action: {
+                    self.viewRouter.currentPage = "701Game"
+                }) {
+                    Text("701")
+                        .foregroundColor(.white)
                 }
+                .buttonStyle(ColorfulButtonStyle())
                 
-                Button(action: { self.viewRouter.currentPage = "mainMenu" } ) {
-                    HStack {
-                        Text("Main Menu")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                    }
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.red)
-                    .cornerRadius(40)
+                Button(action: {
+                    self.viewRouter.currentPage = "mainMenu"
+                }) {
+                    Image(systemName: "house.fill")
+                        .foregroundColor(.white)
                 }
-                
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
-        
+        .edgesIgnoringSafeArea(.all)
     }
-
+    
 }
 
 
