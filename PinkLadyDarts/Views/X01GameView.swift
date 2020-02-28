@@ -15,11 +15,12 @@ struct X01GameView: View {
     
     var body: some View {
         
-        ZStack {
+        ZStack(alignment: .top) {
             
             LinearGradient(Color.darkStart, Color.darkEnd)
+                .padding()
             
-            VStack(spacing: 0) {
+            VStack(alignment: .center, spacing: 0) {
                 
                 Button(action: {
                     self.viewRouter.currentPage = "mainMenu"
@@ -27,15 +28,16 @@ struct X01GameView: View {
                     Image(systemName: "house.fill")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(ColorfulCircleButtonStyle())
                 
-                GameScoreView(myGame: self.myGame)
+                GameScoreView(myGame: self.myGame).padding(20)
                 ButtonGrid(myGame: self.myGame)
                 
                 HStack(spacing: 0) {
-                    BackButtonView(btnText: "<--", myGame: self.myGame)
-                    NextPlayerButtonView(btnText: "Next Player", myGame: self.myGame)
-                }.frame(height: 120)
+                    BackButtonView(btnText: "<--", txtWidth: 175, txtHeight: 125, myGame: self.myGame)
+                    NextPlayerButtonView(btnText: "Next Player", txtWidth: 175, txtHeight: 125, myGame: self.myGame)
+                    
+                }
             }
             
             

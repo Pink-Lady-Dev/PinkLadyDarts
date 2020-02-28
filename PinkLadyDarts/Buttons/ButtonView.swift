@@ -44,6 +44,8 @@ struct ButtonView: View {
     @ObservedObject var buttonVM = ButtonViewModel()
     
     var btnText: String // text displayed in button
+    var txtWidth: CGFloat
+    var txtHeight: CGFloat
     
     @ObservedObject var myGame: X01Game // Game Object
     
@@ -52,73 +54,139 @@ struct ButtonView: View {
     
     var body: some View {
         
-        ZStack {
-            Rectangle().fill(Color(.darkGray)) // button background color
-            Text(btnText).multilineTextAlignment(.center) // text written to button
-            
+        //        ZStack {
+        //            Rectangle().fill(Color(.darkGray)) // button background color
+        //            Text(btnText).multilineTextAlignment(.center) // text written to button
+        //
+        //        }
+        //        .onAppear {
+        //            self.calculatePointValues()
+        //            self.buttonVM.setPointVals(val: self.pointVal) }
+        //            .onTapGesture()
+        //                {
+        //                    // Regular tap:
+        //                    //
+        //                    // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
+        //
+        //                    self.generator.impactOccurred() // make phone go bzzzzz
+        //
+        //                    // some basic logic shit (not even)
+        //                    // gonna need to make this situational (i.e. which players turn it is)
+        //                    self.myGame.dartThrow(val: self.pointVal)
+        //
+        //
+        //        }
+        //            .border(Color.black, width: 1) // border color
+        //            .foregroundColor(.black) // text color
+        //            .clipped()
+        //            .contextMenu(self.hasContextMenu ?
+        //                ContextMenu {
+        //                    Button(action:
+        //                        {
+        //                            // Long Press tap -> Single
+        //                            //
+        //                            // TODO:This is where the logic for what to do after the singe points option is selected
+        //
+        //                            self.myGame.dartThrow(val: self.pointVal)
+        //                    }
+        //                        )
+        //                    {
+        //                        Text("Single")
+        //                    }
+        //
+        //                    Button(action:
+        //                        {
+        //                            // Long Press tap -> Double
+        //                            //
+        //                            // TODO:This is where the logic for what to do after the double points option is selected
+        //
+        //                            self.myGame.dartThrow(val: self.doublePointVal)
+        //                    }
+        //                        )
+        //                    {
+        //                        Text("Double")
+        //                    }
+        //
+        //                    Button(action:
+        //                        {
+        //                            // Long Press tap -> Triple
+        //                            //
+        //                            // TODO:This is where the logic for what to do after the triple points option is selected
+        //
+        //                            self.myGame.dartThrow(val: self.triplePointVal)
+        //                    }
+        //                        )
+        //                    {
+        //                        Text("Triple")
+        //                    }
+        //                } : nil)
+        Button(action: {
+            self.btnTap()
+        }) {
+            Text(btnText)
+                .fixedSize()
+                .frame(width: txtWidth, height: txtHeight)
+                .foregroundColor(.white)
         }
-        .onAppear {
+        .buttonStyle(ColorfulRectangleButtonStyle())
+        .onAppear{
             self.calculatePointValues()
             self.buttonVM.setPointVals(val: self.pointVal) }
-            .onTapGesture()
+        .contextMenu(self.hasContextMenu ?
+        ContextMenu {
+            Button(action:
                 {
-                    // Regular tap:
+                    // Long Press tap -> Single
                     //
-                    // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
+                    // TODO:This is where the logic for what to do after the singe points option is selected
                     
-                    self.generator.impactOccurred() // make phone go bzzzzz
-                    
-                    // some basic logic shit (not even)
-                    // gonna need to make this situational (i.e. which players turn it is)
                     self.myGame.dartThrow(val: self.pointVal)
+            }
+                )
+            {
+                Text("Single")
+            }
+            
+            Button(action:
+                {
+                    // Long Press tap -> Double
+                    //
+                    // TODO:This is where the logic for what to do after the double points option is selected
                     
+                    self.myGame.dartThrow(val: self.doublePointVal)
+            }
+                )
+            {
+                Text("Double")
+            }
+            
+            Button(action:
+                {
+                    // Long Press tap -> Triple
+                    //
+                    // TODO:This is where the logic for what to do after the triple points option is selected
                     
-        }
-            .border(Color.black, width: 1) // border color
-            .foregroundColor(.black) // text color
-            .clipped()
-            .contextMenu(self.hasContextMenu ?
-                ContextMenu {
-                    Button(action:
-                        {
-                            // Long Press tap -> Single
-                            //
-                            // TODO:This is where the logic for what to do after the singe points option is selected
-                            
-                            self.myGame.dartThrow(val: self.pointVal)
-                    }
-                        )
-                    {
-                        Text("Single")
-                    }
-                    
-                    Button(action:
-                        {
-                            // Long Press tap -> Double
-                            //
-                            // TODO:This is where the logic for what to do after the double points option is selected
-                            
-                            self.myGame.dartThrow(val: self.doublePointVal)
-                    }
-                        )
-                    {
-                        Text("Double")
-                    }
-                    
-                    Button(action:
-                        {
-                            // Long Press tap -> Triple
-                            //
-                            // TODO:This is where the logic for what to do after the triple points option is selected
-                            
-                            self.myGame.dartThrow(val: self.triplePointVal)
-                    }
-                        )
-                    {
-                        Text("Triple")
-                    }
-                } : nil)
+                    self.myGame.dartThrow(val: self.triplePointVal)
+            }
+                )
+            {
+                Text("Triple")
+            }
+        } : nil)
         
+    }
+    
+    func btnTap()
+    {
+        // Regular tap:
+        //
+        // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
+        
+        self.generator.impactOccurred() // make phone go bzzzzz
+        
+        // some basic logic shit (not even)
+        // gonna need to make this situational (i.e. which players turn it is)
+        self.myGame.dartThrow(val: self.pointVal)
     }
     
     func getDoublePoints()
@@ -158,6 +226,6 @@ struct ButtonView: View {
 
 struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonView(btnText: "Click Me", myGame: X01Game(targetPoints: 301))
+        ButtonView(btnText: "Click Me", txtWidth: 20, txtHeight: 20, myGame: X01Game(targetPoints: 301))
     }
 }

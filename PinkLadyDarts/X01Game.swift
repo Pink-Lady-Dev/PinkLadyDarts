@@ -103,6 +103,11 @@ class X01Game: Game
                     setP1PointsLeft(points: val)
                     decreaseP1DartsLeft()
                     prevTurns.push(["P1": val])
+                    
+                    if getP1DartsLeft() == 0
+                    {
+                        toggleIsP1Turn()
+                    }
                 }
             }
             
@@ -130,6 +135,11 @@ class X01Game: Game
                     setP2PointsLeft(points: val)
                     decreaseP2DartsLeft()
                     prevTurns.push(["P2": val])
+                    
+                    if getP2DartsLeft() == 0
+                    {
+                        toggleIsP1Turn()
+                    }
                 }
                 
             }

@@ -27,7 +27,7 @@ extension LinearGradient {
     }
 }
 
-struct ColorfulBackground<S: Shape>: View {
+struct ColorfulCircleBackground<S: Shape>: View {
     var isHighlighted: Bool
     var shape: S
     
@@ -50,17 +50,49 @@ struct ColorfulBackground<S: Shape>: View {
     }
 }
 
-struct ColorfulButtonStyle: ButtonStyle {
+struct ColorfulRectangleBackground<S: Shape>: View {
+    var isHighlighted: Bool
+    var shape: S
+    
+    var body: some View {
+        ZStack {
+            if isHighlighted {
+                shape
+                    .fill(LinearGradient(Color.lightEnd1, Color.lightStart1))
+                    .overlay(shape.stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
+            } else {
+                shape
+                    .fill(LinearGradient(Color.darkStart, Color.darkEnd))
+                    .overlay(shape.stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
+            }
+        }
+    }
+}
+
+struct ColorfulCircleButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding(30)
             .contentShape(Circle())
             .background(
-                ColorfulBackground(isHighlighted: configuration.isPressed, shape: Circle())
+                ColorfulCircleBackground(isHighlighted: configuration.isPressed, shape: Circle())
         )
             .animation(nil)
     }
 }
+
+struct ColorfulRectangleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding(30)
+            .contentShape(Rectangle())
+            .background(
+                ColorfulRectangleBackground(isHighlighted: configuration.isPressed, shape: Rectangle())
+        )
+            .animation(nil)
+    }
+}
+
 
 struct ContentView : View {
     
@@ -78,7 +110,7 @@ struct ContentView : View {
                     Text("X01")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(ColorfulCircleButtonStyle())
                 
             }
         }

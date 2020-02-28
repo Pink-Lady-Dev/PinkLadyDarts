@@ -25,7 +25,7 @@ struct X01GameTypeSelectionView: View {
                     Text("301")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(ColorfulCircleButtonStyle())
                 
                 Button(action: {
                     self.viewRouter.currentPage = "501Game"
@@ -33,7 +33,7 @@ struct X01GameTypeSelectionView: View {
                     Text("501")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(ColorfulCircleButtonStyle())
                 
                 Button(action: {
                     self.viewRouter.currentPage = "701Game"
@@ -41,7 +41,7 @@ struct X01GameTypeSelectionView: View {
                     Text("701")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(ColorfulCircleButtonStyle())
                 
                 Button(action: {
                     self.viewRouter.currentPage = "mainMenu"
@@ -49,7 +49,7 @@ struct X01GameTypeSelectionView: View {
                     Image(systemName: "house.fill")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(ColorfulCircleButtonStyle())
             }
         }
         .edgesIgnoringSafeArea(.all)

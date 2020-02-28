@@ -13,10 +13,11 @@ struct GameScoreView: View {
     @ObservedObject var myGame: X01Game
     
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 12) {
             PlayerScoreView(id: .player1, myGame: self.myGame)
             PlayerScoreView(id: .player2, myGame: self.myGame)
-        }.frame(height: 120)
+            }
+        .frame(height: 120)
     }
 }
 
