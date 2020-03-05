@@ -29,6 +29,7 @@
 		6D1F4E0624089F0C00EECDEF /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F4E0524089F0C00EECDEF /* Users.swift */; };
 		6D1F4E0824089F1400EECDEF /* DartThrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F4E0724089F1300EECDEF /* DartThrow.swift */; };
 		6D1F4E0A24089F1900EECDEF /* HTTP_API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F4E0924089F1900EECDEF /* HTTP_API.swift */; };
+		6D4D935524109D9B00BEB0AE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4D935424109D9B00BEB0AE /* Validation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		6D1F4E0524089F0C00EECDEF /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		6D1F4E0724089F1300EECDEF /* DartThrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DartThrow.swift; sourceTree = "<group>"; };
 		6D1F4E0924089F1900EECDEF /* HTTP_API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP_API.swift; sourceTree = "<group>"; };
+		6D4D935424109D9B00BEB0AE /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				6D1F4E0524089F0C00EECDEF /* Users.swift */,
 				6D1F4E0724089F1300EECDEF /* DartThrow.swift */,
 				6D1F4E0924089F1900EECDEF /* HTTP_API.swift */,
+				6D4D935424109D9B00BEB0AE /* Validation.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				01FA968223F4B6A8008533E3 /* Game.swift in Sources */,
 				0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */,
 				0171D14123E727C00057705D /* ContentView.swift in Sources */,
+				6D4D935524109D9B00BEB0AE /* Validation.swift in Sources */,
 				01D007FB23EF7B0F000B6F4D /* GeneralButtonView.swift in Sources */,
 				6D1F4E0A24089F1900EECDEF /* HTTP_API.swift in Sources */,
 				01FB3EC82405EE3900AB89C7 /* MainView.swift in Sources */,
