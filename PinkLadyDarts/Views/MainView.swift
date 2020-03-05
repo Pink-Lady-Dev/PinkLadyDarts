@@ -11,12 +11,6 @@
 // This is the Main Menu for the app, it controls all the views (currently)
 // and is shown on startup
 //
-// ###########
-// # History #
-// ###########
-//    Date          Name            Comment
-// 25-Feb-2020      Nick Clason     Initial
-//
 //===========================================================================//
 
 import SwiftUI
@@ -32,6 +26,12 @@ class ViewRouter: ObservableObject {
             objectWillChange.send(self)
         }
     }
+    
+    var X01GameScore: Int = 301 {
+        didSet {
+            objectWillChange.send(self)
+        }
+    }
 }
 
 // TODO: Clean this up with an enum or something
@@ -40,6 +40,9 @@ class ViewRouter: ObservableObject {
 struct MainView: View {
     
     @ObservedObject var viewRouter: ViewRouter
+    
+    @State var p1Name: String = "Player 1"
+    @State var p2Name: String = "Player 2"
     
     var body: some View {
         VStack {
@@ -50,16 +53,10 @@ struct MainView: View {
             else if viewRouter.currentPage == "X01PointSelection" {
                 X01GameTypeSelectionView(viewRouter: viewRouter).animation(.easeInOut)
             }
-            else if viewRouter.currentPage == "301Game" {
-                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: 301))
+            else if viewRouter.currentPage == "X01Game" {
+//                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: viewRouter.X01GameScore, p1Name: self.p1Name, p2Name: self.p2Name))
+                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: viewRouter.X01GameScore, p1Name: "Nick", p2Name: "Jake"))
             }
-            else if viewRouter.currentPage == "501Game" {
-                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: 501))
-            }
-            else if viewRouter.currentPage == "701Game" {
-                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: 701))
-            }
-            
         }
     }
 }

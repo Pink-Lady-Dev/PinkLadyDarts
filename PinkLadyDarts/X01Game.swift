@@ -30,8 +30,11 @@ class X01Game: Game
     @Published private var p1Won: Bool
     @Published private var p2Won: Bool
     
+    @Published private var player1Name: String
+    @Published private var player2Name: String
+    
     // Initializer, set all points to starting values
-    init(targetPoints: Int)
+    init(targetPoints: Int, p1Name: String = "Player 1", p2Name: String = "Player 2")
     {
         X01Mode = targetPoints
         
@@ -44,14 +47,18 @@ class X01Game: Game
         p1Won = false
         p2Won = false
         
+        player1Name = p1Name
+        player2Name = p2Name
+        
     }
+    
+
     
     @Published private var p1CurrentRoundScore: Int = 0
     @Published private var p2CurrentRoundScore: Int = 0
     @Published private var prevTurns = Stack()
     
     @Published var showingAlert = false
-    @Published var showNameInputAlert = false
     
     struct Stack {
         private var items: [[String: Int]] = []
@@ -76,11 +83,12 @@ class X01Game: Game
         }
     }
     
-    // little bit of logic for ya
+    // this all needs to be rewritten
     func dartThrow(val: Int)
     {
         if (getIsP1Turn())
         {
+            
             
             if (getP1DartsLeft() > 0)
             {
@@ -106,6 +114,7 @@ class X01Game: Game
                     
                     if getP1DartsLeft() == 0
                     {
+                        resetP1DartsLeft()
                         toggleIsP1Turn()
                     }
                 }
@@ -138,6 +147,7 @@ class X01Game: Game
                     
                     if getP2DartsLeft() == 0
                     {
+                        resetP2DartsLeft()
                         toggleIsP1Turn()
                     }
                 }
@@ -145,6 +155,26 @@ class X01Game: Game
             }
         }
     }
+    
+    func getPlayer1Name() -> String
+    {
+        return player1Name
+    }
+    
+    func getPlayer2Name() -> String
+    {
+        return player2Name
+    }
+    
+//    func setPlayer1Name(name: String)
+//    {
+//        player1Name = name
+//    }
+//
+//    func setPlayer2Name(name: String)
+//    {
+//        player2Name = name
+//    }
     
     func setP1Won() {
         showingAlert = true
@@ -175,9 +205,7 @@ class X01Game: Game
 
             
         }
-            
 //        prevTurns.printStack()
-        
     }
     
     func undoP1Throw(updatedPoints: Int) {

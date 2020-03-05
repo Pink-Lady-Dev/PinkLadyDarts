@@ -13,12 +13,8 @@ class Game: ObservableObject
     
     init()
     {
-        
+
     }
-    
-    @Published private var player1Name: String = "Player 1"
-    @Published private var player2Name: String = "Player 2"
-    
     
     // boolean for tracking which players turn it is
     @Published private var isP1Turn: Bool = true
@@ -44,25 +40,7 @@ class Game: ObservableObject
         return p2DartsLeft
     }
     
-    func getPlayer1Name() -> String
-    {
-        return player1Name
-    }
     
-    func getPlayer2Name() -> String
-    {
-        return player2Name
-    }
-    
-    func setPlayer1Name(name: String)
-    {
-        player1Name = name
-    }
-    
-    func setPlayer2Name(name: String)
-    {
-        player2Name = name
-    }
     
     func getIsP1Turn() -> Bool
     {

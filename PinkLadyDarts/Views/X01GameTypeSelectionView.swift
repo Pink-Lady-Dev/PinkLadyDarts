@@ -20,7 +20,8 @@ struct X01GameTypeSelectionView: View {
             
             VStack(spacing: 40) {
                 Button(action: {
-                    self.viewRouter.currentPage = "301Game"
+                    self.viewRouter.currentPage = "X01Game"
+                    self.viewRouter.X01GameScore = 301
                 }) {
                     Text("301")
                         .foregroundColor(.white)
@@ -28,7 +29,8 @@ struct X01GameTypeSelectionView: View {
                 .buttonStyle(ColorfulCircleButtonStyle())
                 
                 Button(action: {
-                    self.viewRouter.currentPage = "501Game"
+                    self.viewRouter.currentPage = "X01Game"
+                    self.viewRouter.X01GameScore = 501
                 }) {
                     Text("501")
                         .foregroundColor(.white)
@@ -36,7 +38,8 @@ struct X01GameTypeSelectionView: View {
                 .buttonStyle(ColorfulCircleButtonStyle())
                 
                 Button(action: {
-                    self.viewRouter.currentPage = "701Game"
+                    self.viewRouter.currentPage = "X01Game"
+                    self.viewRouter.X01GameScore = 701
                 }) {
                     Text("701")
                         .foregroundColor(.white)
