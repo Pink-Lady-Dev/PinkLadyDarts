@@ -11,7 +11,7 @@ import Foundation
 func sendDart(dartThrow: DartThrow){
     do {
         var urlRequest = createURLRequest(address: "http://localhost:8080/api/v1/darts", requestType: Request_Type.POST)
-        urlRequest.httpBody = try JSONEncoder().encode(dt)
+        urlRequest.httpBody = try JSONEncoder().encode(dartThrow)
         
         POST(request: urlRequest, completion: {
             result in switch result

@@ -11,10 +11,10 @@ import SwiftUI
 
 // Things to do: not needed but good to have
 // 1. Randomize p1/p2 order at start of game
-// 2. Use a stack or queue for the back button, store last 3 throws so you can always undo the entire turn
+// 2. Use a stack for the back button, store last 3 throws so you can always undo the entire turn
 
 
-class X01Game: Game
+class X01Game: ObservableObject
 {
     // This is the target score (e.g. 301, 501, etc.)
     private var X01Mode: Int
@@ -22,6 +22,9 @@ class X01Game: Game
     // This is the score that is left to win the game
     @Published private var p1PointsLeft: Int
     @Published private var p2PointsLeft: Int
+    
+    // boolean for tracking which players turn it is
+    @Published private var isP1Turn: Bool = true
     
     // This is the score at the start of each round, doesn't change until the start of the next turn
     @Published private var p1prevRoundScore: Int
@@ -52,35 +55,60 @@ class X01Game: Game
         
     }
     
-
-    
     @Published private var p1CurrentRoundScore: Int = 0
     @Published private var p2CurrentRoundScore: Int = 0
-    @Published private var prevTurns = Stack()
-    
+    @Published private var p1DartsLeft: Int = 3
+    @Published private var p2DartsLeft: Int = 3
     @Published var showingAlert = false
     
-    struct Stack {
-        private var items: [[String: Int]] = []
-        
-        func printStack() {
-            for item in items {
-                print(item)
-            }
+    @Published var dartHistroy = Stack()
+    
+    func resetP1DartsLeft()
+    {
+        p1DartsLeft = 3
+    }
+    
+    func resetP2DartsLeft()
+    {
+        p2DartsLeft = 3
+    }
+    
+    func addP1DartsLeft()
+    {
+        if p1DartsLeft < 3
+        {
+            p1DartsLeft += 1
         }
         
-        func peek() -> [String: Int] {
-            guard let topElement = items.first else { fatalError("This stack is empty.") }
-            return topElement
+    }
+    
+    func addP2DartsLeft()
+    {
+        if p2DartsLeft < 3
+        {
+            p2DartsLeft += 1
         }
         
-        mutating func pop() -> [String: Int] {
-            return items.removeFirst()
-        }
-      
-        mutating func push(_ element: [String: Int]) {
-            items.insert(element, at: 0)
-        }
+    }
+    
+    func getP1DartsLeft() -> Int
+    {
+        return p1DartsLeft
+    }
+    
+    func getP2DartsLeft() -> Int
+    {
+        return p2DartsLeft
+    }
+    
+    func decreaseP1DartsLeft()
+    {
+        p1DartsLeft -= 1
+    }
+    
+    func decreaseP2DartsLeft()
+    {
+        p2DartsLeft -= 1
     }
     
     // this all needs to be rewritten
@@ -88,8 +116,6 @@ class X01Game: Game
     {
         if (getIsP1Turn())
         {
-            
-            
             if (getP1DartsLeft() > 0)
             {
                 if ((getP1PointsLeft() - val) < 0)
@@ -110,7 +136,8 @@ class X01Game: Game
                     setP1CurrentRoundScore(points: val)
                     setP1PointsLeft(points: val)
                     decreaseP1DartsLeft()
-                    prevTurns.push(["P1": val])
+                    
+                    dartHistroy.push(["P1":val])
                     
                     if getP1DartsLeft() == 0
                     {
@@ -143,7 +170,8 @@ class X01Game: Game
                     setP2CurrentRoundScore(points: val)
                     setP2PointsLeft(points: val)
                     decreaseP2DartsLeft()
-                    prevTurns.push(["P2": val])
+                    
+                    dartHistroy.push(["P2":val])
                     
                     if getP2DartsLeft() == 0
                     {
@@ -156,6 +184,35 @@ class X01Game: Game
         }
     }
     
+    func backButtonClick()
+    {
+        let dart = dartHistroy.pop()
+        
+        if dart.first?.key == "P1" {
+            let lastDartVal = dart["P1"]!
+            
+            self.setP1PointsLeft(points: -(lastDartVal))
+            self.addP1DartsLeft()
+        }
+        else
+        {
+            let lastDartVal = dart["P2"]!
+            
+            self.setP2PointsLeft(points: -(lastDartVal))
+            self.addP2DartsLeft()
+        }
+    }
+    
+    func getIsP1Turn() -> Bool
+    {
+        return isP1Turn
+    }
+    
+    func toggleIsP1Turn()
+    {
+        isP1Turn.toggle()
+    }
+    
     func getPlayer1Name() -> String
     {
         return player1Name
@@ -165,16 +222,6 @@ class X01Game: Game
     {
         return player2Name
     }
-    
-//    func setPlayer1Name(name: String)
-//    {
-//        player1Name = name
-//    }
-//
-//    func setPlayer2Name(name: String)
-//    {
-//        player2Name = name
-//    }
     
     func setP1Won() {
         showingAlert = true
@@ -192,24 +239,6 @@ class X01Game: Game
     
     func getP2Won() -> Bool {
         return self.p2Won
-    }
-    
-    func backButtonClick()
-    {
-        let dart = prevTurns.pop()
-        
-        if dart.first?.key == "P1" {
-            let lastDartVal = dart["P1"]!
-            
-            undoP1Throw(updatedPoints: lastDartVal)
-
-            
-        }
-//        prevTurns.printStack()
-    }
-    
-    func undoP1Throw(updatedPoints: Int) {
-        p1PointsLeft += updatedPoints
     }
     
     // updates things on switching BACK to player
@@ -314,6 +343,30 @@ class X01Game: Game
     func setP2prevRoundScore(points: Int)
     {
         p2prevRoundScore = points
+    }
+    
+    // Stack for darts thrown
+    struct Stack {
+        private var items: [[String: Int]] = []
+        
+        func printStack() {
+            for item in items {
+                print(item)
+            }
+        }
+        
+        func peek() -> [String: Int] {
+            guard let topElement = items.first else { fatalError("This stack is empty.") }
+            return topElement
+        }
+        
+        mutating func pop() -> [String: Int] {
+            return items.removeFirst()
+        }
+        
+        mutating func push(_ element: [String: Int]) {
+            items.insert(element, at: 0)
+        }
     }
     
 }

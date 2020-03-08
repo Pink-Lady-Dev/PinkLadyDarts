@@ -36,6 +36,7 @@ struct NextPlayerButtonView: View {
     {
         self.generator.impactOccurred()
         self.myGame.nextTurn()
+        
     }
 }
 

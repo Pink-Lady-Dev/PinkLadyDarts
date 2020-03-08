@@ -54,72 +54,6 @@ struct ButtonView: View {
     
     var body: some View {
         
-        //        ZStack {
-        //            Rectangle().fill(Color(.darkGray)) // button background color
-        //            Text(btnText).multilineTextAlignment(.center) // text written to button
-        //
-        //        }
-        //        .onAppear {
-        //            self.calculatePointValues()
-        //            self.buttonVM.setPointVals(val: self.pointVal) }
-        //            .onTapGesture()
-        //                {
-        //                    // Regular tap:
-        //                    //
-        //                    // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
-        //
-        //                    self.generator.impactOccurred() // make phone go bzzzzz
-        //
-        //                    // some basic logic shit (not even)
-        //                    // gonna need to make this situational (i.e. which players turn it is)
-        //                    self.myGame.dartThrow(val: self.pointVal)
-        //
-        //
-        //        }
-        //            .border(Color.black, width: 1) // border color
-        //            .foregroundColor(.black) // text color
-        //            .clipped()
-        //            .contextMenu(self.hasContextMenu ?
-        //                ContextMenu {
-        //                    Button(action:
-        //                        {
-        //                            // Long Press tap -> Single
-        //                            //
-        //                            // TODO:This is where the logic for what to do after the singe points option is selected
-        //
-        //                            self.myGame.dartThrow(val: self.pointVal)
-        //                    }
-        //                        )
-        //                    {
-        //                        Text("Single")
-        //                    }
-        //
-        //                    Button(action:
-        //                        {
-        //                            // Long Press tap -> Double
-        //                            //
-        //                            // TODO:This is where the logic for what to do after the double points option is selected
-        //
-        //                            self.myGame.dartThrow(val: self.doublePointVal)
-        //                    }
-        //                        )
-        //                    {
-        //                        Text("Double")
-        //                    }
-        //
-        //                    Button(action:
-        //                        {
-        //                            // Long Press tap -> Triple
-        //                            //
-        //                            // TODO:This is where the logic for what to do after the triple points option is selected
-        //
-        //                            self.myGame.dartThrow(val: self.triplePointVal)
-        //                    }
-        //                        )
-        //                    {
-        //                        Text("Triple")
-        //                    }
-        //                } : nil)
         Button(action: {
             self.btnTap()
         }) {
@@ -137,9 +71,6 @@ struct ButtonView: View {
             Button(action:
                 {
                     // Long Press tap -> Single
-                    //
-                    // TODO:This is where the logic for what to do after the singe points option is selected
-                    
                     self.myGame.dartThrow(val: self.pointVal)
             }
                 )
@@ -150,9 +81,6 @@ struct ButtonView: View {
             Button(action:
                 {
                     // Long Press tap -> Double
-                    //
-                    // TODO:This is where the logic for what to do after the double points option is selected
-                    
                     self.myGame.dartThrow(val: self.doublePointVal)
             }
                 )
@@ -163,9 +91,6 @@ struct ButtonView: View {
             Button(action:
                 {
                     // Long Press tap -> Triple
-                    //
-                    // TODO:This is where the logic for what to do after the triple points option is selected
-                    
                     self.myGame.dartThrow(val: self.triplePointVal)
             }
                 )
@@ -179,14 +104,12 @@ struct ButtonView: View {
     func btnTap()
     {
         // Regular tap:
-        //
-        // TODO:This is where the logic for what to do after a button is pressed normally (i.e. single points)
-        
         self.generator.impactOccurred() // make phone go bzzzzz
         
         // some basic logic shit (not even)
         // gonna need to make this situational (i.e. which players turn it is)
         self.myGame.dartThrow(val: self.pointVal)
+
     }
     
     func getDoublePoints()
