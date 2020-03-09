@@ -5,7 +5,6 @@
 //  Created by Nick Clason on 2/25/20.
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
-
 //===========================================================================//
 //
 // This is the Main Menu for the app, it controls all the views (currently)

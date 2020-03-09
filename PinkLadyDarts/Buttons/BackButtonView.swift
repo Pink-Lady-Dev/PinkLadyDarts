@@ -34,7 +34,12 @@ struct BackButtonView: View {
     func btnTap()
     {
         self.generator.impactOccurred()
-        self.myGame.backButtonClick()
+        do {
+            try self.myGame.backButtonClick()
+        }
+        catch {
+            print(error)
+        }
     }
     
 }

@@ -5,11 +5,14 @@
 //  Created by Nick Clason on 2/20/20.
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
+//
+// This view provides the game selection menu for
+// the target number of points in an X01 game
+//
 
 import SwiftUI
 
 struct X01GameTypeSelectionView: View {
-    
     
     @ObservedObject var viewRouter: ViewRouter
     
@@ -17,7 +20,6 @@ struct X01GameTypeSelectionView: View {
         
         ZStack {
             LinearGradient(Color.darkStart, Color.darkEnd)
-            
             VStack(spacing: 40) {
                 Button(action: {
                     self.viewRouter.currentPage = "X01Game"

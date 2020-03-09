@@ -12,8 +12,6 @@ import SwiftUI
 // Things to do: not needed but good to have
 // 1. Randomize p1/p2 order at start of game
 // 2. Use a stack for the back button, store last 3 throws so you can always undo the entire turn
-
-
 class X01Game: ObservableObject
 {
     // This is the target score (e.g. 301, 501, etc.)
@@ -59,7 +57,10 @@ class X01Game: ObservableObject
     @Published private var p2CurrentRoundScore: Int = 0
     @Published private var p1DartsLeft: Int = 3
     @Published private var p2DartsLeft: Int = 3
+    @Published private var currentRound: Int = 1
+    
     @Published var showingAlert = false
+    
     
     @Published var dartHistroy = Stack()
     
@@ -139,10 +140,8 @@ class X01Game: ObservableObject
                     
                     dartHistroy.push(["P1":val])
                     
-                    if getP1DartsLeft() == 0
-                    {
-                        resetP1DartsLeft()
-                        toggleIsP1Turn()
+                    if getP1DartsLeft() == 0 {
+                       toggleIsP1Turn()
                     }
                 }
             }
@@ -173,33 +172,56 @@ class X01Game: ObservableObject
                     
                     dartHistroy.push(["P2":val])
                     
-                    if getP2DartsLeft() == 0
-                    {
-                        resetP2DartsLeft()
-                        toggleIsP1Turn()
+                    if getP2DartsLeft() == 0 {
+                       toggleIsP1Turn()
                     }
+                    
                 }
                 
             }
         }
     }
     
-    func backButtonClick()
+    // handle back button click
+    func backButtonClick() throws
     {
-        let dart = dartHistroy.pop()
-        
-        if dart.first?.key == "P1" {
-            let lastDartVal = dart["P1"]!
-            
-            self.setP1PointsLeft(points: -(lastDartVal))
-            self.addP1DartsLeft()
+        if currentRound == 1 && getP1DartsLeft() == 3 {
+            throw X01GameError.invalidUndo(errorMsg: "Cannot undo on first throw of the first round")
         }
-        else
-        {
-            let lastDartVal = dart["P2"]!
+        
+        do {
             
-            self.setP2PointsLeft(points: -(lastDartVal))
-            self.addP2DartsLeft()
+            let dart = try dartHistroy.pop()
+            
+            if dart.first?.key == "P1" {
+                
+                if (!getIsP1Turn()) {
+                    isP1Turn.toggle()
+                }
+                
+                let lastDartVal = dart["P1"]!
+                
+                self.setP1PointsLeft(points: -(lastDartVal))
+                self.addP1DartsLeft()
+            }
+            else
+            {
+                if (getIsP1Turn()) {
+                    isP1Turn.toggle()
+                }
+                
+                // have to step back a round
+                currentRound -= 1
+                print("Going back to round \(currentRound)")
+                
+                let lastDartVal = dart["P2"]!
+                
+                self.setP2PointsLeft(points: -(lastDartVal))
+                self.addP2DartsLeft()
+            }
+            
+        } catch {
+            print(error)
         }
     }
     
@@ -210,6 +232,17 @@ class X01Game: ObservableObject
     
     func toggleIsP1Turn()
     {
+        if !getIsP1Turn() {
+            currentRound += 1
+            print("Starting round: \(currentRound)")
+        }
+        
+        if getP1DartsLeft() == 0 && getP2DartsLeft() == 0
+        {
+            resetP1DartsLeft()
+            resetP2DartsLeft()
+        }
+        
         isP1Turn.toggle()
     }
     
@@ -256,15 +289,6 @@ class X01Game: ObservableObject
             setP1prevRoundScore(points: getP1PointsLeft())
         }
         
-        
-        if (getIsP1Turn())
-        {
-            resetP1DartsLeft()
-        }
-        else
-        {
-            resetP2DartsLeft()
-        }
         toggleIsP1Turn()
         
         
@@ -278,11 +302,6 @@ class X01Game: ObservableObject
     func resetP2CurrentRoundScore()
     {
         p2CurrentRoundScore = 0
-    }
-    
-    func getX01_mode() -> Int
-    {
-        return X01Mode
     }
     
     func getP1PointsLeft() -> Int
@@ -360,8 +379,15 @@ class X01Game: ObservableObject
             return topElement
         }
         
-        mutating func pop() -> [String: Int] {
-            return items.removeFirst()
+        mutating func pop() throws -> [String: Int] {
+            
+            if items.count == 0 {
+                throw X01GameError.emptyStack(errorMsg: "ERROR: Empty Stack")
+            }
+            else {
+                return items.removeFirst()
+            }
+            
         }
         
         mutating func push(_ element: [String: Int]) {
@@ -369,6 +395,13 @@ class X01Game: ObservableObject
         }
     }
     
+    // Errors for X01 Game Mode
+    enum X01GameError: Error {
+        case emptyStack(errorMsg: String)
+        case invalidUndo(errorMsg: String)
+    }
+    
 }
+
 
 
