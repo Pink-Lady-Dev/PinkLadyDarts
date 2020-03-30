@@ -8,34 +8,34 @@
 
 import Foundation
 
-func sendDart(dartThrow: DartThrow){
-    do {
-        var urlRequest = createURLRequest(address: "http://localhost:8080/api/v1/darts", requestType: Request_Type.POST)
-        urlRequest.httpBody = try JSONEncoder().encode(dt)
-        
-        POST(request: urlRequest, completion: {
-            result in switch result
-            {
-                case .success(_):
-                    print("Successfull send.")
-                case .failure(let error):
-                    print("Error Occured:\(error)")
-            }
-        })
-    } catch {
-        print("Decoding issue.")
-    }
-}
+//func sendDart(dartThrow: DartThrow){
+//    do {
+//        var urlRequest = createURLRequest(address: "http://localhost:8080/api/v1/darts", requestType: Request_Type.POST)
+//        urlRequest.httpBody = try JSONEncoder().encode(dt)
+//        
+//        POST(request: urlRequest, completion: {
+//            result in switch result
+//            {
+//                case .success(_):
+//                    print("Successfull send.")
+//                case .failure(let error):
+//                    print("Error Occured:\(error)")
+//            }
+//        })
+//    } catch {
+//        print("Decoding issue.")
+//    }
+//}
 
 final class DartThrow: Codable {
     
-    var player: User
+    var player: User_C
     var throwNumber: Int
     var pie: Int
     var isDouble: Bool
     var isTriple: Bool
     
-    init (player: User, throwNumber: Int, pie: Int, isDouble: Bool, isTriple: Bool){
+    init (player: User_C, throwNumber: Int, pie: Int, isDouble: Bool, isTriple: Bool){
         self.player = player
         self.throwNumber = throwNumber
         self.pie = pie

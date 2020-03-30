@@ -20,14 +20,14 @@ enum Request_Type {
 }
 
 
-func createURL(address : String, requestType: Request_Type) -> NSURL {
+func createURL(address : String) -> NSURL {
     
     guard let resourceURL = NSURL(string: address) else {fatalError()}
     
     return resourceURL
 }
 
-func createURL(address : String, requestType: Request_Type, params: [String:String]) -> NSURL {
+func createURL(address : String, params: [String:String]) -> NSURL {
     
     var resourceString = address + "?"
 
@@ -44,11 +44,13 @@ func createURL(address : String, requestType: Request_Type, params: [String:Stri
 
 func authorization(login: String, key: String) -> URLSessionConfiguration {
     
-    let config = URLSessionConfiguration.default
-    let userPasswordString = "\(login):\(key)"
-    let userPasswordData = userPasswordString.data(using: String.Encoding.utf8)
-    let base64EncodedCredential = userPasswordData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-    let authString = "Basic \(base64EncodedCredential)"
+    // eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYWtlb2NpbmNvIiwiZXhwIjoxNTgzOTc5MjY5LCJpYXQiOjE1ODM4OTI4Njl9.LswTLR_WCkUD1fKUwza81fOOKn1ndfNjEWMf1mMyIFbNrd-OmuUM3KQbK3VUZSzkuzsZwU0n2XoDZzr1xjaNxA
+        let config = URLSessionConfiguration.default
+//    let userPasswordString = "\(login):\(key)"
+//    let userPasswordData = userPasswordString.data(using: String.Encoding.utf8)
+//    let base64EncodedCredential = userPasswordData!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+    let authString = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYWtlb2NpbmNvIiwiZXhwIjoxNTgzOTc5MjY5LCJpYXQiOjE1ODM4OTI4Njl9.LswTLR_WCkUD1fKUwza81fOOKn1ndfNjEWMf1mMyIFbNrd-OmuUM3KQbK3VUZSzkuzsZwU0n2XoDZzr1xjaNxA"
+    //\(base64EncodedCredential)"
 
     config.httpAdditionalHeaders = ["Authorization" : authString]
     
@@ -56,6 +58,9 @@ func authorization(login: String, key: String) -> URLSessionConfiguration {
 }
 
 func createURLRequest(url : NSURL, requestType: Request_Type) -> URLRequest {
+    
+    // LEt this read from a static variable set on login becuase this will change constantly
+    let authString = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKYWtlb2NpbmNvIiwiZXhwIjoxNTg1NjE1NDQxLCJpYXQiOjE1ODU1MjkwNDF9.BmaMzzzIpILuEPz9GfFqX16ZTlR2eaeZUFMtpVGGQyXFIh1H1RenhFsl3iVNt9PKP5S66rOs71NANw7xBIlOTw"
     
     var urlRequest = URLRequest(url: url as URL)
     
@@ -65,11 +70,12 @@ func createURLRequest(url : NSURL, requestType: Request_Type) -> URLRequest {
         urlRequest.httpMethod = "GET"
     }
     urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    if (true){
+        urlRequest.addValue("Bearer " + authString, forHTTPHeaderField: "Authorization")
+    }
     
     return urlRequest;
 }
-
-
 
 
 func POSTwithSessionConfiguration (request: URLRequest, sessionConfig: URLSessionConfiguration, completion: @escaping(Result<Void, APIError>) -> Void){

@@ -29,7 +29,10 @@
 		6D1F4E0624089F0C00EECDEF /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F4E0524089F0C00EECDEF /* Users.swift */; };
 		6D1F4E0824089F1400EECDEF /* DartThrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F4E0724089F1300EECDEF /* DartThrow.swift */; };
 		6D1F4E0A24089F1900EECDEF /* HTTP_API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F4E0924089F1900EECDEF /* HTTP_API.swift */; };
-		6D4D935524109D9B00BEB0AE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4D935424109D9B00BEB0AE /* Validation.swift */; };
+		6D6FF578242C1F23002BDBD7 /* Game_M.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6FF577242C1F23002BDBD7 /* Game_M.swift */; };
+		6D6FF57B242C1FBA002BDBD7 /* Game_C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6FF57A242C1FBA002BDBD7 /* Game_C.swift */; };
+		6D6FF57D242C1FD0002BDBD7 /* User_C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6FF57C242C1FD0002BDBD7 /* User_C.swift */; };
+		6D6FF57F242C1FEF002BDBD7 /* Dart_C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6FF57E242C1FEF002BDBD7 /* Dart_C.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +60,10 @@
 		6D1F4E0524089F0C00EECDEF /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		6D1F4E0724089F1300EECDEF /* DartThrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DartThrow.swift; sourceTree = "<group>"; };
 		6D1F4E0924089F1900EECDEF /* HTTP_API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP_API.swift; sourceTree = "<group>"; };
-		6D4D935424109D9B00BEB0AE /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		6D6FF577242C1F23002BDBD7 /* Game_M.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_M.swift; sourceTree = "<group>"; };
+		6D6FF57A242C1FBA002BDBD7 /* Game_C.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_C.swift; sourceTree = "<group>"; };
+		6D6FF57C242C1FD0002BDBD7 /* User_C.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User_C.swift; sourceTree = "<group>"; };
+		6D6FF57E242C1FEF002BDBD7 /* Dart_C.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dart_C.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,12 +156,23 @@
 		6D4D93532410946600BEB0AE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				6D6FF579242C1F83002BDBD7 /* CodableModel */,
 				6D1F4E0524089F0C00EECDEF /* Users.swift */,
 				6D1F4E0724089F1300EECDEF /* DartThrow.swift */,
 				6D1F4E0924089F1900EECDEF /* HTTP_API.swift */,
-				6D4D935424109D9B00BEB0AE /* Validation.swift */,
+				6D6FF577242C1F23002BDBD7 /* Game_M.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		6D6FF579242C1F83002BDBD7 /* CodableModel */ = {
+			isa = PBXGroup;
+			children = (
+				6D6FF57A242C1FBA002BDBD7 /* Game_C.swift */,
+				6D6FF57C242C1FD0002BDBD7 /* User_C.swift */,
+				6D6FF57E242C1FEF002BDBD7 /* Dart_C.swift */,
+			);
+			path = CodableModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,15 +257,18 @@
 				01C67BF323EF66BA007D8111 /* GameScoreView.swift in Sources */,
 				0171D13D23E727C00057705D /* AppDelegate.swift in Sources */,
 				01C67BF123EF61F0007D8111 /* PlayerScoreView.swift in Sources */,
+				6D6FF57F242C1FEF002BDBD7 /* Dart_C.swift in Sources */,
 				013CA0AD23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift in Sources */,
 				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,
 				6D1F4E0624089F0C00EECDEF /* Users.swift in Sources */,
 				01FA968023F4B439008533E3 /* NextPlayerButtonView.swift in Sources */,
 				01FA968223F4B6A8008533E3 /* Game.swift in Sources */,
+				6D6FF57D242C1FD0002BDBD7 /* User_C.swift in Sources */,
+				6D6FF57B242C1FBA002BDBD7 /* Game_C.swift in Sources */,
 				0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */,
 				0171D14123E727C00057705D /* ContentView.swift in Sources */,
-				6D4D935524109D9B00BEB0AE /* Validation.swift in Sources */,
 				01D007FB23EF7B0F000B6F4D /* GeneralButtonView.swift in Sources */,
+				6D6FF578242C1F23002BDBD7 /* Game_M.swift in Sources */,
 				6D1F4E0A24089F1900EECDEF /* HTTP_API.swift in Sources */,
 				01FB3EC82405EE3900AB89C7 /* MainView.swift in Sources */,
 				01FA967E23F4B317008533E3 /* BackButtonView.swift in Sources */,
