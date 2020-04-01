@@ -59,8 +59,6 @@ func authorization(login: String, key: String) -> URLSessionConfiguration {
 
 func createURLRequest(url : NSURL, requestType: Request_Type) -> URLRequest {
     
-    // LEt this read from a static variable set on login becuase this will change constantly
-    let authString = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKYWtlb2NpbmNvIiwiZXhwIjoxNTg1NjE1NDQxLCJpYXQiOjE1ODU1MjkwNDF9.BmaMzzzIpILuEPz9GfFqX16ZTlR2eaeZUFMtpVGGQyXFIh1H1RenhFsl3iVNt9PKP5S66rOs71NANw7xBIlOTw"
     
     var urlRequest = URLRequest(url: url as URL)
     
@@ -70,15 +68,11 @@ func createURLRequest(url : NSURL, requestType: Request_Type) -> URLRequest {
         urlRequest.httpMethod = "GET"
     }
     urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    if (true){
-        urlRequest.addValue("Bearer " + authString, forHTTPHeaderField: "Authorization")
-    }
     
     return urlRequest;
 }
 
-
-func POSTwithSessionConfiguration (request: URLRequest, sessionConfig: URLSessionConfiguration, completion: @escaping(Result<Void, APIError>) -> Void){
+func POSTwithSessionConfiguration (request: URLRequest, sessionConfig: URLSessionConfiguration, completion: @escaping(Result<Data, APIError>) -> Void){
     
     let session = URLSession(configuration: sessionConfig)
     let dataTask = session.dataTask(with: request){
@@ -89,12 +83,12 @@ func POSTwithSessionConfiguration (request: URLRequest, sessionConfig: URLSessio
             return
         }
         
-        completion(.success(Void()))
+        completion(.success(data!))
     }
     dataTask.resume()
 }
 
-func POST (request: URLRequest, completion: @escaping(Result<Void, APIError>) -> Void){
+func POST (request: URLRequest, completion: @escaping(Result<Data, APIError>) -> Void){
     
     let dataTask = URLSession.shared.dataTask(with: request){
         data, responce, _ in
@@ -104,7 +98,7 @@ func POST (request: URLRequest, completion: @escaping(Result<Void, APIError>) ->
             return
         }
         
-        completion(.success(Void()))
+        completion(.success(data!))
     }
     dataTask.resume()
 }

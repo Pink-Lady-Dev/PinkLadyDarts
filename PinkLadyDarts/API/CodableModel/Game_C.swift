@@ -34,3 +34,4 @@ final class Game_C: Codable {
         self.gameType = gameType
     }
 }
+
