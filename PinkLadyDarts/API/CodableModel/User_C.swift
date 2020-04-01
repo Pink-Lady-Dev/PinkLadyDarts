@@ -30,3 +30,13 @@ final class User_C: Codable {
     }
     
 }
+
+final class User_C_POSTONLY: Codable {
+    var name: String
+    var password: String
+
+    init (name: String, password: String){
+        self.name = name
+        self.password = password
+    }
+}

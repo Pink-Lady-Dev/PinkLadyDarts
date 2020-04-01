@@ -18,9 +18,7 @@ class X01Game: Game
 {
     // This is the target score (e.g. 301, 501, etc.)
     private var X01Mode: Int
-    
-    var users = User()
-    
+
     // This is the score that is left to win the game
     @Published private var p1PointsLeft: Int
     @Published private var p2PointsLeft: Int

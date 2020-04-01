@@ -15,13 +15,15 @@ class User: ObservableObject
     // TODO - Consider replacing most of these with just a user type
     //            This change wouldn't be user facing but make it easier
     //            and have less  observables
-    @Published private var JWT_TOKEN: String
+    @Published private var jwt: String
+    @Published private var name: String
     
     @Published private var user: User_C
     
-    init () {
-        self.JWT_TOKEN = "EMPTY"
-        self.user        = User_C(
+    init (name: String) {
+        // These are only used for online users
+        self.jwt  = "null"
+        self.user = User_C(
             name: "null",
             id: "null",
             enabled: false,
@@ -29,9 +31,31 @@ class User: ObservableObject
             accountNonLocked: false,
             credentialsNonExpired: false
         )
+
+        self.name = name
+    }
+
+    init (name: String, password: String, isNewUser: Bool) {
+
+        // These are only used for online users
+        self.jwt  = "null"
+        self.user = User_C(
+            name: "null",
+            id: "null",
+            enabled: false,
+            accountNonExpired: false,
+            accountNonLocked: false,
+            credentialsNonExpired: false
+        )
+        self.name = name
+
+        if (isNewUser){
+            userPOST(password: password)
+        }
+        connect(password: password)
     }
     
-    func connect (username: String, password: String) {
+    func connect (password: String) {
         do {
             let url = createURL(address: "http://localhost:8181/authenticate")
             var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
@@ -39,7 +63,7 @@ class User: ObservableObject
             urlRequest.addValue("xxx", forHTTPHeaderField: "Secret")
             
             urlRequest.httpBody = try JSONEncoder().encode(
-                Authentication_C(username: username, password: password)
+                Authentication_C(username: self.name, password: password)
             )
             
             POST(request: urlRequest, completion: {
@@ -49,8 +73,8 @@ class User: ObservableObject
                         print("Successfull send.")
                     
                         print(data)
-                        self.JWT_TOKEN = User.parseJWT   (jsonData: data)
-                        self.user      = User.parseUser_C(jsonData: data)
+                        self.jwt  = User.parseJWT   (jsonData: data)
+                        self.user = User.parseUser_C(jsonData: data)
 
                     
                     
@@ -63,7 +87,32 @@ class User: ObservableObject
         }
     }
     
-    
+    func userPOST (password: String){
+        do {
+            let url = createURL(address: "http://localhost:8181/user")
+            var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
+
+            urlRequest.addValue("xxx", forHTTPHeaderField: "Secret")
+            
+            urlRequest.httpBody = try JSONEncoder().encode(
+                User_C_POSTONLY(
+                    name:     self.name,
+                    password: password
+            ))
+
+            POST(request: urlRequest, completion: {
+                result in switch result
+                {
+                case .success(_):
+                        print("Successfull send.")
+                    case .failure(let error):
+                        print("Error Occured: \(error)")
+                }
+            })
+        } catch {
+            print("Encoding Issue")
+        }
+    }
     
     /* Parsing Functions */
     
@@ -93,8 +142,9 @@ class User: ObservableObject
     }
     
     /* Getters */
+
     func getJWT() -> String {
-        return JWT_TOKEN;
+        return jwt;
     }
     
     func getUsername() -> String {
@@ -106,31 +156,6 @@ class User: ObservableObject
     }
 }
 
-
-func userPOST (user_c: User_C){
-    
-    do {
-        let url = createURL(address: "http://localhost:8181/user")
-        var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
-        
-        urlRequest.addValue("xxx", forHTTPHeaderField: "Secret")
-        
-        urlRequest.httpBody = try JSONEncoder().encode(user_c)
-        
-        POST(request: urlRequest, completion: {
-            result in switch result
-            {
-            case .success(_):
-                    print("Successfull send.")
-                case .failure(let error):
-                    print("Error Occured:\(error)")
-            }
-        })
-    } catch {
-        print("Encoding Issue")
-    }
-    
-}
 
 func authenticate (user_c: User_C){
     
@@ -170,8 +195,4 @@ func randomUser () -> User_C {
         accountNonLocked: true,
         credentialsNonExpired: true
     );
-}
-
-func testUserPOST() {
-    userPOST(user_c: randomUser())
 }
