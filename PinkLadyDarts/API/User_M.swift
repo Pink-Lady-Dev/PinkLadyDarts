@@ -69,15 +69,13 @@ class User: ObservableObject
             POST(request: urlRequest, completion: {
                 result in switch result
                 {
-                case .success(let data):
+                    case .success(let data):
                         print("Successfull send.")
                     
                         print(data)
                         self.jwt  = User.parseJWT   (jsonData: data)
                         self.user = User.parseUser_C(jsonData: data)
-
-                    
-                    
+        
                     case .failure(let error):
                         print("Error Occured:\(error)")
                 }
@@ -141,6 +139,12 @@ class User: ObservableObject
         )
     }
     
+    /* Checks */
+    
+    func validJWT() -> Bool{
+        return getJWT().count > 0
+    }
+    
     /* Getters */
 
     func getJWT() -> String {
@@ -153,6 +157,10 @@ class User: ObservableObject
     
     func getId() -> String {
         return user.id;
+    }
+    
+    func getCodable() -> User_C {
+        return user;
     }
 }
 
