@@ -21,23 +21,26 @@ class GameAPI: ObservableObject
     @Published private var users: [String: User] = [:]
     
     let jwt : String
-    let gameId = "testID"
+    var gameId : String
     
     @Published private var gameType: GAME_TYPE
     
     init(users: [User]){
         self.id = UUID().uuidString;
         self.gameType = GAME_TYPE.X01;
-        self.jwt = ""
+        self.jwt = "";
+        self.gameId = "";
         
         for user in users {
-            print(user.getId())
-            print(user.getUsername())
             self.users.updateValue(user, forKey: user.getUsername())
         }
+
+        newGame()
     }
     
-    func newGame() {
+    private func newGame() {
+        self.gameId = UUID().uuidString.lowercased()
+
         gamePOST(game_c: Game_C(
                     id: gameId,
                     userIds: self.users.map ({ (key, value) in
@@ -65,89 +68,59 @@ class GameAPI: ObservableObject
         if (self.users["Jakeocinco"] != nil){
             return self.users["Jakeocinco"]?.getJWT() ?? "default value"
         }
-        return ""
+        return "";
     }
-}
+    
+    func getGameUUID() -> String {
+        return self.gameId;
+    }
+    
+    /*   HTTP METHODS  */
+    private func gamePOST (game_c: Game_C, jwt: String){
 
-private func gamePOST (game_c: Game_C, jwt: String){
-    
-    do {
-        let url = createURL(address: "http://localhost:8181/game")
-        var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
-        urlRequest.addValue("Bearer  " + jwt, forHTTPHeaderField: "Authorization")
-    
-        urlRequest.httpBody = try JSONEncoder().encode(game_c)
+        do {
+            let url = createURL(address: "http://localhost:8181/game")
+            var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
+            urlRequest.addValue("Bearer  " + jwt, forHTTPHeaderField: "Authorization")
+
+            urlRequest.httpBody = try JSONEncoder().encode(game_c)
+
+            POST(request: urlRequest, completion: {
+                result in switch result
+                {
+                case .success(_):
+                        print("Successfull send.")
+                    case .failure(let error):
+                        print("Error Occured:\(error)")
+                }
+            })
+        } catch {
+            print("Encoding Issue")
+        }
         
-        POST(request: urlRequest, completion: {
-            result in switch result
-            {
-            case .success(_):
-                    print("Successfull send.")
-                case .failure(let error):
-                    print("Error Occured:\(error)")
-            }
-        })
-    } catch {
-        print("Encoding Issue")
     }
     
-}
+    private func dartPOST (dart_c: Dart_C, gameId: String, jwt: String){
 
-private func dartPOST (dart_c: Dart_C, gameId: String, jwt: String){
-    
-    do {
-        let url = createURL(address: "http://localhost:8181/game/" + gameId + "/user/" + dart_c.player.id)
-        var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
-        urlRequest.addValue("Bearer  " + jwt, forHTTPHeaderField: "Authorization")
-    
-        urlRequest.httpBody = try JSONEncoder().encode(dart_c)
+        do {
+            let url = createURL(address: "http://localhost:8181/game/" + gameId + "/user/" + dart_c.player.id)
+            var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
+            urlRequest.addValue("Bearer  " + jwt, forHTTPHeaderField: "Authorization")
+
+            urlRequest.httpBody = try JSONEncoder().encode(dart_c)
+
+            POST(request: urlRequest, completion: {
+                result in switch result
+                {
+                case .success(_):
+                        print("Successfull send.")
+                    case .failure(let error):
+                        print("Error Occured:\(error)")
+                }
+            })
+        } catch {
+            print("Encoding Issue")
+        }
         
-        POST(request: urlRequest, completion: {
-            result in switch result
-            {
-            case .success(_):
-                    print("Successfull send.")
-                case .failure(let error):
-                    print("Error Occured:\(error)")
-            }
-        })
-    } catch {
-        print("Encoding Issue")
     }
-    
 }
-
-/*  TEST CODE  */
-
-func testGame () -> Game_C {
-    let jake = User_C(
-        name: "Jakeocinc",
-        id: "8d04b16a-0d39-407d-a087-8926a9e2fcfa",
-        enabled: true,
-        accountNonExpired: true,
-        accountNonLocked: true,
-        credentialsNonExpired: true
-    );
-    
-    let nick = User_C(
-        name: "NickClason85",
-        id: "45d87a87-b077-4286-b37f-35c5e30eed2b",
-        enabled: true,
-        accountNonExpired: true,
-        accountNonLocked: true,
-        credentialsNonExpired: true
-    );
-    
-    
-    let game = Game_C(
-        id: "522a9f51-b8fa-4878-bf67-821d27b72af4",
-        users: [jake, nick],
-        gameType: "XO1"
-    );
-    
-    return game;
-}
-
-//func testPOST() {
-//    gamePOST(game_c: testGame())
-//}

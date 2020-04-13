@@ -52,14 +52,15 @@ class User: ObservableObject
         if (isNewUser){
             userPOST(password: password)
         }
-        connect(password: password)
+        authenticatePost(password: password)
     }
-    
-    func connect (password: String) {
+
+    func authenticatePost (password: String) {
         do {
             let url = createURL(address: "http://localhost:8181/authenticate")
             var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
             
+            // TODO Change this to an enviornment variable or something
             urlRequest.addValue("xxx", forHTTPHeaderField: "Secret")
             
             urlRequest.httpBody = try JSONEncoder().encode(
@@ -162,45 +163,4 @@ class User: ObservableObject
     func getCodable() -> User_C {
         return user;
     }
-}
-
-
-func authenticate (user_c: User_C){
-    
-    do {
-        let url = createURL(address: "http://localhost:8181/user")
-        var urlRequest = createURLRequest(url: url, requestType: Request_Type.POST)
-        
-        urlRequest.addValue("xxx", forHTTPHeaderField: "Secret")
-        
-        urlRequest.httpBody = try JSONEncoder().encode(user_c)
-        
-        POST(request: urlRequest, completion: {
-            result in switch result
-            {
-            case .success(_):
-                    print("Successfull send.")
-                case .failure(let error):
-                    print("Error Occured:\(error)")
-            }
-        })
-    } catch {
-        print("Encoding Issue")
-    }
-    
-}
-
-
-
-/*  TEST CODE  */
-
-func randomUser () -> User_C {
-    return User_C(
-        name: "RandomTestUser_" + String(Int.random(in: 0 ... 99)),
-        id: UUID().uuidString,
-        enabled: true,
-        accountNonExpired: true,
-        accountNonLocked: true,
-        credentialsNonExpired: true
-    );
 }
