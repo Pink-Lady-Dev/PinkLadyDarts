@@ -95,13 +95,14 @@
 				6D4D93532410946600BEB0AE /* API */,
 				0171D13C23E727C00057705D /* AppDelegate.swift */,
 				0171D13E23E727C00057705D /* SceneDelegate.swift */,
-				019584F42405F9BD00D5B43E /* Views */,
+				01FB3EC72405EE3900AB89C7 /* MainView.swift */,
+				0171D14023E727C00057705D /* ContentView.swift */,
+				01FF150D24491B36005E0D67 /* X01Game */,
 				0171D14223E727C20057705D /* Assets.xcassets */,
 				0171D14723E727C20057705D /* LaunchScreen.storyboard */,
 				0171D14A23E727C20057705D /* Info.plist */,
 				01C63F3423EE595C00E078B8 /* icons8-goal-64.png */,
 				0171D14423E727C20057705D /* Preview Content */,
-				013CA0A923FF61A5007B3F6F /* Buttons */,
 			);
 			path = PinkLadyDarts;
 			sourceTree = "<group>";
@@ -118,11 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				019584F52405F9EF00D5B43E /* View Parts */,
-				0171D14023E727C00057705D /* ContentView.swift */,
 				013CA0AC23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift */,
 				01D0080023EF87B8000B6F4D /* X01GameView.swift */,
-				01D856582447D633007C2E01 /* X01GameViewModel.swift */,
-				01FB3EC72405EE3900AB89C7 /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,6 +132,24 @@
 				01D8565C2447DB33007C2E01 /* X01ScoreBoardView.swift */,
 			);
 			path = "View Parts";
+			sourceTree = "<group>";
+		};
+		01FF150D24491B36005E0D67 /* X01Game */ = {
+			isa = PBXGroup;
+			children = (
+				01FF150E24491C60005E0D67 /* View Model */,
+				019584F42405F9BD00D5B43E /* Views */,
+				013CA0A923FF61A5007B3F6F /* Buttons */,
+			);
+			path = X01Game;
+			sourceTree = "<group>";
+		};
+		01FF150E24491C60005E0D67 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				01D856582447D633007C2E01 /* X01GameViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		6D4D93532410946600BEB0AE /* API */ = {

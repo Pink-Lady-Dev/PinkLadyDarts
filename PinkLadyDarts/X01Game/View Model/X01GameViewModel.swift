@@ -140,6 +140,17 @@ class X01GameViewModel: ObservableObject {
         
     }
     
+    func nextButtonCallback() {
+        
+        if (getPlayer1().getIsTurn()) {
+            endOfTurn(player: getPlayer1())
+            getPlayer1().setDartCount(value: 3)
+        }
+        else {
+            endOfTurn(player: getPlayer2())
+        }
+    }
+    
     func resetDartCounts() {
         getPlayer1().setDartCount(value: 3)
         getPlayer2().setDartCount(value: 3)

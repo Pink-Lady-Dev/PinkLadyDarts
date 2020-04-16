@@ -6,6 +6,13 @@
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
 
+//
+// This view serves as the main menu. Currently
+// there is only the option to play X01 mode.
+//
+// TODO: Add more games
+//
+
 import SwiftUI
 
 extension Color {
