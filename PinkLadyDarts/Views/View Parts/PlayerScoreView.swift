@@ -2,7 +2,7 @@
 //  PlayerScoreView.swift
 //  PinkLadyDarts
 //
-//  Created by Nick Clason on 2/8/20.
+//  Created by Nick Clason on 4/15/20.
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
 
@@ -10,99 +10,18 @@ import SwiftUI
 
 struct PlayerScoreView: View {
     
-    enum playerID {
-        case player1, player2
-    }
+    @ObservedObject var X01GameVM: X01GameViewModel
     
-    var id: playerID
-    var turnHighlightColor: Color = (Color.red)
-    
-    @ObservedObject var myGame: X01Game
-    
+    var isLHS: Bool
     
     var body: some View {
-        /*
-         ZStack {
-         if (self.myGame.getIsP1Turn())
-         {
-         Rectangle().fill(turnHighlightColor)
-         }
-         
-         // layout for player 1 score view (left side of screen)
-         if id == .player1 {
-         if (self.myGame.getIsP1Turn())
-         {
-         Rectangle().fill(turnHighlightColor)
-         }
-         else{
-         //                    Rectangle().fill(LinearGradient(Color.darkStart, Color.darkEnd))
-         RoundedRectangle(cornerRadius: 25)
-         .fill(Color.offWhite)
-         .frame(width: 300, height: 300)
-         //                    .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-         //                    .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-         }
-         
-         HStack {
-         VStack(alignment: .leading){
-         HStack {
-         Text(String(self.myGame.getP1prevRoundScore())).strikethrough()
-         Text(String(self.myGame.getP1CurrentRoundScore())).frame(width: 50).border(Color.white, width: 1) // box = points score that round
-         }
-         Text(self.myGame.getPlayer1Name()).font(.title).fontWeight(.medium)
-         }.frame(maxWidth: .infinity)
-         HStack {
-         VStack {
-         Text(String(self.myGame.getP1PointsLeft())).font(.title).padding()
-         Text(String(self.myGame.getP1DartsLeft()))
-         }
-         }
-         }.foregroundColor(Color.white)
-         }
-         // layout for player 1 score view (left side of screen)
-         else {
-         
-         if (!self.myGame.getIsP1Turn())
-         {
-         Rectangle().fill(turnHighlightColor)
-         }
-         else{
-         //                    Rectangle().fill(LinearGradient(Color.darkStart, Color.darkEnd))
-         RoundedRectangle(cornerRadius: 25)
-         .fill(Color.offWhite)
-         .frame(width: 300, height: 300)
-         //                    .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-         //                    .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-         }
-         
-         
-         HStack {
-         HStack {
-         VStack{
-         Text(String(self.myGame.getP2PointsLeft())).font(.title).padding()
-         Text(String(self.myGame.getP2DartsLeft()))
-         }
-         }
-         VStack(alignment: .trailing){
-         HStack {
-         Text(String(self.myGame.getP2CurrentRoundScore())).frame(width: 50).border(Color.white, width: 1)
-         Text(String(self.myGame.getP2prevRoundScore())).strikethrough()
-         }
-         Text(self.myGame.getPlayer2Name()).font(.title).fontWeight(.medium)
-         }.frame(maxWidth: .infinity)
-         
-         }.foregroundColor(Color.white)
-         }
-         
-         
-         }.border(Color.black, width: 1)
-         */
         
         ZStack {
             
-            if id == .player1 {
+            if isLHS {
                 
-                if (self.myGame.getIsP1Turn())
+                // handles highlight if it is player 1 turn
+                if (self.X01GameVM.getPlayer1().getIsTurn())
                 {
                     RoundedRectangle(cornerRadius: 25)
                         .fill(LinearGradient(Color.lightEnd1, Color.lightStart1))
@@ -123,15 +42,15 @@ struct PlayerScoreView: View {
                 HStack {
                     VStack(alignment: .leading){
                         HStack {
-                            Text(String(self.myGame.getP1prevRoundScore())).strikethrough()
-                            Text(String(self.myGame.getP1CurrentRoundScore())).frame(width: 50).border(Color.white, width: 1) // box = points score that round
+                            Text("\(self.X01GameVM.getPlayer1().getPreviousRoundScore())").strikethrough()
+                            Text("\(self.X01GameVM.getPlayer1().getCurrentRoundScore())").frame(width: 50).border(Color.white, width: 1)
                         }
-                        Text(self.myGame.getPlayer1Name()).font(.system(size: 24))
+                        Text(self.X01GameVM.getPlayer1().getName()).font(.system(size: 24))
                     }.frame(maxWidth: .infinity)
                     HStack {
                         VStack {
-                            Text(String(self.myGame.getP1PointsLeft())).padding()
-                            Text(String(self.myGame.getP1DartsLeft()))
+                            Text("\(self.X01GameVM.getPlayer1().getX01Points())").padding()
+                            Text("\(self.X01GameVM.getPlayer1().getDartCount())")
                         }
                     }
                 }
@@ -139,9 +58,12 @@ struct PlayerScoreView: View {
                 .frame(width: 165, height: 110)
                 .foregroundColor(Color.white)
             }
+            
+            // Right side
             else {
                 
-                if (!self.myGame.getIsP1Turn())
+                // handles highlight if it is player 2 turn
+                if (self.X01GameVM.getPlayer2().getIsTurn())
                 {
                     RoundedRectangle(cornerRadius: 25)
                         .fill(LinearGradient(Color.lightEnd1, Color.lightStart1))
@@ -162,16 +84,16 @@ struct PlayerScoreView: View {
                 HStack {
                     HStack {
                         VStack{
-                            Text(String(self.myGame.getP2PointsLeft())).padding()
-                            Text(String(self.myGame.getP2DartsLeft()))
+                            Text("\(self.X01GameVM.getPlayer2().getX01Points())").padding()
+                            Text("\(self.X01GameVM.getPlayer2().getDartCount())")
                         }
                     }
                     VStack(alignment: .trailing){
                         HStack {
-                            Text(String(self.myGame.getP2CurrentRoundScore())).frame(width: 50).border(Color.white, width: 1)
-                            Text(String(self.myGame.getP2prevRoundScore())).strikethrough()
+                            Text("\(self.X01GameVM.getPlayer2().getCurrentRoundScore())").frame(width: 50).border(Color.white, width: 1)
+                            Text("\(self.X01GameVM.getPlayer2().getPreviousRoundScore())").strikethrough()
                         }
-                        Text(self.myGame.getPlayer2Name()).font(.system(size: 24))
+                        Text(self.X01GameVM.getPlayer2().getName()).font(.system(size: 24))
                     }.frame(maxWidth: .infinity)
                     
                 }
@@ -184,12 +106,12 @@ struct PlayerScoreView: View {
         }
         
         
-        
     }
 }
 
+
 struct PlayerScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerScoreView(id: .player1, myGame: X01Game(targetPoints: 301))
+        PlayerScoreView(X01GameVM: X01GameViewModel(startingX01Points: 301), isLHS: true)
     }
 }

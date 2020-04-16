@@ -1,25 +1,25 @@
 //
-//  NextPlayerButtonView.swift
+//  SimpleButtonView.swift
 //  PinkLadyDarts
 //
-//  Created by Nick Clason on 2/12/20.
+//  Created by Nick Clason on 3/9/20.
 //  Copyright © 2020 Nick Clason. All rights reserved.
 //
 
 import SwiftUI
 
-struct NextPlayerButtonView: View {
-    var btnText: String // text displayed in button
+struct SimpleButtonView: View {
+    var btnText: String
     var txtWidth: CGFloat
     var txtHeight: CGFloat
+    var btnAction: ()->()
+    let generator = UIImpactFeedbackGenerator(style: .medium)
     
-    let generator = UIImpactFeedbackGenerator(style: .medium) // haptic feedback on regular tap
-    
-    @ObservedObject var myGame: X01Game
+    @ObservedObject var myGame: X01GameViewModel
     
     
     var body: some View {
-
+        
         Button(action: {
             self.btnTap()
         }) {
@@ -35,15 +35,12 @@ struct NextPlayerButtonView: View {
     func btnTap()
     {
         self.generator.impactOccurred()
-        self.myGame.nextTurn()
-        
+        btnAction()
     }
 }
 
-
-
-//struct NextPlayerButtonView_Previews: PreviewProvider {
+//struct SimpleButtonView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        NextPlayerButtonView(btnText: "Next Player", myGame: X01Game(targetPoints: 301))
+//        SimpleButtonView(btnText: "Test", txtWidth: 100, txtHeight: 50, btnAction: {print("Test Button")}, myGame: X01Game(targetPoints: 301))
 //    }
 //}

@@ -16,6 +16,15 @@ import SwiftUI
 import Foundation
 import Combine
 
+//
+// View manager
+// Allows views to be easily switched between
+//
+// I think that any value that needs to be passed around throughout the entire application
+// can be added as an attribute to this class. This is an easy way to pass menu options from 1
+// view to another.
+//
+
 class ViewRouter: ObservableObject {
     
     let objectWillChange = PassthroughSubject<ViewRouter,Never>()
@@ -35,13 +44,10 @@ class ViewRouter: ObservableObject {
 
 // TODO: Clean this up with an enum or something
 //       Add a "loading screen" that lets the user input the player names
-//       Potentially only show this if the player is not logged in?
+
 struct MainView: View {
     
     @ObservedObject var viewRouter: ViewRouter
-    
-    @State var p1Name: String = "Player 1"
-    @State var p2Name: String = "Player 2"
     
     var body: some View {
         VStack {
@@ -53,8 +59,7 @@ struct MainView: View {
                 X01GameTypeSelectionView(viewRouter: viewRouter).animation(.easeInOut)
             }
             else if viewRouter.currentPage == "X01Game" {
-//                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: viewRouter.X01GameScore, p1Name: self.p1Name, p2Name: self.p2Name))
-                X01GameView(viewRouter: viewRouter, myGame: X01Game(targetPoints: viewRouter.X01GameScore, p1Name: "Nick", p2Name: "Jake"))
+                X01GameView(viewRouter: viewRouter, X01GameVM: X01GameViewModel(startingX01Points: viewRouter.X01GameScore))
             }
         }
     }

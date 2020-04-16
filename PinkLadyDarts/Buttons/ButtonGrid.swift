@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ButtonGrid: View {
     
-    @ObservedObject var myGame: X01Game
+    @ObservedObject var X01GameVM: X01GameViewModel
     
     var body: some View {
         
@@ -18,45 +18,48 @@ struct ButtonGrid: View {
             
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
-                    ButtonView(btnText: "Miss", txtWidth: 15, txtHeight: 20, myGame: self.myGame, hasContextMenu: false)
-                    ButtonView(btnText: "Bull\n(25)",txtWidth: 15, txtHeight: 100, myGame: self.myGame, hasContextMenu: false)
-                    ButtonView(btnText: "Bull\n(50)",txtWidth: 15, txtHeight: 100, myGame: self.myGame, hasContextMenu: false)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "Miss", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "Bull\n(25)", txtWidth: 15, txtHeight: 100)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "Bull\n(50)", txtWidth: 15, txtHeight: 100)
                 }
                 VStack(spacing: 0) {
-                    ButtonView(btnText: "20",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "16",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "12",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "8",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "4",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "20", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "16", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "12", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "8", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "4", txtWidth: 15, txtHeight: 20)
                 }
                 VStack(spacing: 0) {
-                    ButtonView(btnText: "19",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "15",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "11",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "7",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "3",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "19", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "15", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "11", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "7", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "3", txtWidth: 15, txtHeight: 20)
                 }
                 VStack(spacing: 0) {
-                    ButtonView(btnText: "18",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "14",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "10",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "6",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "2",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "18", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "14", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "10", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "6", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "2", txtWidth: 15, txtHeight: 20)
                 }
                 VStack(spacing: 0) {
-                    ButtonView(btnText: "17",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "13",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "9",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "5",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
-                    ButtonView(btnText: "1",txtWidth: 15, txtHeight: 20, myGame: self.myGame)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "17", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "13", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "9", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "5", txtWidth: 15, txtHeight: 20)
+                    ButtonView(X01GameVM: self.X01GameVM, btnText: "1", txtWidth: 15, txtHeight: 20)
                 }
+                
             }
         }.edgesIgnoringSafeArea(.all)
+        
     }
 }
 
+
 struct ButtonGrid_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonGrid(myGame: X01Game(targetPoints: 301))
+        ButtonGrid(X01GameVM: X01GameViewModel(startingX01Points: 301))
     }
 }
