@@ -1,14 +1,15 @@
 //
-//  DartThrow.swift
-//  Darts_Client
+//  Dart_C.swift
+//  PinkLadyDarts
 //
-//  Created by Jacob Carlson on 2/10/20.
-//  Copyright © 2020 Jacob Carlson. All rights reserved.
+//  Created by Jacob Carlson on 3/25/20.
+//  Copyright © 2020 Nick Clason. All rights reserved.
 //
 
 import Foundation
 
-final class DartThrow: Codable {
+
+final class Dart_C: Codable {
     
     var player: User_C
     var throwNumber: Int

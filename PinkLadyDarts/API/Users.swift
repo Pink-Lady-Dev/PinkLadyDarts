@@ -10,17 +10,22 @@ import Foundation
 
 class Users: ObservableObject {
     
-    @Published private var users = [User]()
+    @Published private var users = [User_C]()
     
-    func fromJSON (jsonData : Data) -> [User]{
+    func fromJSON (jsonData : Data) -> [User_C]{
         
         let json = try? JSONSerialization.jsonObject(with: jsonData, options: [])
         let jsonArr = json as! NSArray;
-        var tempUsers = [User](); //User(name: "temp", id: "1");
+        var tempUsers = [User_C](); //User(name: "temp", id: "1");
         
         for j in jsonArr{
             let dict = j as! NSDictionary
-            tempUsers.append(User(name: dict["name"] as! String,id: dict["id"] as! String))
+            tempUsers.append(User_C(name: dict["name"] as! String,
+                                  id: dict["id"] as! String,
+                                  enabled: dict["enabled"] as! Bool,
+                                  accountNonExpired: dict["accountNonExpired"] as! Bool,
+                                  accountNonLocked: dict["accountNonLocked"] as! Bool,
+                                  credentialsNonExpired: dict["credentialsNonExpired"] as! Bool))
         }
         
         return tempUsers
@@ -28,8 +33,10 @@ class Users: ObservableObject {
     
     func setUsers () {
         
-        let urlRequest = createURLRequest(address: "http://localhost:8080/api/v1/user", requestType: Request_Type.GET)
-        
+        let url = createURL(address: "http://localhost:8080/user/all")
+        let urlRequest = createURLRequest(url: url, requestType: Request_Type.GET)
+//        let urlRequest = createURLRequest(address: "http://localhost:8080/api/v1/user", requestType: Request_Type.GET)
+//
         GET(request: urlRequest, completion:{
             result in switch result
             {
@@ -44,22 +51,8 @@ class Users: ObservableObject {
         });
     }
     
-    func getUsers () -> [User] {
+    func getUsers () -> [User_C] {
         return users;
     }
 }
 
-final class User: Codable {
-    var id: String?
-    var name: String
-    
-    init (name: String){
-        self.name = name
-    }
-    
-    init (name: String, id: String){
-        self.name = name
-        self.id = id
-    }
-    
-}
