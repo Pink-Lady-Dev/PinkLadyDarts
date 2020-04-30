@@ -38,11 +38,21 @@ struct X01GameView: View {
             })
         
     }
-        let backBtnAction = { print("DEBUG: Back Button Clicked") }
 
     func nextBtnAction() {
         self.X01GameVM.objectWillChange.send()
         self.X01GameVM.nextButtonCallback()
+    }
+    
+    func backBtnAction() {
+        self.X01GameVM.objectWillChange.send()
+
+        do {
+            try self.X01GameVM.backButtonCallback()
+        }
+        catch {
+            print(error)
+        }
     }
 
 }

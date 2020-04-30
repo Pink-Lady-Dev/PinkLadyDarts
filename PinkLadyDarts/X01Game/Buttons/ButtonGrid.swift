@@ -50,7 +50,6 @@ struct ButtonGrid: View {
                     ButtonView(X01GameVM: self.X01GameVM, btnText: "5", txtWidth: 15, txtHeight: 20)
                     ButtonView(X01GameVM: self.X01GameVM, btnText: "1", txtWidth: 15, txtHeight: 20)
                 }
-                
             }
         }.edgesIgnoringSafeArea(.all)
         

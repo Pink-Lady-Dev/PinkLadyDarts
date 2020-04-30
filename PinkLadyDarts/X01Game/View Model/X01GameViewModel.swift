@@ -100,6 +100,7 @@ class X01GameViewModel: ObservableObject {
     
     private var startingX01Points: Int
     private var gameOver: Bool
+    private var backButtonStack: Stack
     @Published var showingAlert = false
     
     init(startingX01Points: Int, player1Name: String="Player 1", player2Name: String="Player 2") {
@@ -109,6 +110,9 @@ class X01GameViewModel: ObservableObject {
         
         self.player1 = Player(name: player1Name, isTurn: true, X01Points: startingX01Points)
         self.player2 = Player(name: player2Name, isTurn: false, X01Points: startingX01Points)
+        
+        self.backButtonStack = Stack()
+        
         
     }
     
@@ -143,11 +147,56 @@ class X01GameViewModel: ObservableObject {
     func nextButtonCallback() {
         
         if (getPlayer1().getIsTurn()) {
+            getPlayer1().setPreviousRoundScore(value: getPlayer1().getX01Points())
             endOfTurn(player: getPlayer1())
             getPlayer1().setDartCount(value: 3)
         }
         else {
+            getPlayer2().setPreviousRoundScore(value: getPlayer2().getX01Points())
             endOfTurn(player: getPlayer2())
+        }
+    }
+    
+    func backButtonCallback() throws {
+        
+        if (backButtonStack.empty()) {
+            throw X01GameError.invalidUndo(errorMsg: "Empty Stack. Cannot Undo")
+        }
+        
+        do {
+            
+            let dart = try backButtonStack.pop()
+            
+            if dart.first?.key == "P1" {
+                
+                if (!getPlayer1().getIsTurn()) {
+                    getPlayer1().toggleIsTurn()
+                    getPlayer2().toggleIsTurn()
+                }
+                
+                let lastDartVal = dart["P1"]!
+                
+                getPlayer1().setX01Points(value: getPlayer1().getX01Points() + lastDartVal)
+                getPlayer1().setCurrentRoundScore(value: getPlayer1().getCurrentRoundScore() - lastDartVal)
+                getPlayer1().setDartCount(value: getPlayer1().getDartCount() + 1)
+
+            }
+            else {
+                
+                if (getPlayer1().getIsTurn()) {
+                    getPlayer1().toggleIsTurn()
+                    getPlayer2().toggleIsTurn()
+                }
+                
+                let lastDartVal = dart["P2"]!
+                
+                getPlayer2().setX01Points(value: getPlayer2().getX01Points() + lastDartVal)
+                getPlayer2().setCurrentRoundScore(value: getPlayer2().getCurrentRoundScore() - lastDartVal)
+                getPlayer2().setDartCount(value: getPlayer2().getDartCount() + 1)
+            }
+            
+        } catch {
+            print(error)
         }
     }
     
@@ -159,6 +208,13 @@ class X01GameViewModel: ObservableObject {
     func dartThrow(player: Player, pointVal: Int) {
         
         if (player.getDartCount() != 0) {
+            
+            if (getPlayer1().getIsTurn()) {
+                backButtonStack.push(["P1" : pointVal])
+            }
+            else {
+                backButtonStack.push(["P2" : pointVal])
+            }
             
             let updatedRoundScore = player.getCurrentRoundScore() + pointVal
             let pointsLeft = player.getX01Points() - pointVal
@@ -216,5 +272,48 @@ class X01GameViewModel: ObservableObject {
         return false
     }
         
-    
+    // Stack for darts thrown
+    struct Stack {
+        private var items: [[String: Int]] = []
+        
+        func printStack() {
+            for item in items {
+                print(item)
+            }
+        }
+        
+        func peek() -> [String: Int] {
+            guard let topElement = items.first else { fatalError("This stack is empty.") }
+            return topElement
+        }
+        
+        mutating func pop() throws -> [String: Int] {
+            
+            if items.count == 0 {
+                throw X01GameError.emptyStack(errorMsg: "ERROR: Empty Stack")
+            }
+            else {
+                return items.removeFirst()
+            }
+            
+        }
+        
+        mutating func push(_ element: [String: Int]) {
+            items.insert(element, at: 0)
+        }
+        
+        func empty() -> Bool {
+            return items.count == 0
+        }
+    }
+
+    // Errors for X01 Game Mode
+    enum X01GameError: Error {
+        case emptyStack(errorMsg: String)
+        case invalidUndo(errorMsg: String)
+    }
 }
+
+
+
+
