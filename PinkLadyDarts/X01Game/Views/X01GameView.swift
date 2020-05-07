@@ -20,8 +20,8 @@ struct X01GameView: View {
         
         ZStack {
             LinearGradient(Color.darkStart, Color.darkEnd)
-            VStack {
-                X01ScoreBoardView(X01GameVM: X01GameVM)
+            VStack(spacing: 4) {
+                X01ScoreBoardView(X01GameVM: X01GameVM).padding()
                 ButtonGrid(X01GameVM: X01GameVM)
                 HStack(spacing: 4) {
                     SimpleButtonView(btnText: "<--", txtWidth: 125, txtHeight: 50, btnAction: backBtnAction, X01GameVM: X01GameVM)

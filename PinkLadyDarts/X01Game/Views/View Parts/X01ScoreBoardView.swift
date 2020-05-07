@@ -13,11 +13,11 @@ struct X01ScoreBoardView: View {
     @ObservedObject var X01GameVM: X01GameViewModel
     
     var body: some View {
-        HStack {
+        HStack(spacing: 15) {
             PlayerScoreView(X01GameVM: X01GameVM, isLHS: true)
-                .padding()
+
             PlayerScoreView(X01GameVM: X01GameVM, isLHS: false)
-            .padding()
+            
         }
     }
 }

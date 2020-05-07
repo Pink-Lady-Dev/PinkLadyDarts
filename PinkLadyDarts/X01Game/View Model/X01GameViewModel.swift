@@ -100,8 +100,10 @@ class X01GameViewModel: ObservableObject {
     
     private var startingX01Points: Int
     private var gameOver: Bool
-    private var backButtonStack: Stack
     @Published var showingAlert = false
+    
+    // [(PlayerID, dartValue, X01Points, CurrentRoundScore, PreviousRoundScore)]
+    private var tupleStack: TupleStack
     
     init(startingX01Points: Int, player1Name: String="Player 1", player2Name: String="Player 2") {
         
@@ -111,16 +113,14 @@ class X01GameViewModel: ObservableObject {
         self.player1 = Player(name: player1Name, isTurn: true, X01Points: startingX01Points)
         self.player2 = Player(name: player2Name, isTurn: false, X01Points: startingX01Points)
         
-        self.backButtonStack = Stack()
-        
+        self.tupleStack = TupleStack()
         
     }
-    
     
     func getPlayer1() -> Player {
         return self.player1
     }
-
+    
     func getPlayer2() -> Player {
         return self.player2
     }
@@ -133,7 +133,7 @@ class X01GameViewModel: ObservableObject {
         else {
             return self.player2
         }
-
+        
     }
     
     func numberButtonCallback(player: Player, value: Int) {
@@ -141,63 +141,86 @@ class X01GameViewModel: ObservableObject {
         if player.getIsTurn() {
             dartThrow(player: player, pointVal: value)
         }
-        
     }
     
     func nextButtonCallback() {
         
+        // Clicking the next button is the equivalent of
+        // missing your remaining throws currently
+        
         if (getPlayer1().getIsTurn()) {
-            getPlayer1().setPreviousRoundScore(value: getPlayer1().getX01Points())
-            endOfTurn(player: getPlayer1())
-            getPlayer1().setDartCount(value: 3)
+            for _ in 1...getPlayer1().getDartCount() {
+                dartThrow(player: getPlayer1(), pointVal: 0)
+            }
         }
         else {
-            getPlayer2().setPreviousRoundScore(value: getPlayer2().getX01Points())
-            endOfTurn(player: getPlayer2())
+            for _ in 1...getPlayer2().getDartCount() {
+                dartThrow(player: getPlayer2(), pointVal: 0)
+            }
         }
     }
     
     func backButtonCallback() throws {
         
-        if (backButtonStack.empty()) {
+        // If the Stack is empty it is the very first turn
+        // no darts have technically been thrown yet
+        
+        if (tupleStack.empty()) {
             throw X01GameError.invalidUndo(errorMsg: "Empty Stack. Cannot Undo")
         }
         
         do {
+            // [(PlayerID, dartValue, X01Points, CurrentRoundScore, PreviousRoundScore)]
+            let dart = try tupleStack.pop()
             
-            let dart = try backButtonStack.pop()
-            
-            if dart.first?.key == "P1" {
+            if (dart.0 == "P1") {
                 
-                if (!getPlayer1().getIsTurn()) {
-                    getPlayer1().toggleIsTurn()
-                    getPlayer2().toggleIsTurn()
+                if (isPlayer1Turn()) {
+                    getPlayer1().setX01Points(value: dart.2 + dart.1)
+                    getPlayer1().setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer1().setDartCount(value: getPlayer1().getDartCount() + 1)
+                }
+                else {
+                    switchTurns()
+                    getPlayer1().setX01Points(value: dart.2 + dart.1)
+                    getPlayer1().setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer1().setPreviousRoundScore(value: dart.4)
+                    
+                    if getPlayer1().getDartCount() != 0 {
+                        getPlayer1().setDartCount(value: 0)
+                    }
+                    
+                    getPlayer1().setDartCount(value: getPlayer1().getDartCount() + 1)
                 }
                 
-                let lastDartVal = dart["P1"]!
-                
-                getPlayer1().setX01Points(value: getPlayer1().getX01Points() + lastDartVal)
-                getPlayer1().setCurrentRoundScore(value: getPlayer1().getCurrentRoundScore() - lastDartVal)
-                getPlayer1().setDartCount(value: getPlayer1().getDartCount() + 1)
-
             }
             else {
                 
-                if (getPlayer1().getIsTurn()) {
-                    getPlayer1().toggleIsTurn()
-                    getPlayer2().toggleIsTurn()
+                if (isPlayer2Turn()) {
+                    getPlayer2().setX01Points(value: dart.2 + dart.1)
+                    getPlayer2().setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer2().setDartCount(value: getPlayer2().getDartCount() + 1)
+                }
+                else {
+                    switchTurns()
+                    getPlayer2().setX01Points(value: dart.2 + dart.1)
+                    getPlayer2().setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer2().setPreviousRoundScore(value: dart.4)
+                    
+                    if getPlayer2().getDartCount() != 0 {
+                        getPlayer2().setDartCount(value: 0)
+                    }
+                    
+                    getPlayer2().setDartCount(value: getPlayer2().getDartCount() + 1)
                 }
                 
-                let lastDartVal = dart["P2"]!
-                
-                getPlayer2().setX01Points(value: getPlayer2().getX01Points() + lastDartVal)
-                getPlayer2().setCurrentRoundScore(value: getPlayer2().getCurrentRoundScore() - lastDartVal)
-                getPlayer2().setDartCount(value: getPlayer2().getDartCount() + 1)
             }
-            
-        } catch {
+        }
+        catch {
             print(error)
         }
+        
+        
     }
     
     func resetDartCounts() {
@@ -209,26 +232,38 @@ class X01GameViewModel: ObservableObject {
         
         if (player.getDartCount() != 0) {
             
+            var turn: (String, Int, Int, Int, Int)
+            
             if (getPlayer1().getIsTurn()) {
-                backButtonStack.push(["P1" : pointVal])
+                turn.0 = "P1"
             }
             else {
-                backButtonStack.push(["P2" : pointVal])
+                turn.0 = "P2"
             }
+            
+            turn.1 = pointVal
             
             let updatedRoundScore = player.getCurrentRoundScore() + pointVal
             let pointsLeft = player.getX01Points() - pointVal
             
             if (pointsLeft >= 0) {
-            
+                
                 player.decreaseDartCount()
                 player.setX01Points(value: pointsLeft)
                 player.setCurrentRoundScore(value: updatedRoundScore)
+                
+                // [(PlayerID, dartValue, X01Points, CurrentRoundScore, PreviousRoundScore)]
+                turn.2 = pointsLeft
+                turn.3 = updatedRoundScore
+                turn.4 = player.getPreviousRoundScore()
+                tupleStack.push(turn)
             }
             else {
                 endOfTurn(player: player)
                 player.setDartCount(value: 3)
             }
+            
+           
         }
         
         if (player.getDartCount() == 0) {
@@ -236,8 +271,9 @@ class X01GameViewModel: ObservableObject {
             player.setPreviousRoundScore(value: player.getX01Points())
             endOfTurn(player: player)
         }
-        
+
         gameOver = IsGameOver()
+        
     }
     
     func endOfTurn(player: Player) {
@@ -245,13 +281,27 @@ class X01GameViewModel: ObservableObject {
             player.toggleIsTurn()
             getPlayer2().toggleIsTurn()
             getPlayer2().setCurrentRoundScore(value: 0)
+            getPlayer2().setDartCount(value: 3)
         }
         else {
             player.toggleIsTurn()
             getPlayer1().toggleIsTurn()
             getPlayer1().setCurrentRoundScore(value: 0)
-            resetDartCounts()
+            getPlayer1().setDartCount(value: 3)
         }
+    }
+    
+    func isPlayer1Turn() -> Bool{
+        return getPlayer1().getIsTurn()
+    }
+    
+    func isPlayer2Turn() -> Bool {
+        return getPlayer2().getIsTurn()
+    }
+    
+    func switchTurns() {
+        getPlayer1().toggleIsTurn()
+        getPlayer2().toggleIsTurn()
     }
     
     func IsGameOver() -> Bool {
@@ -271,10 +321,15 @@ class X01GameViewModel: ObservableObject {
         
         return false
     }
-        
-    // Stack for darts thrown
-    struct Stack {
-        private var items: [[String: Int]] = []
+    
+    // Errors for X01 Game Mode
+    enum X01GameError: Error {
+        case emptyStack(errorMsg: String)
+        case invalidUndo(errorMsg: String)
+    }
+    
+    struct TupleStack {
+        private var items: [(String, Int, Int, Int, Int)] = []
         
         func printStack() {
             for item in items {
@@ -282,12 +337,12 @@ class X01GameViewModel: ObservableObject {
             }
         }
         
-        func peek() -> [String: Int] {
+        func peek() -> (String, Int, Int, Int, Int) {
             guard let topElement = items.first else { fatalError("This stack is empty.") }
             return topElement
         }
         
-        mutating func pop() throws -> [String: Int] {
+        mutating func pop() throws -> (String, Int, Int, Int, Int) {
             
             if items.count == 0 {
                 throw X01GameError.emptyStack(errorMsg: "ERROR: Empty Stack")
@@ -298,7 +353,7 @@ class X01GameViewModel: ObservableObject {
             
         }
         
-        mutating func push(_ element: [String: Int]) {
+        mutating func push(_ element: (String, Int, Int, Int, Int)) {
             items.insert(element, at: 0)
         }
         
@@ -306,14 +361,5 @@ class X01GameViewModel: ObservableObject {
             return items.count == 0
         }
     }
-
-    // Errors for X01 Game Mode
-    enum X01GameError: Error {
-        case emptyStack(errorMsg: String)
-        case invalidUndo(errorMsg: String)
-    }
+    
 }
-
-
-
-
