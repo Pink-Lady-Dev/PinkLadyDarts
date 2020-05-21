@@ -19,7 +19,7 @@ struct X01GameTypeSelectionView: View {
     var body: some View {
         
         ZStack {
-            LinearGradient(Color.darkStart, Color.darkEnd)
+            Color.notPlayerTurn
             VStack(spacing: 40) {
                 Button(action: {
                     self.viewRouter.currentPage = "X01Game"
@@ -28,7 +28,7 @@ struct X01GameTypeSelectionView: View {
                     Text("301")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulCircleButtonStyle())
+                .buttonStyle(X01TypeButtonStyle())
                 
                 Button(action: {
                     self.viewRouter.currentPage = "X01Game"
@@ -37,7 +37,7 @@ struct X01GameTypeSelectionView: View {
                     Text("501")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulCircleButtonStyle())
+                .buttonStyle(X01TypeButtonStyle())
                 
                 Button(action: {
                     self.viewRouter.currentPage = "X01Game"
@@ -46,7 +46,7 @@ struct X01GameTypeSelectionView: View {
                     Text("701")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulCircleButtonStyle())
+                .buttonStyle(X01TypeButtonStyle())
                 
                 Button(action: {
                     self.viewRouter.currentPage = "mainMenu"
@@ -54,7 +54,7 @@ struct X01GameTypeSelectionView: View {
                     Image(systemName: "house.fill")
                         .foregroundColor(.white)
                 }
-                .buttonStyle(ColorfulCircleButtonStyle())
+                .buttonStyle(X01TypeButtonStyle())
             }
         }
         .edgesIgnoringSafeArea(.all)

@@ -13,7 +13,7 @@ struct X01ScoreBoardView: View {
     @ObservedObject var X01GameVM: X01GameViewModel
     
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 2) {
             PlayerScoreView(X01GameVM: X01GameVM, isLHS: true)
 
             PlayerScoreView(X01GameVM: X01GameVM, isLHS: false)

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SimpleButtonView: View {
     var btnText: String
+    var btnType: Int
     var txtWidth: CGFloat
     var txtHeight: CGFloat
     var btnAction: ()->()
@@ -20,15 +21,30 @@ struct SimpleButtonView: View {
     
     var body: some View {
         
-        Button(action: {
-            self.btnTap()
-        }) {
-            Text(btnText)
-                .fixedSize()
-                .frame(width: txtWidth, height: txtHeight)
-                .foregroundColor(.white)
+        if btnType == 1 {
+            return AnyView(Button(action: {
+                self.btnTap()
+            }) {
+                Text(btnText)
+                    .fixedSize()
+                    .frame(width: txtWidth, height: txtHeight)
+                    .foregroundColor(.black)
+            }
+            .buttonStyle(ColorfulRectangleButtonStyle()))
         }
-        .buttonStyle(ColorfulRectangleButtonStyle())
+        else {
+            return AnyView(Button(action: {
+                self.btnTap()
+            }) {
+                Text(btnText)
+                    .fixedSize()
+                    .frame(width: txtWidth, height: txtHeight)
+                    .foregroundColor(.black)
+            }
+            .buttonStyle(AltRectangleButtonStyle()))
+        }
+        
+        
         
     }
     

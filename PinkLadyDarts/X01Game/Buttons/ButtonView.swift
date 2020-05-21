@@ -13,33 +13,49 @@ struct ButtonView: View {
     @ObservedObject var X01GameVM: X01GameViewModel
     let generator = UIImpactFeedbackGenerator(style: .medium)
     
-    var btnText: String
-    var txtWidth: CGFloat
-    var txtHeight: CGFloat
+    var btnTextObj: AnyView
+    var btnType: Int
+    var btnVal: Int
     var hasContextMenu: Bool = true
     
     var body: some View {
-        Button(action: { self.buttonCallback(multiplier: 1) } ) {
-            Text(btnText)
-                .fixedSize()
-                .frame(width: txtWidth, height: txtHeight)
-                .foregroundColor(.white)
+        if btnType == 1 {
+            return AnyView(Button(action: { self.buttonCallback(multiplier: 1) } ) { btnTextObj }
+                .buttonStyle(AltRectangleButtonStyle())
+                .contextMenu(self.hasContextMenu ?
+                    ContextMenu {
+                        Button( action: { self.buttonCallback(multiplier: 1) } ) {
+                            Text("Single")
+                        }
+                        
+                        Button( action: { self.buttonCallback(multiplier: 2) } ) {
+                            Text("Double")
+                        }
+                        
+                        Button( action: { self.buttonCallback(multiplier: 3) } ) {
+                            Text("Triple")
+                        }
+                    } : nil))
         }
-        .buttonStyle(ColorfulRectangleButtonStyle())
-        .contextMenu(self.hasContextMenu ?
-                ContextMenu {
-                    Button( action: { self.buttonCallback(multiplier: 1) } ) {
-                        Text("Single")
-                    }
+        else {
+            return AnyView(Button(action: { self.buttonCallback(multiplier: 1) } ) { btnTextObj }
+                .buttonStyle(ColorfulRectangleButtonStyle())
+                .contextMenu(self.hasContextMenu ?
+                    ContextMenu {
+                        Button( action: { self.buttonCallback(multiplier: 1) } ) {
+                            Text("Single")
+                        }
+                        
+                        Button( action: { self.buttonCallback(multiplier: 2) } ) {
+                            Text("Double")
+                        }
+                        
+                        Button( action: { self.buttonCallback(multiplier: 3) } ) {
+                            Text("Triple")
+                        }
+                    } : nil))
+        }
         
-                    Button( action: { self.buttonCallback(multiplier: 2) } ) {
-                        Text("Double")
-                    }
-        
-                    Button( action: { self.buttonCallback(multiplier: 3) } ) {
-                        Text("Triple")
-                    }
-                } : nil)
     }
     
     // Number Button action
@@ -58,24 +74,23 @@ struct ButtonView: View {
         }
         
         
-        if (self.btnText == "Bull\n(25)") {
+        if (self.btnVal == 25) {
             self.X01GameVM.numberButtonCallback(player: player, value: 25)
         }
-        else if (self.btnText == "Bull\n(50)") {
+        else if (self.btnVal == 50) {
             self.X01GameVM.numberButtonCallback(player: player, value: 50)
         }
         else {
-            let val = Int(self.btnText) ?? 0
-            let adjustedVal = val * multiplier
+            let adjustedVal = self.btnVal * multiplier
             self.X01GameVM.numberButtonCallback(player: player, value: adjustedVal)
         }
     }
-
+    
 }
 
 
 //struct ButtonView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ButtonView(btnText: "Click Me", txtWidth: 20, txtHeight: 20, myGame: X01Game(targetPoints: 301))
+//        ButtonView(X01GameVM: X01GameViewModel(startingX01Points: 301), btnText: "Click Me", txtWidth: 20, txtHeight: 20)
 //    }
 //}

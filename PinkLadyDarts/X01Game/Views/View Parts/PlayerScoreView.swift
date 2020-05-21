@@ -23,20 +23,10 @@ struct PlayerScoreView: View {
                 // handles highlight if it is player 1 turn
                 if (self.X01GameVM.getPlayer1().getIsTurn())
                 {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(LinearGradient(Color.lightEnd1, Color.lightStart1))
-                        .overlay(RoundedRectangle(cornerRadius: 25).stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
-                        .frame(width: 175, height: 125)
-                        .shadow(color: Color.darkStart, radius: 5, x: -5, y: -5)
-                        .shadow(color: Color.darkEnd, radius: 5, x: 5, y: 5)
+                    Rectangle().fill(Color.playerHighlight).frame(width: 175, height: 125)
                 }
                 else {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(LinearGradient(Color.darkStart, Color.darkEnd))
-                        .overlay(RoundedRectangle(cornerRadius: 25).stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
-                        .frame(width: 175, height: 125)
-                        .shadow(color: Color.darkStart, radius: 5, x: -5, y: -5)
-                        .shadow(color: Color.darkEnd, radius: 5, x: 5, y: 5)
+                    Rectangle().fill(Color.notPlayerTurn).frame(width: 175, height: 125)
                 }
                 
                 HStack {
@@ -65,20 +55,10 @@ struct PlayerScoreView: View {
                 // handles highlight if it is player 2 turn
                 if (self.X01GameVM.getPlayer2().getIsTurn())
                 {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(LinearGradient(Color.lightEnd1, Color.lightStart1))
-                        .overlay(RoundedRectangle(cornerRadius: 25).stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
-                        .frame(width: 175, height: 125)
-                        .shadow(color: Color.darkStart, radius: 5, x: -5, y: -5)
-                        .shadow(color: Color.darkEnd, radius: 5, x: 5, y: 5)
+                    Rectangle().fill(Color.playerHighlight).frame(width: 173, height: 125)
                 }
                 else {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(LinearGradient(Color.darkStart, Color.darkEnd))
-                        .overlay(RoundedRectangle(cornerRadius: 25).stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
-                        .frame(width: 175, height: 125)
-                        .shadow(color: Color.darkStart, radius: 5, x: -5, y: -5)
-                        .shadow(color: Color.darkEnd, radius: 5, x: 5, y: 5)
+                    Rectangle().fill(Color.notPlayerTurn).frame(width: 173, height: 125)
                 }
                 
                 HStack {
