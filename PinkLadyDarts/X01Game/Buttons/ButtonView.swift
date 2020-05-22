@@ -39,7 +39,7 @@ struct ButtonView: View {
         }
         else {
             return AnyView(Button(action: { self.buttonCallback(multiplier: 1) } ) { btnTextObj }
-                .buttonStyle(ColorfulRectangleButtonStyle())
+                .buttonStyle(PLRectangleButtonStyle())
                 .contextMenu(self.hasContextMenu ?
                     ContextMenu {
                         Button( action: { self.buttonCallback(multiplier: 1) } ) {

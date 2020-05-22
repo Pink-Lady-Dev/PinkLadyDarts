@@ -15,6 +15,8 @@
 		0171D14323E727C20057705D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171D14223E727C20057705D /* Assets.xcassets */; };
 		0171D14623E727C20057705D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0171D14523E727C20057705D /* Preview Assets.xcassets */; };
 		0171D14923E727C20057705D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0171D14723E727C20057705D /* LaunchScreen.storyboard */; };
+		01A46526247744680099DA8F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A46525247744680099DA8F /* LoginView.swift */; };
+		01A465282477488D0099DA8F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A465272477488D0099DA8F /* LoginViewModel.swift */; };
 		01C63F3523EE595C00E078B8 /* icons8-goal-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C63F3423EE595C00E078B8 /* icons8-goal-64.png */; };
 		01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEC23EF3BB9007D8111 /* ButtonView.swift */; };
 		01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */; };
@@ -45,6 +47,8 @@
 		0171D14523E727C20057705D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0171D14823E727C20057705D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0171D14A23E727C20057705D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01A46525247744680099DA8F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		01A465272477488D0099DA8F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		01C63F3423EE595C00E078B8 /* icons8-goal-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-goal-64.png"; sourceTree = "<group>"; };
 		01C67BEC23EF3BB9007D8111 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		01C67BEE23EF3C1F007D8111 /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 		0171D13B23E727C00057705D /* PinkLadyDarts */ = {
 			isa = PBXGroup;
 			children = (
+				01A46524247744550099DA8F /* Login */,
 				6D4D93532410946600BEB0AE /* API */,
 				0171D13C23E727C00057705D /* AppDelegate.swift */,
 				0171D13E23E727C00057705D /* SceneDelegate.swift */,
@@ -144,6 +149,15 @@
 				01D8565C2447DB33007C2E01 /* X01ScoreBoardView.swift */,
 			);
 			path = "View Parts";
+			sourceTree = "<group>";
+		};
+		01A46524247744550099DA8F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				01A46525247744680099DA8F /* LoginView.swift */,
+				01A465272477488D0099DA8F /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		01FF150D24491B36005E0D67 /* X01Game */ = {
@@ -264,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A465282477488D0099DA8F /* LoginViewModel.swift in Sources */,
 				6DE920002432BA0000B633A0 /* Authentication_C.swift in Sources */,
 				01D0080123EF87B8000B6F4D /* X01GameView.swift in Sources */,
 				01C67BEF23EF3C1F007D8111 /* ButtonGrid.swift in Sources */,
@@ -272,6 +287,7 @@
 				01D856592447D633007C2E01 /* X01GameViewModel.swift in Sources */,
 				013CA0AD23FF6DA9007B3F6F /* X01GameTypeSelectionView.swift in Sources */,
 				01C67BED23EF3BB9007D8111 /* ButtonView.swift in Sources */,
+				01A46526247744680099DA8F /* LoginView.swift in Sources */,
 				6D1F4E0624089F0C00EECDEF /* Users.swift in Sources */,
 				0171D13F23E727C00057705D /* SceneDelegate.swift in Sources */,
 				0171D14123E727C00057705D /* ContentView.swift in Sources */,

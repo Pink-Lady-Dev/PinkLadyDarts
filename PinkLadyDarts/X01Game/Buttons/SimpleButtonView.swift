@@ -30,7 +30,7 @@ struct SimpleButtonView: View {
                     .frame(width: txtWidth, height: txtHeight)
                     .foregroundColor(.black)
             }
-            .buttonStyle(ColorfulRectangleButtonStyle()))
+            .buttonStyle(PLRectangleButtonStyle()))
         }
         else {
             return AnyView(Button(action: {

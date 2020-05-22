@@ -15,27 +15,24 @@
 
 import SwiftUI
 
+// Custom Color Pallete
 extension Color {
-    static let offWhite = Color(red: 225 / 255, green: 225 / 255, blue: 235 / 255)
     
-    static let darkStart = Color(red: 50 / 255, green: 60 / 255, blue: 65 / 255)
-    static let darkEnd = Color(red: 25 / 255, green: 25 / 255, blue: 30 / 255)
+    // Gradient Colors
+    static let PLPinkGradientStart = Color(red: 240 / 255, green: 80 / 255, blue: 120 / 255)
+    static let PLPinkGradientEnd = Color(red: 120 / 255, green: 40 / 255, blue: 60 / 255)
+    static let PLDarkGradientStart = Color(red: 50 / 255, green: 60 / 255, blue: 65 / 255)
+    static let PLDarkGradientEnd = Color(red: 25 / 255, green: 25 / 255, blue: 30 / 255)
     
-    static let lightStart = Color(red: 60 / 255, green: 160 / 255, blue: 240 / 255)
-    static let lightEnd = Color(red: 30 / 255, green: 80 / 255, blue: 120 / 255)
+    // Text Colors
+    static let PLTextGrey = Color(red: 80 / 255, green: 72 / 255, blue: 65 / 255)
+    static let PLTextField = Color(red: 220.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, opacity: 1.0)
     
-    static let lightStart1 = Color(red: 240 / 255, green: 80 / 255, blue: 120 / 255)
-    static let lightEnd1 = Color(red: 120 / 255, green: 40 / 255, blue: 60 / 255)
-    
-    static let btnColor = Color(red: 255 / 255, green: 216 / 255, blue: 166 / 255)
-    static let altBtnColor = Color(red: 252 / 255, green: 130 / 255, blue: 16 / 255)
-    
-    static let btnTextColor = Color(red: 80 / 255, green: 72 / 255, blue: 65 / 255)
-    
-    static let overlayBorder = Color(red: 110 / 255, green: 102 / 255, blue: 94 / 255)
-    
-    static let playerHighlight = Color(red: 247 / 255, green: 106 / 255, blue: 140 / 255)
-    static let notPlayerTurn = Color(red: 69 / 255, green: 69 / 255, blue: 77 / 255)
+    // Standard Colors
+    static let PLOrange = Color(red: 255 / 255, green: 216 / 255, blue: 166 / 255)
+    static let PLLightOrange = Color(red: 252 / 255, green: 130 / 255, blue: 16 / 255)
+    static let PLPink = Color(red: 247 / 255, green: 106 / 255, blue: 140 / 255)
+    static let PLGrey = Color(red: 69 / 255, green: 69 / 255, blue: 77 / 255)
 }
 
 extension LinearGradient {
@@ -44,66 +41,32 @@ extension LinearGradient {
     }
 }
 
-struct ColorfulCircleBackground<S: Shape>: View {
+
+struct PLRectangleBackground<S: Shape>: View {
     var isHighlighted: Bool
     var shape: S
-    
+
     var body: some View {
         ZStack {
             if isHighlighted {
                 shape
-                    .fill(LinearGradient(Color.lightEnd1, Color.lightStart1))
-                    .overlay(shape.stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
-                    .shadow(color: Color.darkStart, radius: 10, x: 5, y: 5)
-                    .shadow(color: Color.darkEnd, radius: 10, x: -5, y: -5)
+                    .fill(Color.PLPink)
+                    .overlay(shape.stroke(Color.PLGrey))
             } else {
                 shape
-                    .fill(LinearGradient(Color.darkStart, Color.darkEnd))
-                    .overlay(shape.stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
-                    .shadow(color: Color.darkStart, radius: 10, x: -10, y: -10)
-                    .shadow(color: Color.darkEnd, radius: 10, x: 10, y: 10)
+                    .fill(Color.PLOrange)
+                    .overlay(shape.stroke(Color.PLGrey))
             }
         }
     }
 }
-struct ColorfulCircleButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding(30)
-            .contentShape(Circle())
-            .background(
-                ColorfulCircleBackground(isHighlighted: configuration.isPressed, shape: Circle())
-        )
-            .animation(nil)
-    }
-}
-
-
-struct ColorfulRectangleBackground<S: Shape>: View {
-    var isHighlighted: Bool
-    var shape: S
-    
-    var body: some View {
-        ZStack {
-            if isHighlighted {
-                shape
-                    .fill(Color.red)
-                    .overlay(shape.stroke(Color.overlayBorder))
-            } else {
-                shape
-                    .fill(Color.btnColor)
-                    .overlay(shape.stroke(Color.overlayBorder))
-            }
-        }
-    }
-}
-struct ColorfulRectangleButtonStyle: ButtonStyle {
+struct PLRectangleButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding(30)
             .contentShape(Rectangle())
             .background(
-                ColorfulRectangleBackground(isHighlighted: configuration.isPressed, shape: Rectangle())
+                PLRectangleBackground(isHighlighted: configuration.isPressed, shape: Rectangle())
         )
             .animation(nil)
     }
@@ -119,13 +82,13 @@ struct X01TypeBackground<S: Shape>: View {
         ZStack {
             if isHighlighted {
                 shape
-                    .fill(Color.playerHighlight)
-                    .overlay(shape.stroke(LinearGradient(Color.lightStart1, Color.lightEnd1), lineWidth: 4))
+                    .fill(Color.PLPink)
+                    .overlay(shape.stroke(LinearGradient(Color.PLPinkGradientStart, Color.PLPinkGradientEnd), lineWidth: 4))
                 
             } else {
                 shape
-                    .fill(Color.notPlayerTurn)
-                    .overlay(shape.stroke(Color.playerHighlight, lineWidth: 4))
+                    .fill(Color.PLGrey)
+                    .overlay(shape.stroke(Color.PLPink, lineWidth: 4))
                 
             }
         }
@@ -165,12 +128,12 @@ struct AltBtnBackground<S: Shape>: View {
         ZStack {
             if isHighlighted {
                 shape
-                    .fill(Color.red)
-                    .overlay(shape.stroke(Color.overlayBorder))
+                    .fill(Color.PLPink)
+                    .overlay(shape.stroke(Color.PLGrey))
             } else {
                 shape
-                    .fill(Color.altBtnColor)
-                    .overlay(shape.stroke(Color.overlayBorder))
+                    .fill(Color.PLLightOrange)
+                    .overlay(shape.stroke(Color.PLGrey))
             }
         }
     }
@@ -197,7 +160,7 @@ struct ContentView : View {
     var body: some View {
         
         ZStack {
-            Color.notPlayerTurn
+            Color.PLGrey
             VStack(spacing: 30) {
                 Button(action: {
                     self.viewRouter.currentPage = "X01PointSelection"
@@ -219,8 +182,7 @@ struct ContentView : View {
                 .buttonStyle(X01MenuRectangleButtonStyle())
                 
                 Button(action: {
-                    //                    self.viewRouter.currentPage = "X01PointSelection"
-                    print("TODO: Login")
+                    self.viewRouter.currentPage = "loginView"
                 }) {
                     Text("Log In")
                         .font(.system(size: 24)).bold()

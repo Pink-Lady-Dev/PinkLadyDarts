@@ -22,21 +22,21 @@ struct ButtonGrid: View {
                         .multilineTextAlignment(.center)
                         .fixedSize()
                         .frame(width: 10, height: 10)
-                        .foregroundColor(Color.btnTextColor)), btnType: 1, btnVal: 0, hasContextMenu: false)
+                        .foregroundColor(Color.PLTextGrey)), btnType: 1, btnVal: 0, hasContextMenu: false)
                     
                     ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Bull\n(25)")
                         .font(.system(size: 20)).bold()
                         .multilineTextAlignment(.center)
                         .fixedSize()
                         .frame(width: 10, height: 80)
-                        .foregroundColor(Color.btnTextColor)), btnType: 2, btnVal: 25, hasContextMenu: false)
+                        .foregroundColor(Color.PLTextGrey)), btnType: 2, btnVal: 25, hasContextMenu: false)
                     
                     ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Bull\n(50)")
                         .font(.system(size: 20)).bold()
                         .multilineTextAlignment(.center)
                         .fixedSize()
                         .frame(width: 10, height: 80)
-                        .foregroundColor(Color.btnTextColor)), btnType: 1, btnVal: 50, hasContextMenu: false)
+                        .foregroundColor(Color.PLTextGrey)), btnType: 1, btnVal: 50, hasContextMenu: false)
                 }
                 
                 ForEach([[20, 16, 12, 8, 4], [19, 15, 11, 7, 3], [18, 14, 10, 6, 2], [17, 13, 9, 5, 1]], id:\.self) { arr in
@@ -47,7 +47,7 @@ struct ButtonGrid: View {
                                 .font(.largeTitle)
                                 .fixedSize()
                                 .frame(width: 10, height: 10)
-                                .foregroundColor(Color.btnTextColor)), btnType: 2, btnVal: row)
+                                .foregroundColor(Color.PLTextGrey)), btnType: 2, btnVal: row)
                             
                         }
                     }

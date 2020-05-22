@@ -19,7 +19,7 @@ struct X01GameTypeSelectionView: View {
     var body: some View {
         
         ZStack {
-            Color.notPlayerTurn
+            Color.PLGrey
             VStack(spacing: 40) {
                 Button(action: {
                     self.viewRouter.currentPage = "X01Game"

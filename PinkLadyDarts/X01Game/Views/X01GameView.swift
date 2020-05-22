@@ -19,7 +19,7 @@ struct X01GameView: View {
     var body: some View {
         
         ZStack {
-            LinearGradient(Color.darkStart, Color.darkEnd).edgesIgnoringSafeArea(.all)
+            LinearGradient(Color.PLDarkGradientStart, Color.PLDarkGradientEnd).edgesIgnoringSafeArea(.all)
             VStack {
                 HStack{
                     
@@ -53,7 +53,7 @@ struct X01GameView: View {
                 }.offset(y: 20)
             }
             
-        }
+        }.edgesIgnoringSafeArea(.all)
             
         .alert(isPresented: $X01GameVM.showingAlert, content: {
             Alert(title: Text("Game Over"),

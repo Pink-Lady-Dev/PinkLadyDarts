@@ -23,10 +23,10 @@ struct PlayerScoreView: View {
                 // handles highlight if it is player 1 turn
                 if (self.X01GameVM.getPlayer1().getIsTurn())
                 {
-                    Rectangle().fill(Color.playerHighlight).frame(width: 175, height: 125)
+                    Rectangle().fill(Color.PLPink).frame(width: 175, height: 125)
                 }
                 else {
-                    Rectangle().fill(Color.notPlayerTurn).frame(width: 175, height: 125)
+                    Rectangle().fill(Color.PLGrey).frame(width: 175, height: 125)
                 }
                 
                 HStack {
@@ -55,10 +55,10 @@ struct PlayerScoreView: View {
                 // handles highlight if it is player 2 turn
                 if (self.X01GameVM.getPlayer2().getIsTurn())
                 {
-                    Rectangle().fill(Color.playerHighlight).frame(width: 173, height: 125)
+                    Rectangle().fill(Color.PLPink).frame(width: 173, height: 125)
                 }
                 else {
-                    Rectangle().fill(Color.notPlayerTurn).frame(width: 173, height: 125)
+                    Rectangle().fill(Color.PLGrey).frame(width: 173, height: 125)
                 }
                 
                 HStack {
