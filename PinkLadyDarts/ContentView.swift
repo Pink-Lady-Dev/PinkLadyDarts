@@ -45,7 +45,7 @@ extension LinearGradient {
 struct PLRectangleBackground<S: Shape>: View {
     var isHighlighted: Bool
     var shape: S
-
+    
     var body: some View {
         ZStack {
             if isHighlighted {
@@ -71,7 +71,6 @@ struct PLRectangleButtonStyle: ButtonStyle {
             .animation(nil)
     }
 }
-
 
 
 struct X01TypeBackground<S: Shape>: View {
@@ -119,7 +118,6 @@ struct X01MenuRectangleButtonStyle: ButtonStyle {
 }
 
 
-
 struct AltBtnBackground<S: Shape>: View {
     var isHighlighted: Bool
     var shape: S
@@ -151,8 +149,6 @@ struct AltRectangleButtonStyle: ButtonStyle {
 }
 
 
-
-
 struct ContentView : View {
     
     @ObservedObject var viewRouter: ViewRouter
@@ -172,8 +168,7 @@ struct ContentView : View {
                 .buttonStyle(X01MenuRectangleButtonStyle())
                 
                 Button(action: {
-                    //                    self.viewRouter.currentPage = "X01PointSelection"
-                    print("TODO: Cricket")
+                    self.viewRouter.currentPage = "cricketGame"
                 }) {
                     Text("Cricket Games")
                         .font(.system(size: 24)).bold()

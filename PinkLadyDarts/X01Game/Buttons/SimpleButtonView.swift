@@ -26,6 +26,7 @@ struct SimpleButtonView: View {
                 self.btnTap()
             }) {
                 Text(btnText)
+                    .multilineTextAlignment(.center)
                     .fixedSize()
                     .frame(width: txtWidth, height: txtHeight)
                     .foregroundColor(.black)
