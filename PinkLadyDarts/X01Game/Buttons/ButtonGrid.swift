@@ -10,28 +10,28 @@ import SwiftUI
 
 struct ButtonGrid: View {
     
-    @ObservedObject var X01GameVM: X01GameViewModel
+    @ObservedObject var GameVM: GameViewModel
     
     var body: some View {
         
         ZStack {
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
-                    ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Miss")
+                    ButtonView(GameVM: self.GameVM, btnTextObj: AnyView(Text("Miss")
                         .font(.system(size: 20)).bold()
                         .multilineTextAlignment(.center)
                         .fixedSize()
                         .frame(width: 10, height: 10)
                         .foregroundColor(Color.PLTextGrey)), btnType: 1, btnVal: 0, hasContextMenu: false)
                     
-                    ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Bull\n(25)")
+                    ButtonView(GameVM: self.GameVM, btnTextObj: AnyView(Text("Bull\n(25)")
                         .font(.system(size: 20)).bold()
                         .multilineTextAlignment(.center)
                         .fixedSize()
                         .frame(width: 10, height: 80)
                         .foregroundColor(Color.PLTextGrey)), btnType: 2, btnVal: 25, hasContextMenu: false)
                     
-                    ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Bull\n(50)")
+                    ButtonView(GameVM: self.GameVM, btnTextObj: AnyView(Text("Bull\n(50)")
                         .font(.system(size: 20)).bold()
                         .multilineTextAlignment(.center)
                         .fixedSize()
@@ -43,7 +43,7 @@ struct ButtonGrid: View {
                     VStack() {
                         ForEach(arr, id:\.self) { row in
                             
-                            ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("\(row)")
+                            ButtonView(GameVM: self.GameVM, btnTextObj: AnyView(Text("\(row)")
                                 .font(.largeTitle)
                                 .fixedSize()
                                 .frame(width: 10, height: 10)
@@ -62,9 +62,9 @@ struct ButtonGrid: View {
     }
 }
 
-
-struct ButtonGrid_Previews: PreviewProvider {
-    static var previews: some View {
-        ButtonGrid(X01GameVM: X01GameViewModel(startingX01Points: 301))
-    }
-}
+//
+//struct ButtonGrid_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ButtonGrid(X01GameVM: X01GameViewModel(startingX01Points: 301))
+//    }
+//}

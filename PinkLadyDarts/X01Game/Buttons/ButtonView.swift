@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ButtonView: View {
     
-    @ObservedObject var X01GameVM: X01GameViewModel
+    @ObservedObject var GameVM: GameViewModel
     let generator = UIImpactFeedbackGenerator(style: .medium)
     
     var btnTextObj: AnyView
@@ -20,72 +20,51 @@ struct ButtonView: View {
     
     var body: some View {
         if btnType == 1 {
-            return AnyView(Button(action: { self.buttonCallback(multiplier: 1) } ) { btnTextObj }
+            return AnyView(Button(action: { self.btnCallback(multiplier: 1) } ) { btnTextObj }
                 .buttonStyle(AltRectangleButtonStyle())
                 .contextMenu(self.hasContextMenu ?
                     ContextMenu {
-                        Button( action: { self.buttonCallback(multiplier: 1) } ) {
+                        Button( action: { self.btnCallback(multiplier: 1) } ) {
                             Text("Single")
                         }
                         
-                        Button( action: { self.buttonCallback(multiplier: 2) } ) {
+                        Button( action: { self.btnCallback(multiplier: 2) } ) {
                             Text("Double")
                         }
                         
-                        Button( action: { self.buttonCallback(multiplier: 3) } ) {
+                        Button( action: {  self.btnCallback(multiplier: 3) } ) {
                             Text("Triple")
                         }
                     } : nil))
         }
         else {
-            return AnyView(Button(action: { self.buttonCallback(multiplier: 1) } ) { btnTextObj }
+            return AnyView(Button(action: {  self.btnCallback(multiplier: 1) } ) { btnTextObj }
                 .buttonStyle(PLRectangleButtonStyle())
                 .contextMenu(self.hasContextMenu ?
                     ContextMenu {
-                        Button( action: { self.buttonCallback(multiplier: 1) } ) {
+                        Button( action: {  self.btnCallback(multiplier: 1) } ) {
                             Text("Single")
                         }
                         
-                        Button( action: { self.buttonCallback(multiplier: 2) } ) {
+                        Button( action: {  self.btnCallback(multiplier: 2) } ) {
                             Text("Double")
                         }
                         
-                        Button( action: { self.buttonCallback(multiplier: 3) } ) {
+                        Button( action: {  self.btnCallback(multiplier: 3) } ) {
                             Text("Triple")
                         }
                     } : nil))
         }
         
     }
+
     
-    // Number Button action
-    func buttonCallback(multiplier: Int) {
+    func btnCallback(multiplier: Int) {
         
-        self.X01GameVM.objectWillChange.send()
-        self.generator.impactOccurred()
+        self.GameVM.objectWillChange.send()
+        self.GameVM.buttonCallback(btnVal: self.btnVal, multiplier: multiplier)
         
-        var player: Player
-        
-        if (self.X01GameVM.getPlayer1().getIsTurn()) {
-            player = self.X01GameVM.getPlayer1()
-        }
-        else {
-            player = self.X01GameVM.getPlayer2()
-        }
-        
-        
-        if (self.btnVal == 25) {
-            self.X01GameVM.numberButtonCallback(player: player, value: 25)
-        }
-        else if (self.btnVal == 50) {
-            self.X01GameVM.numberButtonCallback(player: player, value: 50)
-        }
-        else {
-            let adjustedVal = self.btnVal * multiplier
-            self.X01GameVM.numberButtonCallback(player: player, value: adjustedVal)
-        }
     }
-    
 }
 
 

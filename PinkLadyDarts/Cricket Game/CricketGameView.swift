@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CricketGameView: View {
     @ObservedObject var viewRouter: ViewRouter
-    @ObservedObject var X01GameVM: X01GameViewModel
+    @ObservedObject var CricketGameVM: CricketGameViewModel
     
     var body: some View {
         ZStack {
@@ -46,14 +46,14 @@ struct CricketGameView: View {
                     
                     HStack(spacing: 0) {
                         // miss | <-
-                        ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Miss")
+                        ButtonView(GameVM: self.CricketGameVM, btnTextObj: AnyView(Text("Miss")
                             .font(.system(size: 20)).bold()
                             .multilineTextAlignment(.center)
                             .fixedSize()
                             .frame(width: 10, height: 10)
                             .foregroundColor(Color.PLTextGrey)), btnType: 1, btnVal: 0, hasContextMenu: false)
                         
-                        SimpleButtonView(btnText: "<--", btnType: 1, txtWidth: 10, txtHeight: 10, btnAction: {print("back")}, X01GameVM: self.X01GameVM)
+                        SimpleButtonView(btnText: "<--", btnType: 1, txtWidth: 10, txtHeight: 10, btnAction: {print("back")}, GameVM: self.CricketGameVM)
                     }
                     
                     HStack(spacing: 0) {
@@ -62,7 +62,7 @@ struct CricketGameView: View {
                             ForEach([[20, 19, 18, 17, 16, 15]], id:\.self) { arr in
                                 ForEach(arr, id:\.self) { row in
                                     
-                                    ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("\(row)")
+                                    ButtonView(GameVM: self.CricketGameVM, btnTextObj: AnyView(Text("\(row)")
                                         .font(.largeTitle)
                                         .fixedSize()
                                         .frame(width: 10, height: 10)
@@ -73,21 +73,21 @@ struct CricketGameView: View {
                             }
                         }
                         
-                        SimpleButtonView(btnText: " Next\nPlayer", btnType: 2, txtWidth: 10, txtHeight: 360, btnAction: { print("next") }, X01GameVM: X01GameVM)
+                        SimpleButtonView(btnText: " Next\nPlayer", btnType: 2, txtWidth: 10, txtHeight: 360, btnAction: { print("next") }, GameVM: CricketGameVM)
                     }
                     
                     
                     // Bullseye
                     HStack(spacing:0) {
                         
-                        ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Bull\n.")
+                        ButtonView(GameVM: self.CricketGameVM, btnTextObj: AnyView(Text("Bull\n.")
                             .font(.system(size: 20)).bold()
                             .multilineTextAlignment(.center)
                             .fixedSize()
                             .frame(width: 10, height: 10)
                             .foregroundColor(Color.PLTextGrey)), btnType: 1, btnVal: 25, hasContextMenu: false)
                         
-                        ButtonView(X01GameVM: self.X01GameVM, btnTextObj: AnyView(Text("Bull\n..")
+                        ButtonView(GameVM: self.CricketGameVM, btnTextObj: AnyView(Text("Bull\n..")
                             .font(.system(size: 20)).bold()
                             .multilineTextAlignment(.center)
                             .fixedSize()
@@ -98,6 +98,7 @@ struct CricketGameView: View {
                 }
                 
             }
+            
         }.edgesIgnoringSafeArea(.all)
         
         
@@ -115,6 +116,6 @@ struct CricketGameView: View {
 
 struct CricketGameView_Previews: PreviewProvider {
     static var previews: some View {
-        CricketGameView(viewRouter: ViewRouter(), X01GameVM: X01GameViewModel(startingX01Points: 301))
+        CricketGameView(viewRouter: ViewRouter(), CricketGameVM: CricketGameViewModel(startingPoints: 0))
     }
 }

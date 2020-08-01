@@ -21,7 +21,7 @@ struct PlayerScoreView: View {
             if isLHS {
                 
                 // handles highlight if it is player 1 turn
-                if (self.X01GameVM.getPlayer1().getIsTurn())
+                if (self.X01GameVM.isPlayerTurn(playerID: 1))
                 {
                     Rectangle().fill(Color.PLPink).frame(width: 175, height: 125)
                 }
@@ -32,15 +32,15 @@ struct PlayerScoreView: View {
                 HStack {
                     VStack(alignment: .leading){
                         HStack {
-                            Text("\(self.X01GameVM.getPlayer1().getPreviousRoundScore())").strikethrough()
-                            Text("\(self.X01GameVM.getPlayer1().getCurrentRoundScore())").frame(width: 50).border(Color.white, width: 1)
+                            Text("\(self.X01GameVM.getPlayer(playerID: 1).getPreviousRoundScore())").strikethrough()
+                            Text("\(self.X01GameVM.getPlayer(playerID: 1).getCurrentRoundScore())").frame(width: 50).border(Color.white, width: 1)
                         }
-                        Text(self.X01GameVM.getPlayer1().getName()).font(.system(size: 24))
+                        Text(self.X01GameVM.getPlayer(playerID: 1).getName()).font(.system(size: 24))
                     }.frame(maxWidth: .infinity)
                     HStack {
                         VStack {
-                            Text("\(self.X01GameVM.getPlayer1().getX01Points())").padding()
-                            Text("\(self.X01GameVM.getPlayer1().getDartCount())")
+                            Text("\(self.X01GameVM.getPlayer(playerID: 1).getStartingPoints())").padding()
+                            Text("\(self.X01GameVM.getPlayer(playerID: 1).getDartCount())")
                         }
                     }
                 }
@@ -53,7 +53,7 @@ struct PlayerScoreView: View {
             else {
                 
                 // handles highlight if it is player 2 turn
-                if (self.X01GameVM.getPlayer2().getIsTurn())
+                if (self.X01GameVM.isPlayerTurn(playerID: 2))
                 {
                     Rectangle().fill(Color.PLPink).frame(width: 173, height: 125)
                 }
@@ -64,16 +64,16 @@ struct PlayerScoreView: View {
                 HStack {
                     HStack {
                         VStack{
-                            Text("\(self.X01GameVM.getPlayer2().getX01Points())").padding()
-                            Text("\(self.X01GameVM.getPlayer2().getDartCount())")
+                            Text("\(self.X01GameVM.getPlayer(playerID: 2).getStartingPoints())").padding()
+                            Text("\(self.X01GameVM.getPlayer(playerID: 2).getDartCount())")
                         }
                     }
                     VStack(alignment: .trailing){
                         HStack {
-                            Text("\(self.X01GameVM.getPlayer2().getCurrentRoundScore())").frame(width: 50).border(Color.white, width: 1)
-                            Text("\(self.X01GameVM.getPlayer2().getPreviousRoundScore())").strikethrough()
+                            Text("\(self.X01GameVM.getPlayer(playerID: 2).getCurrentRoundScore())").frame(width: 50).border(Color.white, width: 1)
+                            Text("\(self.X01GameVM.getPlayer(playerID: 2).getPreviousRoundScore())").strikethrough()
                         }
-                        Text(self.X01GameVM.getPlayer2().getName()).font(.system(size: 24))
+                        Text(self.X01GameVM.getPlayer(playerID: 2).getName()).font(.system(size: 24))
                     }.frame(maxWidth: .infinity)
                     
                 }

@@ -16,7 +16,7 @@ struct SimpleButtonView: View {
     var btnAction: ()->()
     let generator = UIImpactFeedbackGenerator(style: .medium)
     
-    @ObservedObject var X01GameVM: X01GameViewModel
+    @ObservedObject var GameVM: GameViewModel
     
     
     var body: some View {
@@ -51,6 +51,7 @@ struct SimpleButtonView: View {
     
     func btnTap()
     {
+        self.GameVM.objectWillChange.send()
         self.generator.impactOccurred()
         btnAction()
     }

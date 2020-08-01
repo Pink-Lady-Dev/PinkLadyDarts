@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class CricketGameViewModel: GameViewModel {
+    
+    override func buttonCallback(btnVal: Int, multiplier: Int) {
+        print("Cricket")
+    }
+    
+}

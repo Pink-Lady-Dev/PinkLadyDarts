@@ -65,7 +65,7 @@ struct MainView: View {
                 LoginView(viewRouter: viewRouter).animation(.easeInOut)
             }
             else if viewRouter.currentPage == "cricketGame" {
-                CricketGameView(viewRouter: viewRouter, X01GameVM: X01GameViewModel(startingX01Points: viewRouter.X01GameScore)).animation(.easeInOut)
+                CricketGameView(viewRouter: viewRouter, CricketGameVM: CricketGameViewModel(startingPoints: 0)).animation(.easeInOut)
             }
         }
     }

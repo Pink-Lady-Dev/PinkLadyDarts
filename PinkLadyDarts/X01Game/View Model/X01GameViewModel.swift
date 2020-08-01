@@ -9,129 +9,55 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 // TODO:
 // add support to track single, double, triples
 //
 
-// Player Specific Information
-class Player: ObservableObject {
-    private var name: String
-    private var isTurn: Bool
-    private var currentRoundScore: Int
-    private var X01Points: Int
-    private var previousRoundScore: Int
-    private var dartCount: Int
-    private var didWin: Bool
-    
-    init(name: String, isTurn: Bool, X01Points: Int) {
-        self.name = name
-        self.isTurn = isTurn
-        self.currentRoundScore = 0
-        self.X01Points = X01Points
-        self.previousRoundScore = X01Points
-        self.dartCount = 3
-        self.didWin = false
-    }
-    
-    
-    func decreaseDartCount() {
-        dartCount -= 1
-    }
-    
-    func getIsTurn() -> Bool {
-        return isTurn
-    }
-    
-    func getCurrentRoundScore() -> Int {
-        return currentRoundScore
-    }
-    
-    func getPreviousRoundScore() -> Int {
-        return previousRoundScore
-    }
-    
-    func getName() -> String {
-        return name
-    }
-    
-    func getDartCount() -> Int {
-        return dartCount
-    }
-    
-    func getX01Points() -> Int {
-        return X01Points
-    }
-    
-    func setX01Points(value: Int) {
-        X01Points = value
-    }
-    
-    func setCurrentRoundScore(value: Int) {
-        currentRoundScore = value
-    }
-    
-    func setPreviousRoundScore(value: Int) {
-        previousRoundScore = value
-    }
-    
-    func toggleIsTurn() {
-        isTurn.toggle()
-    }
-    
-    func setDartCount(value: Int) {
-        dartCount = value
-    }
-    
-    func setDidWin(won: Bool) {
-        didWin = won
-    }
-    
-    func getDidWin() -> Bool {
-        return didWin
-    }
-    
-}
+class X01GameViewModel: GameViewModel {
 
-// Game Information
-class X01GameViewModel: ObservableObject {
-    @Published var player1: Player
-    @Published var player2: Player
-    
-    private var startingX01Points: Int
-    private var gameOver: Bool
     @Published var showingAlert = false
+    private var startingX01Points: Int
+
     
     // [(PlayerID, dartValue, X01Points, CurrentRoundScore, PreviousRoundScore)]
     private var tupleStack: TupleStack
     
-    init(startingX01Points: Int, player1Name: String="Player 1", player2Name: String="Player 2") {
-        
+    
+    init(startingX01Points: Int) {
+  
         self.startingX01Points = startingX01Points
-        self.gameOver = false
-        
-        self.player1 = Player(name: player1Name, isTurn: true, X01Points: startingX01Points)
-        self.player2 = Player(name: player2Name, isTurn: false, X01Points: startingX01Points)
-        
         self.tupleStack = TupleStack()
+        super.init(startingPoints: self.startingX01Points)
+    
+    }
+    
+    override func buttonCallback(btnVal: Int, multiplier: Int) {
+       
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+
+        generator.impactOccurred()
         
-    }
-    
-    func getPlayer1() -> Player {
-        return self.player1
-    }
-    
-    func getPlayer2() -> Player {
-        return self.player2
-    }
-    
-    func getCurrentPlayer() -> Player {
+        var player: Player
         
-        if (self.player1.getIsTurn()) {
-            return self.player1
+        if (isPlayerTurn(playerID: 1)) {
+            player = getPlayer(playerID: 1)
         }
         else {
-            return self.player2
+            player = getPlayer(playerID: 2)
+        }
+        
+        
+        if (btnVal == 25) {
+            numberButtonCallback(player: player, value: 25)
+        }
+        else if (btnVal == 50) {
+            numberButtonCallback(player: player, value: 50)
+        }
+        else {
+            let adjustedVal = btnVal * multiplier
+            numberButtonCallback(player: player, value: adjustedVal)
         }
         
     }
@@ -148,14 +74,14 @@ class X01GameViewModel: ObservableObject {
         // Clicking the next button is the equivalent of
         // missing your remaining throws currently
         
-        if (getPlayer1().getIsTurn()) {
-            for _ in 1...getPlayer1().getDartCount() {
-                dartThrow(player: getPlayer1(), pointVal: 0)
+        if (getPlayer(playerID: 1).getIsTurn()) {
+            for _ in 1...getPlayer(playerID: 1).getDartCount() {
+                dartThrow(player: getPlayer(playerID: 1), pointVal: 0)
             }
         }
         else {
-            for _ in 1...getPlayer2().getDartCount() {
-                dartThrow(player: getPlayer2(), pointVal: 0)
+            for _ in 1...getPlayer(playerID: 2).getDartCount() {
+                dartThrow(player: getPlayer(playerID: 2), pointVal: 0)
             }
         }
     }
@@ -175,43 +101,43 @@ class X01GameViewModel: ObservableObject {
             
             if (dart.0 == "P1") {
                 
-                if (isPlayer1Turn()) {
-                    getPlayer1().setX01Points(value: dart.2 + dart.1)
-                    getPlayer1().setCurrentRoundScore(value: dart.3 - dart.1)
-                    getPlayer1().setDartCount(value: getPlayer1().getDartCount() + 1)
+                if (isPlayerTurn(playerID: 1)) {
+                    getPlayer(playerID: 1).setStartingPoints(value: dart.2 + dart.1)
+                    getPlayer(playerID: 1).setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer(playerID: 1).setDartCount(value: getPlayer(playerID: 1).getDartCount() + 1)
                 }
                 else {
                     switchTurns()
-                    getPlayer1().setX01Points(value: dart.2 + dart.1)
-                    getPlayer1().setCurrentRoundScore(value: dart.3 - dart.1)
-                    getPlayer1().setPreviousRoundScore(value: dart.4)
+                    getPlayer(playerID: 1).setStartingPoints(value: dart.2 + dart.1)
+                    getPlayer(playerID: 1).setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer(playerID: 1).setPreviousRoundScore(value: dart.4)
                     
-                    if getPlayer1().getDartCount() != 0 {
-                        getPlayer1().setDartCount(value: 0)
+                    if getPlayer(playerID: 1).getDartCount() != 0 {
+                        getPlayer(playerID: 1).setDartCount(value: 0)
                     }
                     
-                    getPlayer1().setDartCount(value: getPlayer1().getDartCount() + 1)
+                    getPlayer(playerID: 1).setDartCount(value: getPlayer(playerID: 1).getDartCount() + 1)
                 }
                 
             }
             else {
                 
-                if (isPlayer2Turn()) {
-                    getPlayer2().setX01Points(value: dart.2 + dart.1)
-                    getPlayer2().setCurrentRoundScore(value: dart.3 - dart.1)
-                    getPlayer2().setDartCount(value: getPlayer2().getDartCount() + 1)
+                if (isPlayerTurn(playerID: 2)) {
+                    getPlayer(playerID: 2).setStartingPoints(value: dart.2 + dart.1)
+                    getPlayer(playerID: 2).setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer(playerID: 2).setDartCount(value: getPlayer(playerID: 2).getDartCount() + 1)
                 }
                 else {
                     switchTurns()
-                    getPlayer2().setX01Points(value: dart.2 + dart.1)
-                    getPlayer2().setCurrentRoundScore(value: dart.3 - dart.1)
-                    getPlayer2().setPreviousRoundScore(value: dart.4)
+                    getPlayer(playerID: 2).setStartingPoints(value: dart.2 + dart.1)
+                    getPlayer(playerID: 2).setCurrentRoundScore(value: dart.3 - dart.1)
+                    getPlayer(playerID: 2).setPreviousRoundScore(value: dart.4)
                     
-                    if getPlayer2().getDartCount() != 0 {
-                        getPlayer2().setDartCount(value: 0)
+                    if getPlayer(playerID: 2).getDartCount() != 0 {
+                        getPlayer(playerID: 2).setDartCount(value: 0)
                     }
                     
-                    getPlayer2().setDartCount(value: getPlayer2().getDartCount() + 1)
+                    getPlayer(playerID: 2).setDartCount(value: getPlayer(playerID: 2).getDartCount() + 1)
                 }
                 
             }
@@ -224,8 +150,8 @@ class X01GameViewModel: ObservableObject {
     }
     
     func resetDartCounts() {
-        getPlayer1().setDartCount(value: 3)
-        getPlayer2().setDartCount(value: 3)
+        getPlayer(playerID: 1).setDartCount(value: 3)
+        getPlayer(playerID: 2).setDartCount(value: 3)
     }
     
     func dartThrow(player: Player, pointVal: Int) {
@@ -234,7 +160,7 @@ class X01GameViewModel: ObservableObject {
             
             var turn: (String, Int, Int, Int, Int)
             
-            if (getPlayer1().getIsTurn()) {
+            if (getPlayer(playerID: 1).getIsTurn()) {
                 turn.0 = "P1"
             }
             else {
@@ -244,12 +170,12 @@ class X01GameViewModel: ObservableObject {
             turn.1 = pointVal
             
             let updatedRoundScore = player.getCurrentRoundScore() + pointVal
-            let pointsLeft = player.getX01Points() - pointVal
+            let pointsLeft = player.getStartingPoints() - pointVal
             
             if (pointsLeft >= 0) {
                 
                 player.decreaseDartCount()
-                player.setX01Points(value: pointsLeft)
+                player.setStartingPoints(value: pointsLeft)
                 player.setCurrentRoundScore(value: updatedRoundScore)
                 
                 // [(PlayerID, dartValue, X01Points, CurrentRoundScore, PreviousRoundScore)]
@@ -263,63 +189,52 @@ class X01GameViewModel: ObservableObject {
                 player.setDartCount(value: 3)
             }
             
-           
+            
         }
         
         if (player.getDartCount() == 0) {
             
-            player.setPreviousRoundScore(value: player.getX01Points())
+            player.setPreviousRoundScore(value: player.getStartingPoints())
             endOfTurn(player: player)
         }
 
-        gameOver = IsGameOver()
-        
+        GameOver()
+ 
     }
     
     func endOfTurn(player: Player) {
-        if (getPlayer1().getIsTurn()) {
+        if (getPlayer(playerID: 1).getIsTurn()) {
             player.toggleIsTurn()
-            getPlayer2().toggleIsTurn()
-            getPlayer2().setCurrentRoundScore(value: 0)
-            getPlayer2().setDartCount(value: 3)
+            getPlayer(playerID: 2).toggleIsTurn()
+            getPlayer(playerID: 2).setCurrentRoundScore(value: 0)
+            getPlayer(playerID: 2).setDartCount(value: 3)
         }
         else {
             player.toggleIsTurn()
-            getPlayer1().toggleIsTurn()
-            getPlayer1().setCurrentRoundScore(value: 0)
-            getPlayer1().setDartCount(value: 3)
+            getPlayer(playerID: 1).toggleIsTurn()
+            getPlayer(playerID: 1).setCurrentRoundScore(value: 0)
+            getPlayer(playerID: 1).setDartCount(value: 3)
         }
-    }
-    
-    func isPlayer1Turn() -> Bool{
-        return getPlayer1().getIsTurn()
-    }
-    
-    func isPlayer2Turn() -> Bool {
-        return getPlayer2().getIsTurn()
     }
     
     func switchTurns() {
-        getPlayer1().toggleIsTurn()
-        getPlayer2().toggleIsTurn()
+        getPlayer(playerID: 1).toggleIsTurn()
+        getPlayer(playerID: 2).toggleIsTurn()
     }
     
-    func IsGameOver() -> Bool {
+    func GameOver() {
         
-        if (getPlayer1().getX01Points() == 0) {
+        if (getPlayer(playerID: 1).getStartingPoints() == 0) {
             print("p1 won")
             showingAlert = true
-            getPlayer1().setDidWin(won: true)
-            return true
+            getPlayer(playerID: 1).setDidWin(won: true)
         }
-        else if (getPlayer2().getX01Points() == 0) {
+        else if (getPlayer(playerID: 2).getStartingPoints() == 0) {
             print("p2 won")
             showingAlert = true
-            getPlayer2().setDidWin(won: true)
-            return true
+            getPlayer(playerID: 2).setDidWin(won: true)
         }
-        
-        return false
+
     }
     
     // Errors for X01 Game Mode
